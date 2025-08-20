@@ -49,12 +49,12 @@ const Hero = () => {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link to="/contact">
               <Button 
                 size="xl" 
                 variant="white-on-dark"
-                className="px-8 py-4"
+                className="px-8 py-4 w-full sm:w-auto"
               >
                 Get Free Quote
               </Button>
@@ -63,7 +63,7 @@ const Hero = () => {
               <Button 
                 size="xl" 
                 variant="outline-white"
-                className="px-8 py-4"
+                className="px-8 py-4 w-full sm:w-auto"
               >
                 Our Services
               </Button>

@@ -13,8 +13,10 @@ import {
   Palette,
   CheckCircle,
   Clock,
-  Shield
+  Shield,
+  ArrowRight
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Services = () => {
   const cleaningServices = [
@@ -136,67 +138,134 @@ const Services = () => {
 
   const improvementServices = [
     {
-      title: "Handyman Services",
-      description: "Professional repairs and maintenance for your home",
+      title: "Painting & Wallpapering",
+      description: "Professional painting and wallpaper installation services",
+      icon: Paintbrush,
+      details: {
+        overview: "Expert painting and wallpaper services to transform your space with beautiful colors and patterns.",
+        services: [
+          "Interior and exterior painting",
+          "Wallpaper installation and removal",
+          "Color consultation and selection",
+          "Surface preparation and priming",
+          "Trim and detail painting",
+          "Cabinet and furniture refinishing",
+          "Quality finish and cleanup"
+        ],
+        duration: "1-5 days depending on scope",
+        price: "Starting from $300"
+      }
+    },
+    {
+      title: "Drywall & Flooring",
+      description: "Complete installation and repair of walls, floors, and tiles",
+      icon: Building,
+      details: {
+        overview: "Professional drywall and flooring installation services for new construction and renovations.",
+        services: [
+          "Drywall installation and repair",
+          "Flooring installation (hardwood, laminate, tile)",
+          "Tile work and grouting",
+          "Wall and ceiling repairs",
+          "Subfloor preparation",
+          "Trim and molding installation",
+          "Final finishing and sealing"
+        ],
+        duration: "2-7 days depending on project size",
+        price: "Starting from $500"
+      }
+    },
+    {
+      title: "Furniture Assembly",
+      description: "Professional furniture assembly and installation",
       icon: Hammer,
       details: {
-        overview: "Comprehensive handyman services to fix, repair, and improve your home with professional quality.",
+        overview: "Expert furniture assembly services to save you time and ensure proper installation.",
         services: [
-          "Plumbing repairs and installations",
-          "Electrical work and fixture installation",
-          "Drywall repair and painting",
-          "Cabinet and door adjustments",
-          "Tile and flooring repairs",
-          "Furniture assembly and mounting",
-          "General home repairs and maintenance"
+          "Furniture assembly and setup",
+          "TV mounting and installation",
+          "Cabinet and shelf installation",
+          "Appliance installation",
+          "Picture and mirror hanging",
+          "Curtain rod installation",
+          "Assembly instruction assistance"
         ],
-        duration: "1-6 hours depending on project",
-        price: "Starting from $75 per hour"
+        duration: "1-4 hours depending on complexity",
+        price: "Starting from $80"
       }
     },
     {
-      title: "Home Maintenance",
-      description: "Regular upkeep to keep your property in top condition",
+      title: "Fence Repair & Maintenance",
+      description: "Complete fence repair and maintenance services",
       icon: Wrench,
       details: {
-        overview: "Preventive maintenance services to keep your home in excellent condition and avoid costly repairs.",
+        overview: "Professional fence repair and maintenance to keep your property secure and beautiful.",
         services: [
-          "HVAC system maintenance and filter changes",
-          "Gutter cleaning and maintenance",
-          "Pressure washing exterior surfaces",
-          "Caulking and weatherproofing",
-          "Seasonal home inspections",
-          "Preventive maintenance schedules",
-          "Emergency repair services"
+          "Fence repair and replacement",
+          "Gate installation and repair",
+          "Fence staining and sealing",
+          "Post replacement and reinforcement",
+          "Fence cleaning and maintenance",
+          "Security fence installation",
+          "Regular maintenance programs"
         ],
-        duration: "2-4 hours per maintenance visit",
-        price: "Starting from $120 per visit"
+        duration: "1-3 days depending on scope",
+        price: "Starting from $200"
       }
     },
     {
-      title: "Interior Design",
-      description: "Transform your space with professional design expertise",
-      icon: Palette,
+      title: "Gutter & Roof Maintenance",
+      description: "Gutter cleaning and roof soffit maintenance",
+      icon: Building,
       details: {
-        overview: "Professional interior design services to create beautiful, functional spaces that reflect your style.",
+        overview: "Essential gutter and roof maintenance services to protect your home from water damage.",
         services: [
-          "Space planning and layout design",
-          "Color consultation and paint selection",
-          "Furniture selection and arrangement",
-          "Window treatment design and installation",
-          "Lighting design and installation",
-          "Decorative accessories and artwork",
-          "Complete room makeovers"
+          "Gutter cleaning and repair",
+          "Roof soffit maintenance",
+          "Downspout installation",
+          "Gutter guard installation",
+          "Roof leak detection",
+          "Preventive maintenance",
+          "Emergency repair services"
         ],
-        duration: "Consultation: 2 hours, Projects: 1-4 weeks",
-        price: "Consultation: $150, Projects from $500"
+        duration: "2-6 hours depending on property size",
+        price: "Starting from $150"
+      }
+    },
+    {
+      title: "Pressure Washing",
+      description: "Professional pressure washing for all surfaces",
+      icon: Sparkles,
+      details: {
+        overview: "Professional pressure washing services to restore the beauty of your home's exterior surfaces.",
+        services: [
+          "House exterior washing",
+          "Driveway and walkway cleaning",
+          "Deck and patio cleaning",
+          "Fence and gate cleaning",
+          "Commercial building cleaning",
+          "Roof cleaning and treatment",
+          "Eco-friendly cleaning options"
+        ],
+        duration: "2-8 hours depending on surface area",
+        price: "Starting from $120"
       }
     }
   ];
 
   return (
-    <section id="services" className="py-20 bg-gradient-service">
-      <div className="container mx-auto px-4">
+    <section className="py-20 bg-gradient-service overflow-hidden">
+      <div className="container mx-auto px-2 sm:px-4 max-w-full">
+        {/* Main Services Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold text-brand-navy mb-6">
+            Our Services
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            All Around Your House - Complete Home Improvement and Cleaning Services from a Single Source
+          </p>
+        </div>
+
         {/* Cleaning Services Section */}
         <div className="mb-20">
           <div className="text-center mb-16">
@@ -204,11 +273,11 @@ const Services = () => {
               All Around Cleaning
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Enjoy a perfectly clean space, whether it's your home or your office. Our unique cleaning concept ensures that every room is cleaned thoroughly. Experience Cleaning Services all around your house from a single source.
+              Enjoy a perfectly clean space, whether it's your home or your office. Our unique cleaning concept ensures that every room is cleaned thoroughly.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-8">
             {cleaningServices.map((service, index) => (
               <Dialog key={service.title}>
                 <DialogTrigger asChild>
@@ -216,20 +285,21 @@ const Services = () => {
                     className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft cursor-pointer"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <CardHeader className="text-center pb-4">
-                      <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
-                        <service.icon className="w-8 h-8 text-white" />
+                    <CardHeader className="text-center pb-2 md:pb-4">
+                      <div className="w-8 h-8 md:w-16 md:h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-2 md:mb-4">
+                        <service.icon className="w-4 h-4 md:w-8 md:h-8 text-white" />
                       </div>
-                      <CardTitle className="text-xl font-bold text-brand-navy">
+                      <CardTitle className="text-sm md:text-xl font-bold text-brand-navy">
                         {service.title}
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="text-center">
-                      <CardDescription className="text-muted-foreground mb-6 leading-relaxed">
+                      <CardDescription className="text-muted-foreground mb-3 md:mb-6 leading-relaxed text-xs md:text-base">
                         {service.description}
                       </CardDescription>
                       <Button 
                         variant="default"
+                        size="sm"
                         className="w-full bg-brand-turquoise hover:bg-brand-turquoise-dark text-white shadow-sm"
                       >
                         Learn More
@@ -237,62 +307,64 @@ const Services = () => {
                     </CardContent>
                   </Card>
                 </DialogTrigger>
-                <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                <DialogContent className="max-w-[95vw] md:max-w-2xl max-h-[80vh] overflow-y-auto overflow-x-hidden">
                   <DialogHeader>
-                    <DialogTitle className="flex items-center gap-3 text-2xl text-brand-navy">
-                      <div className="w-12 h-12 bg-gradient-hero rounded-full flex items-center justify-center">
-                        <service.icon className="w-6 h-6 text-white" />
+                    <DialogTitle className="flex items-center gap-3 text-xl md:text-2xl text-brand-navy">
+                      <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-hero rounded-full flex items-center justify-center">
+                        <service.icon className="w-5 h-5 md:w-6 md:h-6 text-white" />
                       </div>
-                      {service.title}
+                      <span className="break-words">{service.title}</span>
                     </DialogTitle>
                   </DialogHeader>
-                  <div className="space-y-6 pt-4">
-                    <p className="text-muted-foreground text-lg leading-relaxed">
+                  <div className="space-y-4 md:space-y-6 pt-4">
+                    <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
                       {service.details.overview}
                     </p>
                     
                     <div>
-                      <h3 className="text-lg font-semibold text-brand-navy mb-3 flex items-center gap-2">
-                        <CheckCircle className="w-5 h-5" />
+                      <h3 className="text-base md:text-lg font-semibold text-brand-navy mb-3 flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 md:w-5 md:h-5" />
                         Services Included:
                       </h3>
                       <ul className="space-y-2">
                         {service.details.services.map((item, i) => (
-                          <li key={i} className="flex items-start gap-2 text-muted-foreground">
+                          <li key={i} className="flex items-start gap-2 text-muted-foreground text-sm md:text-base">
                             <div className="w-2 h-2 bg-brand-turquoise rounded-full mt-2 flex-shrink-0" />
-                            {item}
+                            <span className="break-words">{item}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-muted/50 rounded-lg">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 p-3 md:p-4 bg-muted/50 rounded-lg">
                       <div className="flex items-center gap-2">
-                        <Clock className="w-5 h-5 text-brand-turquoise" />
+                        <Clock className="w-4 h-4 md:w-5 md:h-5 text-brand-turquoise" />
                         <div>
-                          <p className="font-semibold text-brand-navy">Duration</p>
-                          <p className="text-sm text-muted-foreground">{service.details.duration}</p>
+                          <p className="font-semibold text-brand-navy text-sm md:text-base">Duration</p>
+                          <p className="text-xs md:text-sm text-muted-foreground">{service.details.duration}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Shield className="w-5 h-5 text-brand-turquoise" />
+                        <Shield className="w-4 h-4 md:w-5 md:h-5 text-brand-turquoise" />
                         <div>
-                          <p className="font-semibold text-brand-navy">Pricing</p>
-                          <p className="text-sm text-muted-foreground">{service.details.price}</p>
+                          <p className="font-semibold text-brand-navy text-sm md:text-base">Pricing</p>
+                          <p className="text-xs md:text-sm text-muted-foreground">{service.details.price}</p>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex gap-3 pt-4">
+                    <div className="flex flex-col sm:flex-row gap-3 pt-4">
                       <Button 
                         variant="white-on-dark"
                         size="lg"
+                        className="w-full sm:w-auto"
                       >
                         Book This Service
                       </Button>
                       <Button 
                         variant="outline-white" 
                         size="lg"
+                        className="w-full sm:w-auto"
                       >
                         Get Quote
                       </Button>
@@ -302,20 +374,28 @@ const Services = () => {
               </Dialog>
             ))}
           </div>
+
+          <div className="text-center mt-12">
+            <Link to="/cleaning-services">
+              <Button variant="white-on-dark" size="xl">
+                View All Cleaning Services
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Home Improvement Section */}
-        <div>
+        <div className="mb-20">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-brand-navy mb-6">
               All Around Improvement
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              A well-maintained home or business is the foundation for a better life. Do you have drywall that needs to be installed, or is there a tile cracked? Get your service all around your house from one single source.
+              A well-maintained home or business is the foundation for a better life. Get your service all around your house from one single source.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-8">
             {improvementServices.map((service, index) => (
               <Dialog key={service.title}>
                 <DialogTrigger asChild>
@@ -323,20 +403,21 @@ const Services = () => {
                     className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft cursor-pointer"
                     style={{ animationDelay: `${(index + 6) * 0.1}s` }}
                   >
-                    <CardHeader className="text-center pb-4">
-                      <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
-                        <service.icon className="w-8 h-8 text-white" />
+                    <CardHeader className="text-center pb-2 md:pb-4">
+                      <div className="w-8 h-8 md:w-16 md:h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-2 md:mb-4">
+                        <service.icon className="w-4 h-4 md:w-8 md:h-8 text-white" />
                       </div>
-                      <CardTitle className="text-xl font-bold text-brand-navy">
+                      <CardTitle className="text-sm md:text-xl font-bold text-brand-navy">
                         {service.title}
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="text-center">
-                      <CardDescription className="text-muted-foreground mb-6 leading-relaxed">
+                      <CardDescription className="text-muted-foreground mb-3 md:mb-6 leading-relaxed text-xs md:text-base">
                         {service.description}
                       </CardDescription>
                       <Button 
                         variant="default"
+                        size="sm"
                         className="w-full bg-brand-turquoise hover:bg-brand-turquoise-dark text-white shadow-sm"
                       >
                         Learn More
@@ -344,62 +425,64 @@ const Services = () => {
                     </CardContent>
                   </Card>
                 </DialogTrigger>
-                <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                <DialogContent className="max-w-[95vw] md:max-w-2xl max-h-[80vh] overflow-y-auto overflow-x-hidden">
                   <DialogHeader>
-                    <DialogTitle className="flex items-center gap-3 text-2xl text-brand-navy">
-                      <div className="w-12 h-12 bg-gradient-hero rounded-full flex items-center justify-center">
-                        <service.icon className="w-6 h-6 text-white" />
+                    <DialogTitle className="flex items-center gap-3 text-xl md:text-2xl text-brand-navy">
+                      <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-hero rounded-full flex items-center justify-center">
+                        <service.icon className="w-5 h-5 md:w-6 md:h-6 text-white" />
                       </div>
-                      {service.title}
+                      <span className="break-words">{service.title}</span>
                     </DialogTitle>
                   </DialogHeader>
-                  <div className="space-y-6 pt-4">
-                    <p className="text-muted-foreground text-lg leading-relaxed">
+                  <div className="space-y-4 md:space-y-6 pt-4">
+                    <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
                       {service.details.overview}
                     </p>
                     
                     <div>
-                      <h3 className="text-lg font-semibold text-brand-navy mb-3 flex items-center gap-2">
-                        <CheckCircle className="w-5 h-5" />
+                      <h3 className="text-base md:text-lg font-semibold text-brand-navy mb-3 flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 md:w-5 md:h-5" />
                         Services Included:
                       </h3>
                       <ul className="space-y-2">
                         {service.details.services.map((item, i) => (
-                          <li key={i} className="flex items-start gap-2 text-muted-foreground">
+                          <li key={i} className="flex items-start gap-2 text-muted-foreground text-sm md:text-base">
                             <div className="w-2 h-2 bg-brand-turquoise rounded-full mt-2 flex-shrink-0" />
-                            {item}
+                            <span className="break-words">{item}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-muted/50 rounded-lg">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 p-3 md:p-4 bg-muted/50 rounded-lg">
                       <div className="flex items-center gap-2">
-                        <Clock className="w-5 h-5 text-brand-turquoise" />
+                        <Clock className="w-4 h-4 md:w-5 md:h-5 text-brand-turquoise" />
                         <div>
-                          <p className="font-semibold text-brand-navy">Duration</p>
-                          <p className="text-sm text-muted-foreground">{service.details.duration}</p>
+                          <p className="font-semibold text-brand-navy text-sm md:text-base">Duration</p>
+                          <p className="text-xs md:text-sm text-muted-foreground">{service.details.duration}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Shield className="w-5 h-5 text-brand-turquoise" />
+                        <Shield className="w-4 h-4 md:w-5 md:h-5 text-brand-turquoise" />
                         <div>
-                          <p className="font-semibold text-brand-navy">Pricing</p>
-                          <p className="text-sm text-muted-foreground">{service.details.price}</p>
+                          <p className="font-semibold text-brand-navy text-sm md:text-base">Pricing</p>
+                          <p className="text-xs md:text-sm text-muted-foreground">{service.details.price}</p>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex gap-3 pt-4">
+                    <div className="flex flex-col sm:flex-row gap-3 pt-4">
                       <Button 
                         variant="brand"
                         size="lg"
+                        className="w-full sm:w-auto"
                       >
                         Book This Service
                       </Button>
                       <Button 
                         variant="brand-outline" 
                         size="lg"
+                        className="w-full sm:w-auto"
                       >
                         Get Quote
                       </Button>
@@ -409,17 +492,42 @@ const Services = () => {
               </Dialog>
             ))}
           </div>
+
+          <div className="text-center mt-12">
+            <Link to="/home-improvement">
+              <Button variant="white-on-dark" size="xl">
+                View All Home Improvement Services
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-16">
-          <Button 
-            size="xl"
-            variant="white-on-dark"
-            className="px-12 py-4"
-          >
-            Get Your Free Estimate Today
-          </Button>
+        <div className="text-center">
+          <h2 className="text-4xl font-bold text-brand-navy mb-6">
+            Ready to get started?
+          </h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto text-muted-foreground">
+            Contact us today for a free consultation and quote. Our experienced team is ready to help with all your home improvement and cleaning needs.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link to="/contact">
+              <Button 
+                variant="white-on-dark"
+                size="lg"
+              >
+                Get Quote
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button 
+                variant="outline-white" 
+                size="lg"
+              >
+                Book Service
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </section>
