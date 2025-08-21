@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: house-clean-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /health

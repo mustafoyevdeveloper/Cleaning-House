@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type BeforeAfterSliderProps = {
-  beforeImageUrl: string; // shown when dragging to the right
-  afterImageUrl: string;  // shown when dragging to the left
+  beforeImageUrl: string; // shown on the left side
+  afterImageUrl: string;  // shown on the right side
   initialPositionPercent?: number; // 0..100, default 50
   className?: string;
 };
@@ -75,17 +75,18 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
       role="group"
       aria-label="Before and after image comparison slider"
     >
-      {/* Both images positioned absolutely with same dimensions */}
-      <img
-        src={beforeImageUrl}
-        alt="Before cleaning"
-        className="absolute inset-0 w-full h-full object-cover"
-        draggable={false}
-      />
-      
+      {/* Base image (After) on the right side */}
       <img
         src={afterImageUrl}
         alt="After cleaning"
+        className="absolute inset-0 w-full h-full object-cover"
+        draggable={false}
+      />
+
+      {/* Overlay image (Before) revealed from the left */}
+      <img
+        src={beforeImageUrl}
+        alt="Before cleaning"
         className="absolute inset-0 w-full h-full object-cover"
         style={{ 
           clipPath: `inset(0 ${100 - positionPercent}% 0 0)`,
