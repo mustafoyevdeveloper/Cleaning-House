@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, Facebook, Instagram, Leaf } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -149,35 +150,35 @@ const Header = () => {
               <div className="space-y-1">
                 <Link
                   to="/"
-                  className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                  className={`block px-6 py-4 transition-all duration-200 font-medium hover:bg-gray-50 ${pathname === "/" ? "text-brand-turquoise" : "text-gray-700 md:hover:text-brand-turquoise"}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Home
                 </Link>
                 <Link
                   to="/about-us"
-                  className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                  className={`block px-6 py-4 transition-all duration-200 font-medium hover:bg-gray-50 ${pathname === "/about-us" ? "text-brand-turquoise" : "text-gray-700 md:hover:text-brand-turquoise"}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   About Us
                 </Link>
                 <Link
                   to="/residential-cleaning"
-                  className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                  className={`block px-6 py-4 transition-all duration-200 font-medium hover:bg-gray-50 ${pathname === "/residential-cleaning" ? "text-brand-turquoise" : "text-gray-700 md:hover:text-brand-turquoise"}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Residential Cleaning
                 </Link>
                 <Link
                   to="/commercial-cleaning"
-                  className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                  className={`block px-6 py-4 transition-all duration-200 font-medium hover:bg-gray-50 ${pathname === "/commercial-cleaning" ? "text-brand-turquoise" : "text-gray-700 md:hover:text-brand-turquoise"}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Commercial Cleaning
                 </Link>
                 <Link
                   to="/contact"
-                  className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                  className={`block px-6 py-4 transition-all duration-200 font-medium hover:bg-gray-50 ${pathname === "/contact" ? "text-brand-turquoise" : "text-gray-700 md:hover:text-brand-turquoise"}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Contact Us

@@ -18,7 +18,7 @@ import {
   MapPin,
   X
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 
 const AboutUs = () => {
@@ -68,6 +68,7 @@ const AboutUs = () => {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -94,7 +95,7 @@ const AboutUs = () => {
           <div className="container mx-auto flex justify-between items-center text-sm">
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
-              <span>Call us: (727) 992-3578</span>
+              <span>Call us: 469-592-4438</span>
             </div>
             <div className="flex gap-4">
               <a href="#" className="hover:text-brand-turquoise transition-colors">
@@ -172,35 +173,35 @@ const AboutUs = () => {
                 <div className="space-y-1">
                   <Link
                     to="/"
-                    className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                    className={`block px-6 py-4 transition-all duration-200 font-medium hover:bg-gray-50 ${pathname === "/" ? "text-brand-turquoise" : "text-gray-700 md:hover:text-brand-turquoise"}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Home
                   </Link>
                   <Link
                     to="/about-us"
-                    className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                    className={`block px-6 py-4 transition-all duration-200 font-medium hover:bg-gray-50 ${pathname === "/about-us" ? "text-brand-turquoise" : "text-gray-700 md:hover:text-brand-turquoise"}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     About Us
                   </Link>
                   <Link
                     to="/residential-cleaning"
-                    className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                    className={`block px-6 py-4 transition-all duration-200 font-medium hover:bg-gray-50 ${pathname === "/residential-cleaning" ? "text-brand-turquoise" : "text-gray-700 md:hover:text-brand-turquoise"}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Residential Cleaning
                   </Link>
                   <Link
                     to="/commercial-cleaning"
-                    className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                    className={`block px-6 py-4 transition-all duration-200 font-medium hover:bg-gray-50 ${pathname === "/commercial-cleaning" ? "text-brand-turquoise" : "text-gray-700 md:hover:text-brand-turquoise"}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Commercial Cleaning
                   </Link>
                   <Link
                     to="/contact"
-                    className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                    className={`block px-6 py-4 transition-all duration-200 font-medium hover:bg-gray-50 ${pathname === "/contact" ? "text-brand-turquoise" : "text-gray-700 md:hover:text-brand-turquoise"}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Contact Us
@@ -223,10 +224,10 @@ const AboutUs = () => {
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-brand-navy to-brand-navy/90 text-white">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
               About Us
             </h1>
-            <p className="text-xl md:text-2xl text-brand-cream max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-brand-cream max-w-4xl mx-auto leading-relaxed animate-fade-in">
               All Around Your House - Your trusted partner for professional cleaning and maintenance services
             </p>
             <div className="w-24 h-1 bg-brand-turquoise mx-auto mt-8"></div>

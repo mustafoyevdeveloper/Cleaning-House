@@ -77,7 +77,7 @@ const NotFound = () => {
           <div className="container mx-auto flex justify-between items-center text-sm">
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
-              <span>Call us: (727) 992-3578</span>
+              <span>Call us: 469-592-4438</span>
             </div>
             <div className="flex gap-4">
               <a href="#" className="hover:text-brand-turquoise transition-colors">
@@ -195,7 +195,7 @@ const NotFound = () => {
       <main className="pt-20">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-brand-navy to-brand-navy/90 text-white">
-          <div className="container mx-auto px-4 text-center">
+          <div className="container mx-auto px-4 text-center animate-fade-in">
             <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-8">
               <AlertTriangle className="w-16 h-16 text-brand-cream" />
             </div>
@@ -226,7 +226,7 @@ const NotFound = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               <Link to="/" className="group">
-                <div className="bg-white p-6 rounded-lg shadow-soft hover:shadow-brand transition-all duration-300 hover:-translate-y-2 text-center">
+                <div className="bg-white p-6 rounded-lg shadow-soft hover:shadow-brand transition-all duration-300 hover:-translate-y-2 text-center animate-slide-up" style={{animationDelay: '0s'}}>
                   <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                     <Home className="w-8 h-8 text-white" />
                   </div>
@@ -236,7 +236,7 @@ const NotFound = () => {
               </Link>
 
               <Link to="/about-us" className="group">
-                <div className="bg-white p-6 rounded-lg shadow-soft hover:shadow-brand transition-all duration-300 hover:-translate-y-2 text-center">
+                <div className="bg-white p-6 rounded-lg shadow-soft hover:shadow-brand transition-all duration-300 hover:-translate-y-2 text-center animate-slide-up" style={{animationDelay: '0.08s'}}>
                   <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                     <Search className="w-8 h-8 text-white" />
                   </div>
@@ -246,7 +246,7 @@ const NotFound = () => {
               </Link>
 
               <Link to="/residential-cleaning" className="group">
-                <div className="bg-white p-6 rounded-lg shadow-soft hover:shadow-brand transition-all duration-300 hover:-translate-y-2 text-center">
+                <div className="bg-white p-6 rounded-lg shadow-soft hover:shadow-brand transition-all duration-300 hover:-translate-y-2 text-center animate-slide-up" style={{animationDelay: '0.16s'}}>
                   <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                     <Home className="w-8 h-8 text-white" />
                   </div>
@@ -256,7 +256,7 @@ const NotFound = () => {
               </Link>
 
               <Link to="/commercial-cleaning" className="group">
-                <div className="bg-white p-6 rounded-lg shadow-soft hover:shadow-brand transition-all duration-300 hover:-translate-y-2 text-center">
+                <div className="bg-white p-6 rounded-lg shadow-soft hover:shadow-brand transition-all duration-300 hover:-translate-y-2 text-center animate-slide-up" style={{animationDelay: '0.24s'}}>
                   <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                     <Search className="w-8 h-8 text-white" />
                   </div>

@@ -23,11 +23,11 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-gradient-hero rounded-full flex items-center justify-center">
-                <img src="logopng" alt="All Around Your House Services" className="w-8 h-8" />
+              <div className="w-12 h-12 flex items-center justify-center">
+                <img src="Logo.png" alt="All Around Your House Services" className="w-12 h-12" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white">All Around</h3>
+                <h3 className="text-xl font-bold text-white">FreshC</h3>
                 <p className="text-brand-cream">Your House Services</p>
               </div>
             </div>
@@ -77,15 +77,15 @@ const Footer = () => {
             <div className="space-y-2 text-brand-cream">
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                <span>(727) 992-3578</span>
+                <span>469 592 4438</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                <span>info@allaroundyourhouse.com</span>
+                <span>info@freshco-cleaning.com</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
-                <span>Dallas-Fort Worth Metroplex</span>
+                <span>North Dallas</span>
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@ const Footer = () => {
               © {currentYear} All Around FrashC . All rights reserved.
             </p>
             <p className="text-gray-400 text-sm mt-2 md:mt-0">
-              Serving the Greater Tampa Bay Area with pride
+            Service area: North Dallas
             </p>
           </div>
         </div>
