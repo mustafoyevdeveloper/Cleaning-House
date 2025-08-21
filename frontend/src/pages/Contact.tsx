@@ -19,7 +19,7 @@ import {
   X
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getSettings, submitMessage } from "@/lib/api";
 import { toast } from "sonner";
@@ -98,7 +98,24 @@ const Contact = () => {
   };
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <div className="min-h-screen">
@@ -163,53 +180,68 @@ const Contact = () => {
 
             {/* Mobile Menu Button */}
             <button 
-              className="lg:hidden text-gray-700 p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 relative z-50"
+              className={`lg:hidden text-gray-700 p-2 rounded-lg hover:bg-gray-100 transition-all duration-300 relative z-50 ${isMobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              <div className="relative w-6 h-6 pointer-events-none">
+                <div className={`absolute inset-0 transition-all duration-300 pointer-events-none ${isMobileMenuOpen ? 'opacity-0 rotate-180' : 'opacity-100 rotate-0'}`}>
+                  <Menu className="w-6 h-6" />
+                </div>
+                <div className={`absolute inset-0 transition-all duration-300 pointer-events-none ${isMobileMenuOpen ? 'opacity-100 rotate-0' : 'opacity-0 -rotate-180'}`}>
+                  <X className="w-6 h-6" />
+                </div>
+              </div>
             </button>
           </div>
 
           {/* Mobile Navigation Menu */}
-          {isMobileMenuOpen && (
-            <div className="lg:hidden bg-white/95 backdrop-blur-sm mt-4 rounded-xl shadow-2xl border border-gray-200/50 mx-4">
-              <div className="py-6">
-                <div className="space-y-1">
+          <div className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+          }`}>
+            <div className="bg-white/95 backdrop-blur-sm mt-4 rounded-xl shadow-2xl border border-gray-200/50 mx-4 transform transition-all duration-300 ease-in-out" ref={menuRef}>
+                          <div className="py-6">
+              {/* Close Button */}
+              <div className="flex justify-end px-6 mb-4">
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                >
+                  <X className="w-5 h-5 text-gray-600" />
+                </button>
+              </div>
+              
+              <div className="space-y-1">
                   <Link
                     to="/"
-                    className={`block px-6 py-4 transition-all duration-200 font-medium hover:bg-gray-50 ${pathname === "/" ? "text-brand-turquoise" : "text-gray-700 md:hover:text-brand-turquoise"}`}
+                    className={`block px-6 py-4 transition-all duration-300 font-medium hover:bg-gray-50 hover:translate-x-2 transform ${pathname === "/" ? "text-brand-turquoise bg-brand-turquoise/10" : "text-gray-700 md:hover:text-brand-turquoise"}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Home
                   </Link>
                   <Link
                     to="/about-us"
-                    className={`block px-6 py-4 transition-all duration-200 font-medium hover:bg-gray-50 ${pathname === "/about-us" ? "text-brand-turquoise" : "text-gray-700 md:hover:text-brand-turquoise"}`}
+                    className={`block px-6 py-4 transition-all duration-300 font-medium hover:bg-gray-50 hover:translate-x-2 transform ${pathname === "/about-us" ? "text-brand-turquoise bg-brand-turquoise/10" : "text-gray-700 md:hover:text-brand-turquoise"}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     About Us
                   </Link>
                   <Link
                     to="/residential-cleaning"
-                    className={`block px-6 py-4 transition-all duration-200 font-medium hover:bg-gray-50 ${pathname === "/residential-cleaning" ? "text-brand-turquoise" : "text-gray-700 md:hover:text-brand-turquoise"}`}
+                    className={`block px-6 py-4 transition-all duration-300 font-medium hover:bg-gray-50 hover:translate-x-2 transform ${pathname === "/residential-cleaning" ? "text-brand-turquoise bg-brand-turquoise/10" : "text-gray-700 md:hover:text-brand-turquoise"}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Residential Cleaning
                   </Link>
                   <Link
                     to="/commercial-cleaning"
-                    className={`block px-6 py-4 transition-all duration-200 font-medium hover:bg-gray-50 ${pathname === "/commercial-cleaning" ? "text-brand-turquoise" : "text-gray-700 md:hover:text-brand-turquoise"}`}
+                    className={`block px-6 py-4 transition-all duration-300 font-medium hover:bg-gray-50 hover:translate-x-2 transform ${pathname === "/commercial-cleaning" ? "text-brand-turquoise bg-brand-turquoise/10" : "text-gray-700 md:hover:text-brand-turquoise"}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Commercial Cleaning
                   </Link>
                   <Link
                     to="/contact"
-                    className={`block px-6 py-4 transition-all duration-200 font-medium hover:bg-gray-50 ${pathname === "/contact" ? "text-brand-turquoise" : "text-gray-700 md:hover:text-brand-turquoise"}`}
+                    className={`block px-6 py-4 transition-all duration-300 font-medium hover:bg-gray-50 hover:translate-x-2 transform ${pathname === "/contact" ? "text-brand-turquoise bg-brand-turquoise/10" : "text-gray-700 md:hover:text-brand-turquoise"}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Contact Us
@@ -217,14 +249,14 @@ const Contact = () => {
                 </div>
                 <div className="px-6 pt-6 border-t border-gray-200 mt-4">
                   <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button variant="brand" className="w-full py-3">
+                    <Button variant="brand" className="w-full py-3 transition-all duration-300 hover:scale-105 transform">
                       GET IN TOUCH
                     </Button>
                   </Link>
                 </div>
               </div>
             </div>
-          )}
+          </div>
         </nav>
       </header>
       
