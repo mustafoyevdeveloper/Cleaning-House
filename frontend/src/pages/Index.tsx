@@ -22,7 +22,7 @@ const Index = () => {
           </div>
 
           {/* Content */}
-          <div className="relative z-10 container mx-auto px-4 text-center text-white">
+          <div className="relative z-10 container mx-auto px-4 text-center text-white pt-10 md:pt-0">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
               ALL AROUND{" "}
               <span className="text-brand-turquoise block">YOUR HOUSE</span>
