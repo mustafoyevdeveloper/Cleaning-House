@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import { 
   Building, 
   ShoppingBag, 
@@ -273,6 +274,11 @@ const CommercialCleaning = () => {
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <CardHeader className="text-center pb-4">
+                      <BeforeAfterSlider
+                        beforeImageUrl="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1600&auto=format&fit=crop"
+                        afterImageUrl="https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1600&auto=format&fit=crop"
+                        className="mb-4"
+                      />
                       <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
                         <service.icon className="w-8 h-8 text-white" />
                       </div>

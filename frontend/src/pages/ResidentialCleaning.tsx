@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 
 const ResidentialCleaning = () => {
   const residentialServices = [
@@ -297,6 +298,11 @@ const ResidentialCleaning = () => {
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <CardHeader className="text-center pb-4">
+                      <BeforeAfterSlider
+                        beforeImageUrl="https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop"
+                        afterImageUrl="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1600&auto=format&fit=crop"
+                        className="mb-4"
+                      />
                       <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
                         <service.icon className="w-8 h-8 text-white" />
                       </div>
