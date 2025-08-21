@@ -1,4 +1,12 @@
 {
+  "name": "house-clean",
+  "version": "1.0.0",
+  "description": "House cleaning services website",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "dev": "cd frontend && npm run dev",
+    "start": "cd frontend && npm run start"
+  },
   "dependencies": {
     "nodemailer": "^7.0.5"
   }

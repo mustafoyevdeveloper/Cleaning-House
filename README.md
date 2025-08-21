@@ -78,12 +78,20 @@ npm run dev
 
 ## 🌐 Deployment
 
-### Render.com
+### Render.com (Backend)
 
 1. Connect your GitHub repository
 2. Set environment variables in Render dashboard
 3. Deploy backend and frontend separately
 4. Update CORS_ORIGIN to your frontend URL
+
+### Vercel (Frontend)
+
+1. Connect your GitHub repository to Vercel
+2. Vercel automatically detects the build configuration
+3. Build command: `npm run build`
+4. Output directory: `frontend/dist`
+5. Framework: Vite
 
 ### Environment Variables
 
