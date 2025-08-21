@@ -1,14 +1,9 @@
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import { 
-  Building, 
-  ShoppingBag, 
-  Heart, 
-  ChefHat,
-  Hammer,
+  Building,
   CheckCircle,
   Clock,
   Shield,
@@ -19,99 +14,33 @@ import {
   Instagram,
   Menu,
   Leaf,
-  X
+  X,
+  Sparkles
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { listServices } from "@/lib/api";
+import type { Service, ServiceType } from "@/lib/types";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const CommercialCleaning = () => {
-  const commercialServices = [
-    {
-      title: "Office Cleaning",
-      description: "Professional office cleaning to maintain a productive work environment",
-      icon: Building,
-      features: [
-        "Workstation and desk cleaning",
-        "Conference room preparation",
-        "Reception area maintenance",
-        "Kitchen and break room sanitization",
-        "Restroom cleaning and restocking",
-        "Floor care and carpet cleaning",
-        "Trash removal and recycling"
-      ],
-      duration: "2-8 hours depending on size",
-      price: "Starting from $150",
-      bestFor: "Corporate offices and professional spaces"
-    },
-    {
-      title: "Retail Cleaning",
-      description: "Comprehensive cleaning for retail stores and shopping centers",
-      icon: ShoppingBag,
-      features: [
-        "Sales floor cleaning and maintenance",
-        "Fitting room sanitization",
-        "Display case and fixture cleaning",
-        "Entrance and exit area cleaning",
-        "Storage room organization",
-        "Restroom maintenance",
-        "After-hours deep cleaning"
-      ],
-      duration: "2-6 hours depending on store size",
-      price: "Starting from $120",
-      bestFor: "Retail stores and shopping centers"
-    },
-    {
-      title: "Medical/Clinic Cleaning",
-      description: "Specialized cleaning for healthcare facilities with strict hygiene standards",
-      icon: Heart,
-      features: [
-        "Exam room sanitization",
-        "Waiting area disinfection",
-        "Medical equipment cleaning",
-        "Restroom deep sanitization",
-        "Floor and surface disinfection",
-        "Biohazard safety protocols",
-        "HIPAA compliance cleaning"
-      ],
-      duration: "3-8 hours depending on facility size",
-      price: "Starting from $200",
-      bestFor: "Medical offices, clinics, and healthcare facilities"
-    },
-    {
-      title: "Restaurant Cleaning",
-      description: "Comprehensive cleaning for food service establishments",
-      icon: ChefHat,
-      features: [
-        "Kitchen deep cleaning and sanitization",
-        "Dining area maintenance",
-        "Equipment and appliance cleaning",
-        "Floor and surface sanitization",
-        "Restroom cleaning and restocking",
-        "Grease trap maintenance",
-        "Health code compliance cleaning"
-      ],
-      duration: "4-10 hours depending on restaurant size",
-      price: "Starting from $250",
-      bestFor: "Restaurants, cafes, and food service businesses"
-    },
-    {
-      title: "Post-construction Cleaning",
-      description: "Thorough cleaning after construction or renovation projects",
-      icon: Hammer,
-      features: [
-        "Construction debris removal",
-        "Dust and particle cleanup",
-        "Surface preparation and cleaning",
-        "Window and glass cleaning",
-        "Floor and wall cleaning",
-        "HVAC system cleaning",
-        "Final inspection and touch-ups"
-      ],
-      duration: "4-12 hours depending on project scope",
-      price: "Starting from $300",
-      bestFor: "Post-construction and renovation cleanup"
-    }
-  ];
+  const [selectedServiceType, setSelectedServiceType] = useState<ServiceType | 'all'>('all');
+  
+  const { data: commercialServices = [], isLoading, error } = useQuery<Service[]>({
+    queryKey: ["services", "commercial"],
+    queryFn: () => listServices("commercial"),
+  });
+
+  // Filter services by selected type
+  const filteredServices = selectedServiceType === 'all' 
+    ? commercialServices 
+    : commercialServices.filter(service => service.serviceType === selectedServiceType);
+
+  // Debug logging
+  console.log('Commercial Services:', commercialServices);
+  console.log('Loading:', isLoading);
+  console.log('Error:', error);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { pathname } = useLocation();
@@ -262,89 +191,128 @@ const CommercialCleaning = () => {
                 <h2 className="text-4xl md:text-5xl font-bold text-brand-navy mb-6">
                   Our Commercial Services
                 </h2>
-                <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
                   Specialized cleaning solutions designed for businesses of all sizes and industries
                 </p>
+                
+                {/* Service Type Filter */}
+                <div className="flex justify-center mb-8">
+                  <Select value={selectedServiceType} onValueChange={(value) => setSelectedServiceType(value as ServiceType | 'all')}>
+                    <SelectTrigger className="w-64">
+                      <SelectValue placeholder="Filter by service type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Services</SelectItem>
+                      <SelectItem value="office-cleaning">Office Cleaning</SelectItem>
+                      <SelectItem value="retail-cleaning">Retail Cleaning</SelectItem>
+                      <SelectItem value="medical-clinic-cleaning">Medical/Clinic Cleaning</SelectItem>
+                      <SelectItem value="restaurant-cleaning">Restaurant Cleaning</SelectItem>
+                      <SelectItem value="post-construction-cleaning">Post-construction Cleaning</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {commercialServices.map((service, index) => (
-                  <Card 
-                    key={service.title}
-                    className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft"
-                    style={{ animationDelay: `${index * 0.08}s` }}
-                  >
-                    <CardHeader className="text-center pb-4">
-                      <BeforeAfterSlider
-                        beforeImageUrl="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1600&auto=format&fit=crop"
-                        afterImageUrl="https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1600&auto=format&fit=crop"
-                        className="mb-4"
-                      />
-                      <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
-                        <service.icon className="w-8 h-8 text-white" />
-                      </div>
-                      <CardTitle className="text-xl font-bold text-brand-navy">
-                        {service.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="text-center">
-                      <p className="text-muted-foreground mb-6 leading-relaxed">
-                        {service.description}
-                      </p>
-                      
-                      <div className="mb-6">
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                          {service.features.map((feature, i) => (
-                            <li key={i} className="flex items-center gap-2">
-                              <CheckCircle className="w-4 h-4 text-brand-turquoise flex-shrink-0" />
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
-                        <div className="flex items-center gap-2">
-                          <Clock className="w-4 h-4 text-brand-turquoise" />
-                          <div>
-                            <p className="font-semibold text-brand-navy text-sm">Duration</p>
-                            <p className="text-xs text-muted-foreground">{service.duration}</p>
-                          </div>
+                {isLoading ? (
+                  <div className="col-span-full text-center py-8">
+                    <p className="text-lg text-muted-foreground">Loading services...</p>
+                  </div>
+                ) : error ? (
+                  <div className="col-span-full text-center py-8">
+                    <p className="text-lg text-red-600">Error loading services. Please try again later.</p>
+                    <p className="text-sm text-muted-foreground mt-2">Make sure the backend server is running.</p>
+                  </div>
+                ) : filteredServices.length === 0 ? (
+                  <div className="col-span-full text-center py-8">
+                    <p className="text-lg text-muted-foreground">
+                      {selectedServiceType === 'all' 
+                        ? 'No services available yet. Please add services through the admin panel.'
+                        : `No ${selectedServiceType.replace('-', ' ')} services available.`
+                      }
+                    </p>
+                  </div>
+                ) : (
+                  filteredServices.map((service: any, index: number) => (
+                    <Card 
+                      key={service.title}
+                      className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft"
+                      style={{ animationDelay: `${index * 0.08}s` }}
+                    >
+                      <CardHeader className="text-center pb-4">
+                        <BeforeAfterSlider
+                          beforeImageUrl={service.images?.before || "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop"}
+                          afterImageUrl={service.images?.after || "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1600&auto=format&fit=crop"}
+                          className="mb-4"
+                        />
+                        <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                          <Sparkles className="w-8 h-8 text-white" />
                         </div>
-                        <div className="flex items-center gap-2">
-                          <Shield className="w-4 h-4 text-brand-turquoise" />
-                          <div>
-                            <p className="font-semibold text-brand-navy text-sm">Price</p>
-                            <p className="text-xs text-muted-foreground">{service.price}</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="mb-4">
-                        <p className="text-sm text-brand-turquoise font-semibold">
-                          Best for: {service.bestFor}
+                        <CardTitle className="text-xl font-bold text-brand-navy">
+                          {service.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-center">
+                        <p className="text-muted-foreground mb-6 leading-relaxed">
+                          {service.description}
                         </p>
-                      </div>
+                        
+                        <div className="mb-6">
+                          <ul className="space-y-2 text-sm text-muted-foreground">
+                            {service.features.map((feature, i) => (
+                              <li key={i} className="flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4 text-brand-turquoise flex-shrink-0" />
+                                {feature}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
 
-                      <div className="flex gap-2">
-                        <Button 
-                          variant="white-on-dark"
-                          size="lg"
-                          className="flex-1"
-                        >
-                          Get Quote
-                        </Button>
-                        <Button 
-                          variant="brand" 
-                          size="lg"
-                          className="flex-1"
-                        >
-                          Book Service
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                        <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
+                          <div className="flex items-center gap-2">
+                            <Clock className="w-4 h-4 text-brand-turquoise" />
+                            <div>
+                              <p className="font-semibold text-brand-navy text-sm">Duration</p>
+                              <p className="text-xs text-muted-foreground">{service.duration}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Shield className="w-4 h-4 text-brand-turquoise" />
+                            <div>
+                              <p className="font-semibold text-brand-navy text-sm">Price</p>
+                              <p className="text-xs text-muted-foreground">
+                                {service.price ? (service.price.startsWith('$') ? service.price : `$${service.price}`) : 'N/A'}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="mb-4">
+                          <p className="text-sm text-brand-turquoise font-semibold">
+                            Best for: {service.bestFor}
+                          </p>
+                        </div>
+
+                        <div className="flex gap-2">
+                          <Button 
+                            variant="white-on-dark"
+                            size="lg"
+                            className="flex-1"
+                          >
+                            Get Quote
+                          </Button>
+                          <Button 
+                            variant="brand" 
+                            size="lg"
+                            className="flex-1"
+                          >
+                            Book Service
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                )}
               </div>
             </div>
           </section>

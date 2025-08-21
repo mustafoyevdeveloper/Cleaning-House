@@ -1,19 +1,13 @@
 import { Phone, Mail, MapPin, Facebook, Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getSettings } from "@/lib/api";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { data: settings } = useQuery({ queryKey: ['settings'], queryFn: getSettings });
 
-  const services = [
-    "Standard & Deep Cleaning",
-    "Vacation Rentals & Airbnb",
-    "Small Business Cleaning", 
-    "Residential Cleaning",
-    "Move-In Move-Out",
-    "Handyman Services",
-    "Home Maintenance",
-    "Interior Design"
-  ];
+  
 
   return (
     <footer className="bg-brand-navy text-white">
@@ -27,7 +21,7 @@ const Footer = () => {
                 <img src="Logo.png" alt="All Around Your House Services" className="w-12 h-12" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white">FreshC</h3>
+                <h3 className="text-xl font-bold text-white">{settings?.siteName || 'FreshC'}</h3>
                 <p className="text-brand-cream">Your House Services</p>
               </div>
             </div>
@@ -35,12 +29,16 @@ const Footer = () => {
               Professional cleaning and maintenance services for homes and businesses in the Dallas-Fort Worth metroplex.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="text-brand-cream hover:text-brand-turquoise transition-colors">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-brand-cream hover:text-brand-turquoise transition-colors">
-                <Instagram className="w-5 h-5" />
-              </a>
+              {settings?.social?.facebook && (
+                <a href={settings.social.facebook} target="_blank" rel="noopener noreferrer" className="text-brand-cream hover:text-brand-turquoise transition-colors">
+                  <Facebook className="w-5 h-5" />
+                </a>
+              )}
+              {settings?.social?.instagram && (
+                <a href={settings.social.instagram} target="_blank" rel="noopener noreferrer" className="text-brand-cream hover:text-brand-turquoise transition-colors">
+                  <Instagram className="w-5 h-5" />
+                </a>
+              )}
             </div>
           </div>
 
@@ -77,15 +75,15 @@ const Footer = () => {
             <div className="space-y-2 text-brand-cream">
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                <span>469 592 4438</span>
+                <span>{settings?.phone || '469 592 4438'}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                <span>info@freshco-cleaning.com</span>
+                <span>{settings?.email || 'info@freshco-cleaning.com'}</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
-                <span>North Dallas</span>
+                <span>{settings?.address || 'North Dallas'}</span>
               </div>
             </div>
           </div>
@@ -97,10 +95,10 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © {currentYear} All Around FrashC . All rights reserved.
+              © {currentYear} {settings?.siteName || 'All Around FrashC'}. All rights reserved.
             </p>
             <p className="text-gray-400 text-sm mt-2 md:mt-0">
-            Service area: North Dallas
+            Service area: {settings?.address || 'North Dallas'}
             </p>
           </div>
         </div>

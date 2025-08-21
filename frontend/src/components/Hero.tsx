@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
-import heroImage from "@/assets/hero-house.jpg";
 import { Link } from "react-router-dom";
 
 const Hero = () => {

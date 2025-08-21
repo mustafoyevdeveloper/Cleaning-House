@@ -3,8 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { getSettings } from "@/lib/api";
 
 const Contact = () => {
+  const { data: settings } = useQuery({ queryKey: ['settings'], queryFn: getSettings });
+  
   return (
     <section id="contact" className="py-20 bg-brand-cream">
       <div className="container mx-auto px-4">
@@ -29,7 +33,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-brand-navy">Phone</p>
-                    <p className="text-muted-foreground">(727) 992-3578</p>
+                    <p className="text-muted-foreground">{settings?.phone || '(727) 992-3578'}</p>
                   </div>
                 </div>
 
@@ -39,7 +43,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-brand-navy">Email</p>
-                    <p className="text-muted-foreground">info@all-aroundyourhouse.com</p>
+                    <p className="text-muted-foreground">{settings?.email || 'info@all-aroundyourhouse.com'}</p>
                   </div>
                 </div>
 
@@ -49,7 +53,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-brand-navy">Service Area</p>
-                    <p className="text-muted-foreground">Greater Tampa Bay Area, FL</p>
+                    <p className="text-muted-foreground">{settings?.address || 'Greater Tampa Bay Area, FL'}</p>
                   </div>
                 </div>
 

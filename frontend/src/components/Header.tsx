@@ -2,12 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, Facebook, Instagram, Leaf } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getSettings } from "@/lib/api";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
+  const { data: settings } = useQuery({ queryKey: ['settings'], queryFn: getSettings });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,13 +36,7 @@ const Header = () => {
     };
   }, [isMenuOpen]);
 
-  const navigationItems = [
-    { name: "Home", to: "/" },
-    { name: "About Us", to: "/about-us" },
-    { name: "Residential Cleaning", to: "/residential-cleaning" },
-    { name: "Commercial Cleaning", to: "/commercial-cleaning" },
-    { name: "Contact Us", to: "/contact" }
-  ];
+  
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -50,15 +47,19 @@ const Header = () => {
         <div className="container mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-2">
             <Phone className="w-4 h-4" />
-            <span>Call us: 469-592-4438</span>
+            <span>Call us: {settings?.phone || '469-592-4438'}</span>
           </div>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-brand-turquoise transition-colors">
-              <Facebook className="w-4 h-4" />
-            </a>
-            <a href="#" className="hover:text-brand-turquoise transition-colors">
-              <Instagram className="w-4 h-4" />
-            </a>
+            {settings?.social?.facebook && (
+              <a href={settings.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-brand-turquoise transition-colors">
+                <Facebook className="w-4 h-4" />
+              </a>
+            )}
+            {settings?.social?.instagram && (
+              <a href={settings.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-brand-turquoise transition-colors">
+                <Instagram className="w-4 h-4" />
+              </a>
+            )}
           </div>
         </div>
       </div>
@@ -78,7 +79,7 @@ const Header = () => {
                 <h1 className={`text-xl font-bold transition-colors duration-300 ${
                   isScrolled ? 'text-brand-navy' : 'text-white'
                 }`}>
-                  FreshC
+                  {settings?.siteName || 'FreshC'}
                 </h1>
                 <Leaf className="w-5 h-5 text-green-500" />
               </div>

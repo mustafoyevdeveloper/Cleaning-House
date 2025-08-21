@@ -1,22 +1,36 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Toaster } from "sonner";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
 import ScrollToTop from "@/components/ScrollToTop";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import AboutUs from "./pages/AboutUs";
-import ResidentialCleaning from "./pages/ResidentialCleaning";
-import CommercialCleaning from "./pages/CommercialCleaning";
-import Contact from "./pages/Contact";
+import Index from "@/pages/Index";
+import AboutUs from "@/pages/AboutUs";
+import ResidentialCleaning from "@/pages/ResidentialCleaning";
+import CommercialCleaning from "@/pages/CommercialCleaning";
+import Contact from "@/pages/Contact";
+import Admin from "@/pages/Admin";
+import NotFound from "@/pages/NotFound";
+import StickyFooterBar from "@/components/StickyFooterBar";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
-      <BrowserRouter>
+      <BrowserRouter
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+      >
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
@@ -24,9 +38,10 @@ const App = () => (
           <Route path="/residential-cleaning" element={<ResidentialCleaning />} />
           <Route path="/commercial-cleaning" element={<CommercialCleaning />} />
           <Route path="/contact" element={<Contact />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <StickyFooterBar />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

@@ -1,10 +1,8 @@
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
   Sparkles, 
-  Home, 
   ArrowRight, 
   Building,
   Star,
@@ -21,94 +19,28 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
+import { useQuery } from "@tanstack/react-query";
+import { listServices } from "@/lib/api";
+import type { Service, ServiceType } from "@/lib/types";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const ResidentialCleaning = () => {
-  const residentialServices = [
-    {
-      title: "Standard Cleaning",
-      description: "Regular maintenance cleaning to keep your home fresh and tidy",
-      icon: Sparkles,
-      features: [
-        "Dusting all surfaces and furniture",
-        "Vacuuming and mopping floors",
-        "Kitchen and bathroom cleaning",
-        "Trash removal and recycling",
-        "Basic organization and tidying",
-        "Mirror and glass cleaning"
-      ],
-      duration: "2-4 hours",
-      price: "Starting from $100",
-      bestFor: "Weekly or bi-weekly maintenance"
-    },
-    {
-      title: "Deep Cleaning",
-      description: "Comprehensive cleaning service for thorough home sanitization",
-      icon: Star,
-      features: [
-        "All standard cleaning services",
-        "Deep kitchen appliance cleaning",
-        "Cabinet and drawer cleaning inside/out",
-        "Baseboard and corner cleaning",
-        "Window tracks and sills",
-        "Light fixture cleaning",
-        "Air vent cleaning"
-      ],
-      duration: "4-8 hours",
-      price: "Starting from $200",
-      bestFor: "Monthly deep cleaning or special occasions"
-    },
-    {
-      title: "Move-in/Move-out Cleaning",
-      description: "Complete property cleaning for moving transitions",
-      icon: ArrowRight,
-      features: [
-        "Complete property deep cleaning",
-        "Cabinet and drawer cleaning inside/out",
-        "Appliance cleaning and sanitization",
-        "Floor care and carpet cleaning",
-        "Window and fixture cleaning",
-        "Wall washing and baseboard cleaning",
-        "Final walkthrough and inspection"
-      ],
-      duration: "4-8 hours",
-      price: "Starting from $250",
-      bestFor: "Moving in or out of properties"
-    },
-    {
-      title: "Apartment Cleaning",
-      description: "Specialized cleaning for apartment living spaces",
-      icon: Building,
-      features: [
-        "Compact space optimization",
-        "Efficient cleaning techniques",
-        "Storage area organization",
-        "Balcony and patio cleaning",
-        "Entryway and hallway cleaning",
-        "Pet-friendly cleaning options",
-        "Flexible scheduling"
-      ],
-      duration: "2-5 hours",
-      price: "Starting from $80",
-      bestFor: "Apartment residents and renters"
-    },
-    {
-      title: "Specialty Cleaning",
-      description: "Customized cleaning solutions for specific needs",
-      icon: Star,
-      features: [
-        "Carpet and upholstery cleaning",
-        "Window and blind cleaning",
-        "Oven and refrigerator deep cleaning",
-        "Microwave and small appliance cleaning",
-        "Ceiling fan and light fixture cleaning",
-        "Garage and storage cleaning",
-        "Custom cleaning projects"
-      ],
-      duration: "Varies by service",
-      price: "Starting from $50 per service",
-      bestFor: "Specific cleaning needs and maintenance"
-    }
-  ];
+  const [selectedServiceType, setSelectedServiceType] = useState<ServiceType | 'all'>('all');
+  
+  const { data: residentialServices = [], isLoading, error } = useQuery<Service[]>({
+    queryKey: ["services", "residential"],
+    queryFn: () => listServices("residential"),
+  });
+
+  // Filter services by selected type
+  const filteredServices = selectedServiceType === 'all' 
+    ? residentialServices 
+    : residentialServices.filter(service => service.serviceType === selectedServiceType);
+
+  // Debug logging
+  console.log('Residential Services:', residentialServices);
+  console.log('Loading:', isLoading);
+  console.log('Error:', error);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -286,89 +218,128 @@ const ResidentialCleaning = () => {
                 <h2 className="text-4xl md:text-5xl font-bold text-brand-navy mb-6">
                   Our Residential Services
                 </h2>
-                <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
                   Comprehensive cleaning solutions designed specifically for homes and apartments
                 </p>
+                
+                {/* Service Type Filter */}
+                <div className="flex justify-center mb-8">
+                  <Select value={selectedServiceType} onValueChange={(value) => setSelectedServiceType(value as ServiceType | 'all')}>
+                    <SelectTrigger className="w-64">
+                      <SelectValue placeholder="Filter by service type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Services</SelectItem>
+                      <SelectItem value="standard-cleaning">Standard Cleaning</SelectItem>
+                      <SelectItem value="deep-cleaning">Deep Cleaning</SelectItem>
+                      <SelectItem value="move-in-out-cleaning">Move-in/Move-out Cleaning</SelectItem>
+                      <SelectItem value="apartment-cleaning">Apartment Cleaning</SelectItem>
+                      <SelectItem value="specialty-cleaning">Specialty Cleaning</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {residentialServices.map((service, index) => (
-                  <Card 
-                    key={service.title}
-                    className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft"
-                    style={{ animationDelay: `${index * 0.08}s` }}
-                  >
-                    <CardHeader className="text-center pb-4">
-                      <BeforeAfterSlider
-                        beforeImageUrl="https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop"
-                        afterImageUrl="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1600&auto=format&fit=crop"
-                        className="mb-4"
-                      />
-                      <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
-                        <service.icon className="w-8 h-8 text-white" />
-                      </div>
-                      <CardTitle className="text-xl font-bold text-brand-navy">
-                        {service.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="text-center">
-                      <p className="text-muted-foreground mb-6 leading-relaxed">
-                        {service.description}
-                      </p>
-                      
-                      <div className="mb-6">
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                          {service.features.map((feature, i) => (
-                            <li key={i} className="flex items-center gap-2">
-                              <CheckCircle className="w-4 h-4 text-brand-turquoise flex-shrink-0" />
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
-                        <div className="flex items-center gap-2">
-                          <Clock className="w-4 h-4 text-brand-turquoise" />
-                          <div>
-                            <p className="font-semibold text-brand-navy text-sm">Duration</p>
-                            <p className="text-xs text-muted-foreground">{service.duration}</p>
-                          </div>
+                {isLoading ? (
+                  <div className="col-span-full text-center py-8">
+                    <p className="text-lg text-muted-foreground">Loading services...</p>
+                  </div>
+                ) : error ? (
+                  <div className="col-span-full text-center py-8">
+                    <p className="text-lg text-red-600">Error loading services. Please try again later.</p>
+                    <p className="text-sm text-muted-foreground mt-2">Make sure the backend server is running.</p>
+                  </div>
+                ) : filteredServices.length === 0 ? (
+                  <div className="col-span-full text-center py-8">
+                    <p className="text-lg text-muted-foreground">
+                      {selectedServiceType === 'all' 
+                        ? 'No services available yet. Please add services through the admin panel.'
+                        : `No ${selectedServiceType.replace('-', ' ')} services available.`
+                      }
+                    </p>
+                  </div>
+                ) : (
+                  filteredServices.map((service: any, index: number) => (
+                    <Card 
+                      key={service.title}
+                      className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft"
+                      style={{ animationDelay: `${index * 0.08}s` }}
+                    >
+                      <CardHeader className="text-center pb-4">
+                        <BeforeAfterSlider
+                          beforeImageUrl={service.images?.before || "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop"}
+                          afterImageUrl={service.images?.after || "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1600&auto=format&fit=crop"}
+                          className="mb-4"
+                        />
+                        <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                          <Sparkles className="w-8 h-8 text-white" />
                         </div>
-                        <div className="flex items-center gap-2">
-                          <Shield className="w-4 h-4 text-brand-turquoise" />
-                          <div>
-                            <p className="font-semibold text-brand-navy text-sm">Price</p>
-                            <p className="text-xs text-muted-foreground">{service.price}</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="mb-4">
-                        <p className="text-sm text-brand-turquoise font-semibold">
-                          Best for: {service.bestFor}
+                        <CardTitle className="text-xl font-bold text-brand-navy">
+                          {service.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-center">
+                        <p className="text-muted-foreground mb-6 leading-relaxed">
+                          {service.description}
                         </p>
-                      </div>
+                        
+                        <div className="mb-6">
+                          <ul className="space-y-2 text-sm text-muted-foreground">
+                            {service.features.map((feature, i) => (
+                              <li key={i} className="flex items-center gap-2">
+                                <CheckCircle className="w-4 h-4 text-brand-turquoise flex-shrink-0" />
+                                {feature}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
 
-                      <div className="flex gap-2">
-                        <Button 
-                          variant="white-on-dark"
-                          size="lg"
-                          className="flex-1"
-                        >
-                          Get Quote
-                        </Button>
-                        <Button 
-                          variant="brand" 
-                          size="lg"
-                          className="flex-1"
-                        >
-                          Book Service
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                        <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
+                          <div className="flex items-center gap-2">
+                            <Clock className="w-4 h-4 text-brand-turquoise" />
+                            <div>
+                              <p className="font-semibold text-brand-navy text-sm">Duration</p>
+                              <p className="text-xs text-muted-foreground">{service.duration}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Shield className="w-4 h-4 text-brand-turquoise" />
+                            <div>
+                              <p className="font-semibold text-brand-navy text-sm">Price</p>
+                              <p className="text-xs text-muted-foreground">
+                                {service.price ? (service.price.startsWith('$') ? service.price : `$${service.price}`) : 'N/A'}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="mb-4">
+                          <p className="text-sm text-brand-turquoise font-semibold">
+                            Best for: {service.bestFor}
+                          </p>
+                        </div>
+
+                        <div className="flex gap-2">
+                          <Button 
+                            variant="white-on-dark"
+                            size="lg"
+                            className="flex-1"
+                          >
+                            Get Quote
+                          </Button>
+                          <Button 
+                            variant="brand" 
+                            size="lg"
+                            className="flex-1"
+                          >
+                            Book Service
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                )}
               </div>
             </div>
           </section>

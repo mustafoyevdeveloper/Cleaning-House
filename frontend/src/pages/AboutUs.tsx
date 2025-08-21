@@ -1,70 +1,26 @@
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
   Users, 
   Star, 
   Shield, 
-  Clock,
   CheckCircle,
   Phone,
   Facebook,
   Instagram,
   Menu,
   Leaf,
-  Award,
   Building,
   MapPin,
   X
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getSettings } from "@/lib/api";
 
 const AboutUs = () => {
-  const teamMembers = [
-    {
-      name: "Sarah Johnson",
-      position: "Founder & CEO",
-      description: "With over 15 years in the cleaning industry, Sarah leads our company with passion and expertise.",
-      image: "👩‍💼"
-    },
-    {
-      name: "Mike Rodriguez",
-      position: "Operations Manager",
-      description: "Mike ensures every service meets our high standards and customer expectations.",
-      image: "👨‍💼"
-    },
-    {
-      name: "Emily Chen",
-      position: "Customer Success Manager",
-      description: "Emily is dedicated to ensuring every customer has an exceptional experience.",
-      image: "👩‍💻"
-    }
-  ];
-
-  const certifications = [
-    {
-      title: "Licensed & Bonded",
-      description: "Fully licensed by the state of Texas with comprehensive bonding for your protection",
-      icon: Shield
-    },
-    {
-      title: "Insured",
-      description: "General liability insurance covering up to $2 million for complete peace of mind",
-      icon: Shield
-    },
-    {
-      title: "EPA Certified",
-      description: "Certified in safe and effective cleaning practices by the Environmental Protection Agency",
-      icon: Award
-    },
-    {
-      title: "Green Cleaning Certified",
-      description: "Certified in eco-friendly cleaning methods and sustainable practices",
-      icon: Award
-    }
-  ];
+  const { data: settings } = useQuery({ queryKey: ['settings'], queryFn: getSettings });
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -95,15 +51,19 @@ const AboutUs = () => {
           <div className="container mx-auto flex justify-between items-center text-sm">
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
-              <span>Call us: 469-592-4438</span>
+              <span>Call us: {settings?.phone || '469-592-4438'}</span>
             </div>
             <div className="flex gap-4">
-              <a href="#" className="hover:text-brand-turquoise transition-colors">
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a href="#" className="hover:text-brand-turquoise transition-colors">
-                <Instagram className="w-4 h-4" />
-              </a>
+              {settings?.social?.facebook && (
+                <a href={settings.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-brand-turquoise transition-colors">
+                  <Facebook className="w-4 h-4" />
+                </a>
+              )}
+              {settings?.social?.instagram && (
+                <a href={settings.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-brand-turquoise transition-colors">
+                  <Instagram className="w-4 h-4" />
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -118,7 +78,7 @@ const AboutUs = () => {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h1 className="text-xl font-bold text-brand-navy">FreshC</h1>
+                  <h1 className="text-xl font-bold text-brand-navy">{settings?.siteName || 'FreshC'}</h1>
                   <Leaf className="w-5 h-5 text-green-500" />
                 </div>
                 <p className="text-sm text-muted-foreground">Your House Services</p>
