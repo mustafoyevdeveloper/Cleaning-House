@@ -143,7 +143,7 @@ const CommercialCleaning = () => {
               <div>
                 <div className="flex items-center gap-2">
                   <h1 className="text-xl font-bold text-brand-navy">FreshC</h1>
-                  <Leaf className="w-5 h-5 text-brand-turquoise" />
+                  <Leaf className="w-5 h-5 text-green-500" />
                 </div>
                 <p className="text-sm text-muted-foreground">Your House Services</p>
               </div>

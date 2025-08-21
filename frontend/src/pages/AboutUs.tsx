@@ -4,20 +4,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
   Users, 
-  Target, 
-  Award, 
-  Shield,
+  Star, 
+  Shield, 
+  Clock,
   CheckCircle,
-  Star,
-  Heart,
-  Building,
-  MapPin,
   Phone,
-  Mail,
   Facebook,
   Instagram,
   Menu,
-  Leaf
+  Leaf,
+  Award,
+  Building,
+  MapPin
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -99,7 +97,7 @@ const AboutUs = () => {
               <div>
                 <div className="flex items-center gap-2">
                   <h1 className="text-xl font-bold text-brand-navy">FreshC</h1>
-                  <Leaf className="w-5 h-5 text-brand-turquoise" />
+                  <Leaf className="w-5 h-5 text-green-500" />
                 </div>
                 <p className="text-sm text-muted-foreground">Your House Services</p>
               </div>

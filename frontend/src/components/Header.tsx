@@ -63,7 +63,7 @@ const Header = () => {
                 }`}>
                   FreshC
                 </h1>
-                <Leaf className="w-5 h-5 text-brand-turquoise" />
+                <Leaf className="w-5 h-5 text-green-500" />
               </div>
               <p className={`text-sm transition-colors duration-300 ${
                 isScrolled ? 'text-muted-foreground' : 'text-brand-cream'
