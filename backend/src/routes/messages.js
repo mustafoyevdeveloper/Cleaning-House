@@ -26,13 +26,17 @@ function buildTransporter() {
 // Public: submit message
 router.post('/', async (req, res) => {
   try {
+    console.log('Received message data:', req.body);
     const msg = await Message.create(req.body);
+    console.log('Created message:', msg);
 
     // Send email if configured
     const { ADMIN_EMAIL_FROM, ADMIN_EMAIL_TO } = process.env;
     const transporter = buildTransporter();
     if (transporter && ADMIN_EMAIL_TO) {
       const subject = `New Contact Message: ${msg.firstName} ${msg.lastName}`;
+      console.log('Email template - category:', msg.category);
+      console.log('Email template - serviceNeeded:', msg.serviceNeeded);
       const html = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
           <div style="background-color: #1e3a8a; color: white; padding: 20px; border-radius: 8px 8px 0 0;">
@@ -125,6 +129,12 @@ router.post('/', async (req, res) => {
 router.get('/', requireAdmin, async (req, res) => {
   try {
     const items = await Message.find().sort({ createdAt: -1 });
+    console.log('Fetched messages:', items.map(m => ({ 
+      id: m._id, 
+      category: m.category, 
+      serviceNeeded: m.serviceNeeded,
+      firstName: m.firstName 
+    })));
     res.json(items);
   } catch (e) {
     res.status(500).json({ error: 'Failed to fetch messages' });

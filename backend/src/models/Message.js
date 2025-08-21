@@ -16,6 +16,13 @@ const MessageSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Debug middleware to log all message operations
+MessageSchema.pre('save', function(next) {
+  console.log('Saving message with category:', this.category);
+  console.log('Saving message with serviceNeeded:', this.serviceNeeded);
+  next();
+});
+
 export default mongoose.model('Message', MessageSchema);
 
 

@@ -40,6 +40,7 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Submitting form data:', formData);
     submitMut.mutate({
       ...formData,
       page: 'home-contact'
