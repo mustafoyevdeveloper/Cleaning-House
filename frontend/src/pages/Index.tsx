@@ -5,8 +5,12 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Users, Home, Building, MessageCircle } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { getSettings } from "@/lib/api";
 
 const Index = () => {
+  const { data: settings } = useQuery({ queryKey: ['settings'], queryFn: getSettings });
+  
   return (
     <div>
       <Header />
@@ -167,6 +171,40 @@ const Index = () => {
           </section>
         </div>
       </main>
+      
+      {/* CTA Section */}
+      <div className="relative z-10 bg-brand-navy text-white">
+        <section className="py-16">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              {settings?.bottomBar?.message || 'Ready to get started?'}
+            </h2>
+            <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Contact us today for a free consultation and quote. Our experienced team is ready to help with all your home improvement and cleaning needs.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to={settings?.bottomBar?.buttonLink || '/contact'}>
+                <Button 
+                  variant="white-on-dark"
+                  size="lg"
+                  className="px-8 py-4"
+                >
+                  {settings?.bottomBar?.buttonText || 'Get Free Quote'}
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button 
+                  variant="outline-white" 
+                  size="lg"
+                  className="px-8 py-4"
+                >
+                  Contact Us
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
       
       {/* Footer - Now with proper z-index */}
       <div className="relative z-20 bg-brand-navy">

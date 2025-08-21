@@ -34,15 +34,68 @@ router.post('/', async (req, res) => {
     if (transporter && ADMIN_EMAIL_TO) {
       const subject = `New Contact Message: ${msg.firstName} ${msg.lastName}`;
       const html = `
-        <h2>New Contact Message</h2>
-        <p><b>Name:</b> ${msg.firstName} ${msg.lastName}</p>
-        <p><b>Email:</b> ${msg.email}</p>
-        <p><b>Phone:</b> ${msg.phone}</p>
-        <p><b>Service Needed:</b> ${msg.serviceNeeded}</p>
-        <p><b>Location:</b> ${msg.location}</p>
-        <p><b>Details:</b><br/>${(msg.details || '').replace(/\n/g, '<br/>')}</p>
-        <p><b>Page:</b> ${msg.page || ''}</p>
-        <p><i>Submitted at ${msg.createdAt}</i></p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
+          <div style="background-color: #1e3a8a; color: white; padding: 20px; border-radius: 8px 8px 0 0;">
+            <h1 style="margin: 0; font-size: 24px;">New Contact Message</h1>
+            <p style="margin: 5px 0 0 0; opacity: 0.9;">From: ${msg.page || 'Website'}</p>
+          </div>
+          
+          <div style="background-color: white; padding: 20px; border-radius: 0 0 8px 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <div style="margin-bottom: 20px;">
+              <h2 style="color: #1e3a8a; margin-bottom: 15px; border-bottom: 2px solid #06b6d4; padding-bottom: 5px;">Customer Information</h2>
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td style="padding: 8px 0; font-weight: bold; color: #374151; width: 120px;">Name:</td>
+                  <td style="padding: 8px 0; color: #6b7280;">${msg.firstName} ${msg.lastName}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; font-weight: bold; color: #374151;">Email:</td>
+                  <td style="padding: 8px 0; color: #6b7280;">${msg.email}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; font-weight: bold; color: #374151;">Phone:</td>
+                  <td style="padding: 8px 0; color: #6b7280;">${msg.phone}</td>
+                </tr>
+                ${msg.location ? `
+                <tr>
+                  <td style="padding: 8px 0; font-weight: bold; color: #374151;">Location:</td>
+                  <td style="padding: 8px 0; color: #6b7280;">${msg.location}</td>
+                </tr>
+                ` : ''}
+              </table>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+              <h2 style="color: #1e3a8a; margin-bottom: 15px; border-bottom: 2px solid #06b6d4; padding-bottom: 5px;">Service Request</h2>
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td style="padding: 8px 0; font-weight: bold; color: #374151; width: 120px;">Category:</td>
+                  <td style="padding: 8px 0; color: #6b7280; text-transform: capitalize;">${msg.category}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; font-weight: bold; color: #374151;">Service:</td>
+                  <td style="padding: 8px 0; color: #6b7280;">${msg.serviceNeeded.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</td>
+                </tr>
+              </table>
+            </div>
+            
+            ${msg.details ? `
+            <div style="margin-bottom: 20px;">
+              <h2 style="color: #1e3a8a; margin-bottom: 15px; border-bottom: 2px solid #06b6d4; padding-bottom: 5px;">Additional Details</h2>
+              <div style="background-color: #f3f4f6; padding: 15px; border-radius: 6px; border-left: 4px solid #06b6d4;">
+                <p style="margin: 0; color: #374151; line-height: 1.6;">${(msg.details || '').replace(/\n/g, '<br/>')}</p>
+              </div>
+            </div>
+            ` : ''}
+            
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; text-align: center;">
+              <p style="margin: 0; color: #6b7280; font-size: 14px;">
+                <strong>Submitted:</strong> ${new Date(msg.createdAt).toLocaleString()}<br>
+                <strong>Source:</strong> ${msg.page || 'Website Contact Form'}
+              </p>
+            </div>
+          </div>
+        </div>
       `;
       try {
         console.log('Sending email to:', ADMIN_EMAIL_TO);

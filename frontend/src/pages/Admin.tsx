@@ -437,12 +437,26 @@ export default function Admin() {
                            </Button>
                          </div>
                        </CardHeader>
-                       <CardContent className="text-sm text-muted-foreground space-y-2">
-                         <p><b>Service:</b> {m.serviceNeeded}</p>
-                         {m.location && <p><b>Location:</b> {m.location}</p>}
-                         {m.details && <p className="whitespace-pre-wrap"><b>Details:</b> {m.details}</p>}
-                         <p className="text-xs">{new Date(m.createdAt!).toLocaleString()}</p>
-                       </CardContent>
+                                               <CardContent className="text-sm text-muted-foreground space-y-2">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                              <p><b>Category:</b> <span className="capitalize">{m.category}</span></p>
+                              <p><b>Service:</b> {m.serviceNeeded.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
+                              {m.location && <p><b>Location:</b> {m.location}</p>}
+                            </div>
+                            <div>
+                              <p><b>Page:</b> {m.page || 'Website'}</p>
+                              <p><b>Status:</b> <span className={`px-2 py-1 rounded-full text-xs ${m.status === 'new' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>{m.status}</span></p>
+                              <p className="text-xs">{new Date(m.createdAt!).toLocaleString()}</p>
+                            </div>
+                          </div>
+                          {m.details && (
+                            <div className="mt-3 p-3 bg-gray-50 rounded-lg">
+                              <p className="font-semibold text-brand-navy mb-1">Additional Details:</p>
+                              <p className="whitespace-pre-wrap text-sm">{m.details}</p>
+                            </div>
+                          )}
+                        </CardContent>
                      </Card>
                    ))}
                 </div>

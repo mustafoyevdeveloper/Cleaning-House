@@ -55,20 +55,46 @@ const Contact = () => {
     }
   ];
 
-  const services = [
-    "Residential Cleaning",
-    "Commercial Cleaning", 
-    "Standard Cleaning",
-    "Deep Cleaning",
-    "Move-in/Move-out Cleaning",
-    "Apartment Cleaning",
-    "Office Cleaning",
-    "Retail Cleaning",
-    "Medical/Clinic Cleaning",
-    "Restaurant Cleaning",
-    "Post-construction Cleaning",
-    "Other"
-  ];
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    category: '',
+    serviceNeeded: '',
+    location: '',
+    details: ''
+  });
+
+  const submitMut = useMutation({
+    mutationFn: submitMessage,
+    onSuccess: () => {
+      toast.success('Message sent successfully!');
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        category: '',
+        serviceNeeded: '',
+        location: '',
+        details: ''
+      });
+    },
+    onError: () => toast.error('Failed to send message'),
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    submitMut.mutate({
+      ...formData,
+      page: 'contact-page'
+    });
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { pathname } = useLocation();
@@ -278,28 +304,7 @@ const Contact = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <form className="space-y-6" onSubmit={async (e) => {
-                      e.preventDefault();
-                      const form = e.currentTarget as HTMLFormElement;
-                      const fd = new FormData(form);
-                      const payload = {
-                        firstName: String(fd.get('firstName') || ''),
-                        lastName: String(fd.get('lastName') || ''),
-                        email: String(fd.get('email') || ''),
-                        phone: String(fd.get('phone') || ''),
-                        serviceNeeded: String(fd.get('service') || ''),
-                        location: String(fd.get('location') || ''),
-                        details: String(fd.get('message') || ''),
-                        page: 'contact'
-                      };
-                      try {
-                        await submitMessage(payload);
-                        toast.success('Message sent successfully!');
-                        form.reset();
-                      } catch (err) {
-                        toast.error('Failed to send message');
-                      }
-                    }}>
+                    <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
                           <Label htmlFor="firstName" className="text-brand-navy font-semibold">
@@ -307,9 +312,11 @@ const Contact = () => {
                           </Label>
                           <Input 
                             id="firstName" 
-                            name="firstName"
+                            value={formData.firstName}
+                            onChange={(e) => handleInputChange('firstName', e.target.value)}
                             placeholder="Enter your first name"
                             className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise"
+                            required
                           />
                         </div>
                         <div className="space-y-2">
@@ -318,9 +325,11 @@ const Contact = () => {
                           </Label>
                           <Input 
                             id="lastName" 
-                            name="lastName"
+                            value={formData.lastName}
+                            onChange={(e) => handleInputChange('lastName', e.target.value)}
                             placeholder="Enter your last name"
                             className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise"
+                            required
                           />
                         </div>
                       </div>
@@ -333,9 +342,11 @@ const Contact = () => {
                           <Input 
                             id="email" 
                             type="email"
-                            name="email"
+                            value={formData.email}
+                            onChange={(e) => handleInputChange('email', e.target.value)}
                             placeholder="Enter your email address"
                             className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise"
+                            required
                           />
                         </div>
                         <div className="space-y-2">
@@ -345,51 +356,93 @@ const Contact = () => {
                           <Input 
                             id="phone" 
                             type="tel"
-                            name="phone"
+                            value={formData.phone}
+                            onChange={(e) => handleInputChange('phone', e.target.value)}
                             placeholder="Enter your phone number"
                             className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise"
+                            required
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                          <Label htmlFor="service" className="text-brand-navy font-semibold">
-                            Service Needed *
+                          <Label htmlFor="category" className="text-brand-navy font-semibold">
+                            Category *
                           </Label>
-                          <Select name="service">
+                          <Select 
+                            value={formData.category} 
+                            onValueChange={(value) => {
+                              handleInputChange('category', value);
+                              handleInputChange('serviceNeeded', ''); // Reset service selection when category changes
+                            }}
+                          >
                             <SelectTrigger className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise">
-                              <SelectValue placeholder="Select a service" />
+                              <SelectValue placeholder="Select category" />
                             </SelectTrigger>
                             <SelectContent>
-                              {services.map((service) => (
-                                <SelectItem key={service} value={service.toLowerCase().replace(/\s+/g, '-')}>
-                                  {service}
-                                </SelectItem>
-                              ))}
+                              <SelectItem value="residential">Residential Cleaning</SelectItem>
+                              <SelectItem value="commercial">Commercial Cleaning</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="location" className="text-brand-navy font-semibold">
-                            Location/Address *
+                          <Label htmlFor="serviceNeeded" className="text-brand-navy font-semibold">
+                            Services Needed *
                           </Label>
-                          <Input 
-                            id="location" 
-                            name="location"
-                            placeholder="Enter your location or address"
-                            className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise"
-                          />
+                          <Select 
+                            value={formData.serviceNeeded} 
+                            onValueChange={(value) => handleInputChange('serviceNeeded', value)}
+                            disabled={!formData.category}
+                          >
+                            <SelectTrigger className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise">
+                              <SelectValue placeholder={formData.category ? "Select a service" : "First select category"} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {formData.category === 'residential' && (
+                                <>
+                                  <SelectItem value="standard-cleaning">Standard Cleaning</SelectItem>
+                                  <SelectItem value="deep-cleaning">Deep Cleaning</SelectItem>
+                                  <SelectItem value="move-in-out-cleaning">Move-in/Move-out Cleaning</SelectItem>
+                                  <SelectItem value="apartment-cleaning">Apartment Cleaning</SelectItem>
+                                  <SelectItem value="specialty-cleaning">Specialty Cleaning</SelectItem>
+                                </>
+                              )}
+                              {formData.category === 'commercial' && (
+                                <>
+                                  <SelectItem value="office-cleaning">Office Cleaning</SelectItem>
+                                  <SelectItem value="retail-cleaning">Retail Cleaning</SelectItem>
+                                  <SelectItem value="medical-clinic-cleaning">Medical/Clinic Cleaning</SelectItem>
+                                  <SelectItem value="restaurant-cleaning">Restaurant Cleaning</SelectItem>
+                                  <SelectItem value="post-construction-cleaning">Post-construction Cleaning</SelectItem>
+                                </>
+                              )}
+                            </SelectContent>
+                          </Select>
                         </div>
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="message" className="text-brand-navy font-semibold">
+                        <Label htmlFor="location" className="text-brand-navy font-semibold">
+                          Location/Address
+                        </Label>
+                        <Input 
+                          id="location" 
+                          value={formData.location}
+                          onChange={(e) => handleInputChange('location', e.target.value)}
+                          placeholder="Enter your location or address"
+                          className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="details" className="text-brand-navy font-semibold">
                           Additional Details
                         </Label>
                         <Textarea 
-                          id="message" 
-                          name="message"
+                          id="details" 
+                          value={formData.details}
+                          onChange={(e) => handleInputChange('details', e.target.value)}
                           placeholder="Tell us more about your cleaning needs, preferred dates, or any special requirements..."
                           rows={4}
                           className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise"
@@ -402,9 +455,10 @@ const Contact = () => {
                           size="lg"
                           variant="white-on-dark"
                           className="px-12 py-4"
+                          disabled={submitMut.isPending}
                         >
                           <MessageCircle className="w-5 h-5 mr-2" />
-                          Send Message
+                          {submitMut.isPending ? 'Sending...' : 'Send Message'}
                         </Button>
                       </div>
                     </form>

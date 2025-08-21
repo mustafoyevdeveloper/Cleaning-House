@@ -2,13 +2,19 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useQuery } from '@tanstack/react-query';
 import { getSettings } from '@/lib/api';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function StickyFooterBar() {
   const { data } = useQuery({ queryKey: ['settings'], queryFn: getSettings });
+  const location = useLocation();
   const [visible, setVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  // Admin panelda ko'rsatma
+  if (location.pathname === '/admin') {
+    return null;
+  }
 
   useEffect(() => {
     const onScroll = () => {

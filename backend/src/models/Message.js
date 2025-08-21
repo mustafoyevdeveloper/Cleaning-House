@@ -6,6 +6,7 @@ const MessageSchema = new mongoose.Schema(
     lastName: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: String, required: true },
+    category: { type: String, required: true, enum: ['residential', 'commercial'] },
     serviceNeeded: { type: String, required: true },
     location: { type: String, default: '' },
     details: { type: String, default: '' },

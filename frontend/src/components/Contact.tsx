@@ -2,12 +2,53 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import { getSettings } from "@/lib/api";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { getSettings, submitMessage } from "@/lib/api";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const Contact = () => {
   const { data: settings } = useQuery({ queryKey: ['settings'], queryFn: getSettings });
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    category: '',
+    serviceNeeded: '',
+    details: ''
+  });
+
+  const submitMut = useMutation({
+    mutationFn: submitMessage,
+    onSuccess: () => {
+      toast.success('Message sent successfully!');
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        category: '',
+        serviceNeeded: '',
+        details: ''
+      });
+    },
+    onError: () => toast.error('Failed to send message'),
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    submitMut.mutate({
+      ...formData,
+      page: 'home-contact'
+    });
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
   
   return (
     <section id="contact" className="py-20 bg-brand-cream">
@@ -104,19 +145,29 @@ const Contact = () => {
               <CardTitle className="text-brand-navy">Request Your Free Quote</CardTitle>
             </CardHeader>
             <CardContent>
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-brand-navy mb-2">
                       First Name *
                     </label>
-                    <Input placeholder="Your first name" />
+                    <Input 
+                      placeholder="Your first name" 
+                      value={formData.firstName}
+                      onChange={(e) => handleInputChange('firstName', e.target.value)}
+                      required
+                    />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-brand-navy mb-2">
                       Last Name *
                     </label>
-                    <Input placeholder="Your last name" />
+                    <Input 
+                      placeholder="Your last name" 
+                      value={formData.lastName}
+                      onChange={(e) => handleInputChange('lastName', e.target.value)}
+                      required
+                    />
                   </div>
                 </div>
 
@@ -124,21 +175,82 @@ const Contact = () => {
                   <label className="block text-sm font-medium text-brand-navy mb-2">
                     Email *
                   </label>
-                  <Input type="email" placeholder="your.email@example.com" />
+                  <Input 
+                    type="email" 
+                    placeholder="your.email@example.com" 
+                    value={formData.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    required
+                  />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-brand-navy mb-2">
                     Phone *
                   </label>
-                  <Input type="tel" placeholder="(000) 000-0000" />
+                  <Input 
+                    type="tel" 
+                    placeholder="(000) 000-0000" 
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                    required
+                  />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-brand-navy mb-2">
-                    Services Needed
+                    Category *
                   </label>
-                  <Input placeholder="e.g. House cleaning, handyman services..." />
+                  <Select 
+                    value={formData.category} 
+                    onValueChange={(value) => {
+                      handleInputChange('category', value);
+                      handleInputChange('serviceNeeded', ''); // Reset service selection when category changes
+                    }}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="residential">Residential Cleaning</SelectItem>
+                      <SelectItem value="commercial">Commercial Cleaning</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-brand-navy mb-2">
+                    Services Needed *
+                  </label>
+                  <Select 
+                    value={formData.serviceNeeded} 
+                    onValueChange={(value) => handleInputChange('serviceNeeded', value)}
+                    disabled={!formData.category}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder={formData.category ? "Select a service" : "First select category"} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {formData.category === 'residential' && (
+                        <>
+                          <SelectItem value="standard-cleaning">Standard Cleaning</SelectItem>
+                          <SelectItem value="deep-cleaning">Deep Cleaning</SelectItem>
+                          <SelectItem value="move-in-out-cleaning">Move-in/Move-out Cleaning</SelectItem>
+                          <SelectItem value="apartment-cleaning">Apartment Cleaning</SelectItem>
+                          <SelectItem value="specialty-cleaning">Specialty Cleaning</SelectItem>
+                        </>
+                      )}
+                      {formData.category === 'commercial' && (
+                        <>
+                          <SelectItem value="office-cleaning">Office Cleaning</SelectItem>
+                          <SelectItem value="retail-cleaning">Retail Cleaning</SelectItem>
+                          <SelectItem value="medical-clinic-cleaning">Medical/Clinic Cleaning</SelectItem>
+                          <SelectItem value="restaurant-cleaning">Restaurant Cleaning</SelectItem>
+                          <SelectItem value="post-construction-cleaning">Post-construction Cleaning</SelectItem>
+                        </>
+                      )}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div>
@@ -148,6 +260,8 @@ const Contact = () => {
                   <Textarea 
                     placeholder="Tell us about your project and any specific requirements..."
                     className="min-h-[120px]"
+                    value={formData.details}
+                    onChange={(e) => handleInputChange('details', e.target.value)}
                   />
                 </div>
 
@@ -155,8 +269,9 @@ const Contact = () => {
                   type="submit" 
                   variant="white-on-dark"
                   className="w-full font-semibold"
+                  disabled={submitMut.isPending}
                 >
-                  Send Message
+                  {submitMut.isPending ? 'Sending...' : 'Send Message'}
                 </Button>
               </form>
             </CardContent>

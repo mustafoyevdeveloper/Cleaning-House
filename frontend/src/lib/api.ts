@@ -91,6 +91,7 @@ export type ContactMessage = {
   lastName: string;
   email: string;
   phone: string;
+  category: string;
   serviceNeeded: string;
   location?: string;
   details?: string;
