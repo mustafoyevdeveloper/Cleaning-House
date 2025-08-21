@@ -18,71 +18,75 @@ const Footer = () => {
   return (
     <footer className="bg-brand-navy text-white">
       <div className="container mx-auto px-4 py-16">
+        {/* Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center mb-6">
-              <div className="w-12 h-12 bg-brand-turquoise rounded-full flex items-center justify-center mr-3">
-                <div className="text-white font-bold">A</div>
+          <div className="lg:col-span-2">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 bg-gradient-hero rounded-full flex items-center justify-center">
+                <img src="logopng" alt="All Around Your House Services" className="w-8 h-8" />
               </div>
               <div>
-                <h3 className="text-xl font-bold">All Around</h3>
-                <p className="text-sm text-gray-300">Your House Services</p>
+                <h3 className="text-xl font-bold text-white">All Around</h3>
+                <p className="text-brand-cream">Your House Services</p>
               </div>
             </div>
-            <p className="text-gray-300 mb-6 leading-relaxed">
-              Professional home improvement and cleaning services in the Greater Tampa Bay Area. All your house needs from a single trusted source.
+            <p className="text-brand-cream mb-4 max-w-md">
+              Professional cleaning and maintenance services for homes and businesses in the Dallas-Fort Worth metroplex.
             </p>
-            <div className="flex space-x-4">
-              <Facebook className="w-6 h-6 text-gray-300 hover:text-brand-turquoise cursor-pointer transition-colors" />
-              <Instagram className="w-6 h-6 text-gray-300 hover:text-brand-turquoise cursor-pointer transition-colors" />
+            <div className="flex gap-4">
+              <a href="#" className="text-brand-cream hover:text-brand-turquoise transition-colors">
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a href="#" className="text-brand-cream hover:text-brand-turquoise transition-colors">
+                <Instagram className="w-5 h-5" />
+              </a>
             </div>
           </div>
 
-          {/* Services */}
-          <div className="lg:col-span-1">
-            <h4 className="text-lg font-semibold mb-6">Our Services</h4>
-            <ul className="space-y-3">
-              <li><Link to="/residential-cleaning" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Residential Cleaning</Link></li>
-              <li><Link to="/commercial-cleaning" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Commercial Cleaning</Link></li>
-              <li><Link to="/about-us" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">About Us</Link></li>
-              <li><Link to="/contact" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Contact Us</Link></li>
-            </ul>
-          </div>
-
-          {/* Quick Links */}
-          <div className="lg:col-span-1">
-            <h4 className="text-lg font-semibold mb-6">Quick Links</h4>
-            <ul className="space-y-3">
-              <li><Link to="/" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Home</Link></li>
-              <li><Link to="/about-us" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">About Us</Link></li>
-              <li><Link to="/residential-cleaning" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Residential Cleaning</Link></li>
-              <li><Link to="/commercial-cleaning" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Commercial Cleaning</Link></li>
-              <li><Link to="/contact" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Contact Us</Link></li>
+          {/* Our Services */}
+          <div>
+            <h4 className="text-lg font-semibold text-white mb-4">Our Services</h4>
+            <ul className="space-y-2">
+              <li>
+                <Link to="/residential-cleaning" className="text-brand-cream hover:text-brand-turquoise transition-colors">
+                  Residential Cleaning
+                </Link>
+              </li>
+              <li>
+                <Link to="/commercial-cleaning" className="text-brand-cream hover:text-brand-turquoise transition-colors">
+                  Commercial Cleaning
+                </Link>
+              </li>
+              <li>
+                <Link to="/about-us" className="text-brand-cream hover:text-brand-turquoise transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-brand-cream hover:text-brand-turquoise transition-colors">
+                  Contact Us
+                </Link>
+              </li>
             </ul>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-6">Contact Info</h4>
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-brand-turquoise" />
-                <span className="text-gray-300 text-sm">(727) 992-3578</span>
+            <h4 className="text-lg font-semibold text-white mb-4">Contact Info</h4>
+            <div className="space-y-2 text-brand-cream">
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4" />
+                <span>(727) 992-3578</span>
               </div>
-              <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-brand-turquoise" />
-                <span className="text-gray-300 text-sm">info@all-aroundyourhouse.com</span>
+              <div className="flex items-center gap-2">
+                <Mail className="w-4 h-4" />
+                <span>info@allaroundyourhouse.com</span>
               </div>
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-brand-turquoise mt-0.5" />
-                <span className="text-gray-300 text-sm">Greater Tampa Bay Area<br />Florida, USA</span>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4" />
+                <span>Dallas-Fort Worth Metroplex</span>
               </div>
-            </div>
-            
-            <div className="mt-6 p-4 bg-brand-turquoise/10 rounded-lg">
-              <p className="text-brand-turquoise font-semibold text-sm mb-1">Licensed & Insured</p>
-              <p className="text-gray-300 text-xs">Professional services you can trust</p>
             </div>
           </div>
         </div>

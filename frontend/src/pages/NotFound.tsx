@@ -1,15 +1,135 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Home, ArrowLeft, Search, AlertTriangle } from "lucide-react";
+import { 
+  Home, 
+  Users, 
+  Building, 
+  MessageCircle,
+  ArrowRight,
+  Phone,
+  Facebook,
+  Instagram,
+  Menu,
+  Leaf,
+  Mail,
+  MapPin,
+  Clock,
+  AlertTriangle,
+  Search,
+  ArrowLeft
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 const NotFound = () => {
+  const contactInfo = [
+    {
+      icon: Phone,
+      title: "Phone",
+      value: "469-592-4438",
+      description: "Call us for immediate assistance"
+    },
+    {
+      icon: Mail,
+      title: "Email",
+      value: "info@allaroundyourhouse.com",
+      description: "Send us a message anytime"
+    },
+    {
+      icon: MapPin,
+      title: "Office Address",
+      value: "Dallas-Fort Worth Metroplex",
+      description: "Serving the entire DFW area"
+    },
+    {
+      icon: Clock,
+      title: "Business Hours",
+      value: "Mon-Fri: 8AM-6PM",
+      description: "Weekend appointments available"
+    }
+  ];
+
+  const services = [
+    "Residential Cleaning",
+    "Commercial Cleaning", 
+    "Standard Cleaning",
+    "Deep Cleaning",
+    "Move-in/Move-out Cleaning",
+    "Apartment Cleaning",
+    "Office Cleaning",
+    "Retail Cleaning",
+    "Medical/Clinic Cleaning",
+    "Restaurant Cleaning",
+    "Post-construction Cleaning",
+    "Other"
+  ];
+
   return (
     <div className="min-h-screen">
-      <Header />
+      {/* Custom Header for NotFound - White Background */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-lg">
+        {/* Top Contact Bar */}
+        <div className="bg-brand-navy text-white py-2 px-4">
+          <div className="container mx-auto flex justify-between items-center text-sm">
+            <div className="flex items-center gap-2">
+              <Phone className="w-4 h-4" />
+              <span>Call us: (727) 992-3578</span>
+            </div>
+            <div className="flex gap-4">
+              <a href="#" className="hover:text-brand-turquoise transition-colors">
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a href="#" className="hover:text-brand-turquoise transition-colors">
+                <Instagram className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Navigation Bar - White Background */}
+        <nav className="bg-white py-4 px-4">
+          <div className="container mx-auto flex justify-between items-center">
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-3">
+              <div className="w-12 h-12 flex items-center justify-center">
+                <img src="Logo.png" alt="FreshC Your House Services" className="w-12 h-12" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-xl font-bold text-brand-navy">FreshC</h1>
+                  <Leaf className="w-5 h-5 text-brand-turquoise" />
+                </div>
+                <p className="text-sm text-muted-foreground">Your House Services</p>
+              </div>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-8 justify-center flex-1">
+              <Link to="/" className="text-gray-700 hover:text-brand-turquoise transition-colors font-medium">Home</Link>
+              <Link to="/about-us" className="text-gray-700 hover:text-brand-turquoise transition-colors font-medium">About Us</Link>
+              <Link to="/residential-cleaning" className="text-gray-700 hover:text-brand-turquoise transition-colors font-medium">Residential Cleaning</Link>
+              <Link to="/commercial-cleaning" className="text-gray-700 hover:text-brand-turquoise transition-colors font-medium">Commercial Cleaning</Link>
+              <Link to="/contact" className="text-gray-700 hover:text-brand-turquoise transition-colors font-medium">Contact Us</Link>
+            </div>
+
+            {/* GET IN TOUCH Button */}
+            <div className="hidden lg:block">
+              <Link to="/contact">
+                <Button variant="white-on-dark" size="sm">
+                  GET IN TOUCH
+                </Button>
+              </Link>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button className="lg:hidden text-gray-700">
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
+        </nav>
+      </header>
       
-      <main>
+      <main className="pt-20">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-brand-navy to-brand-navy/90 text-white">
           <div className="container mx-auto px-4 text-center">
