@@ -67,7 +67,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-32 sm:h-40 rounded-xl overflow-hidden select-none ${className}`}
+      className={`relative w-full aspect-video rounded-lg overflow-hidden select-none ${className}`}
       onMouseDown={(e) => startDrag(e.clientX)}
       onTouchStart={(e) => {
         if (e.touches && e.touches[0]) startDrag(e.touches[0].clientX);

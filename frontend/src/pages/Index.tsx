@@ -8,11 +8,11 @@ import { Users, Home, Building, MessageCircle } from "lucide-react";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div>
       <Header />
       <main>
         {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <section className="relative h-screen flex items-center justify-center overflow-hidden">
           {/* Background Image - Fixed Position */}
           <div className="fixed inset-0 z-0">
             <div className="absolute inset-0 bg-gradient-to-br from-brand-navy/80 via-brand-navy/60 to-brand-navy/40"></div>
@@ -169,7 +169,7 @@ const Index = () => {
       </main>
       
       {/* Footer - Now with proper z-index */}
-      <div className="relative z-10 bg-brand-navy">
+      <div className="relative z-20 bg-brand-navy">
         <Footer />
       </div>
     </div>

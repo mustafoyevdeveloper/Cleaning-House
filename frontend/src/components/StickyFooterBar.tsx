@@ -14,6 +14,19 @@ export default function StickyFooterBar() {
     const onScroll = () => {
       const shouldShow = window.scrollY > 300;
       
+      // Footer ga yetganda sticky bar ni yo'qolish
+      const footer = document.querySelector('footer');
+      if (footer) {
+        const footerTop = footer.offsetTop;
+        const scrollPosition = window.scrollY + window.innerHeight;
+        
+        // Footer ga yetganda sticky bar ni ko'rsatma
+        if (scrollPosition >= footerTop - 100) {
+          setVisible(false);
+          return;
+        }
+      }
+      
       if (shouldShow !== visible) {
         setIsAnimating(true);
         setVisible(shouldShow);

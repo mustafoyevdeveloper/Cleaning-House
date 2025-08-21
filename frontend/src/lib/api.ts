@@ -63,7 +63,7 @@ export type Settings = {
   phone: string;
   email: string;
   address: string;
-  social: { facebook?: string; instagram?: string };
+  social: { facebook?: string; instagram?: string; telegram?: string };
   hero: { title?: string; subtitle?: string };
   bottomBar: { enabled: boolean; message: string; buttonText: string; buttonLink: string };
 };
@@ -81,6 +81,54 @@ export async function updateSettings(input: Partial<Settings>): Promise<Settings
     body: JSON.stringify(input),
   });
   if (!res.ok) throw new Error('Failed to update settings');
+  return res.json();
+}
+
+// Messages
+export type ContactMessage = {
+  _id?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  serviceNeeded: string;
+  location?: string;
+  details?: string;
+  page?: string;
+  status?: 'new' | 'read';
+  createdAt?: string;
+};
+
+export async function submitMessage(input: Omit<ContactMessage, '_id' | 'status' | 'createdAt'>): Promise<ContactMessage> {
+  const res = await fetch(`${API_BASE}/messages`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(input),
+  });
+  if (!res.ok) throw new Error('Failed to submit message');
+  return res.json();
+}
+
+export async function listMessages(): Promise<ContactMessage[]> {
+  const res = await fetch(`${API_BASE}/messages`, { headers: { ...authHeaders() } });
+  if (!res.ok) throw new Error('Failed to fetch messages');
+  return res.json();
+}
+
+export async function deleteMessage(id: string): Promise<void> {
+  const res = await fetch(`${API_BASE}/messages/${id}`, {
+    method: 'DELETE',
+    headers: { ...authHeaders() },
+  });
+  if (!res.ok) throw new Error('Failed to delete message');
+}
+
+export async function markMessageAsRead(id: string): Promise<ContactMessage> {
+  const res = await fetch(`${API_BASE}/messages/${id}/read`, {
+    method: 'PUT',
+    headers: { ...authHeaders() },
+  });
+  if (!res.ok) throw new Error('Failed to mark message as read');
   return res.json();
 }
 

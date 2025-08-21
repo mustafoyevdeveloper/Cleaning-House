@@ -4,6 +4,7 @@ const SocialSchema = new mongoose.Schema(
   {
     facebook: { type: String, default: '' },
     instagram: { type: String, default: '' },
+    telegram: { type: String, default: '' },
   },
   { _id: false }
 );

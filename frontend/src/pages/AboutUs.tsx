@@ -393,8 +393,8 @@ const AboutUs = () => {
           </div>
         </section>
 
-        {/* CTA Section - Now with proper z-index */}
-        <div className="relative z-10 bg-gradient-hero text-white">
+        {/* CTA Section - Now with proper z-index and margin */}
+        <div className="relative z-10 bg-gradient-hero text-white mb-0">
           <section className="py-20">
             <div className="container mx-auto px-4 text-center">
               <h2 className="text-4xl font-bold mb-6">

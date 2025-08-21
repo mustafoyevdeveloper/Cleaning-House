@@ -7,9 +7,11 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { listServices, createService, updateService, deleteService, fileToDataUrl, getSettings, updateSettings } from '@/lib/api';
+import { listMessages, deleteMessage, markMessageAsRead, type ContactMessage } from '@/lib/api';
 import type { Settings as SiteSettings } from '@/lib/api';
 import type { Service, ServiceCategory, ServiceType } from '@/lib/types';
 import { Trash2, Edit, Plus, Save, X, Image, CheckCircle, Clock, Shield, AlertTriangle, Eye } from 'lucide-react';
+import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import Footer from '@/components/Footer';
 import { toast } from 'sonner';
 
@@ -34,16 +36,51 @@ export default function Admin() {
   const [categoryFilter, setCategoryFilter] = useState<ServiceCategory>('residential');
   const [editing, setEditing] = useState<Draft | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [showMessages, setShowMessages] = useState(false);
 
   const { data: services = [], isLoading } = useQuery({
     queryKey: ['services', categoryFilter],
     queryFn: () => listServices(categoryFilter),
   });
   const { data: settings } = useQuery({ queryKey: ['settings'], queryFn: getSettings });
+  const { data: messages = [], isLoading: messagesLoading } = useQuery<ContactMessage[]>({
+    queryKey: ['messages'],
+    queryFn: listMessages,
+    enabled: showMessages,
+  });
+
+  // Yangi xabarlarni polling qilish (har 5 soniyada)
+  const { data: allMessages = [] } = useQuery<ContactMessage[]>({
+    queryKey: ['allMessages'],
+    queryFn: listMessages,
+    refetchInterval: 5000, // 5 soniyada bir marta
+    refetchIntervalInBackground: true, // Background'da ham yangilash
+  });
+
+  // O'qilmagan xabarlar soni
+  const unreadCount = allMessages.filter(m => m.status === 'new').length;
   const [settingsDraft, setSettingsDraft] = useState<SiteSettings | null>(null);
   useEffect(() => {
     if (settings) setSettingsDraft(settings);
   }, [settings]);
+
+  // Xabarlar ko'rilganda ularni "read" qilish
+  useEffect(() => {
+    if (showMessages && messages.length > 0) {
+      // Faqat yangi ochilgan xabarlarni "read" qilish
+      const newMessages = messages.filter(m => m.status === 'new');
+      if (newMessages.length > 0) {
+        // Barcha yangi xabarlarni bir vaqtda "read" qilish
+        Promise.all(
+          newMessages.map(m => m._id && markAsReadMut.mutateAsync(m._id))
+        ).then(() => {
+          // Xabarlar yangilangandan keyin query'ni invalidate qilish
+          qc.invalidateQueries({ queryKey: ['allMessages'] });
+          toast.success(`${newMessages.length} message${newMessages.length > 1 ? 's' : ''} marked as read`);
+        });
+      }
+    }
+  }, [showMessages, messages, qc]);
   const saveSettingsMut = useMutation({
     mutationFn: updateSettings,
     onSuccess: () => {
@@ -79,10 +116,46 @@ export default function Admin() {
     onError: () => toast.error('Failed to delete service'),
   });
 
-  const startCreate = () => setEditing({ ...emptyDraft, category: categoryFilter, serviceType: 'standard-cleaning' });
+  const deleteMessageMut = useMutation({
+    mutationFn: deleteMessage,
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['messages'] });
+      qc.invalidateQueries({ queryKey: ['allMessages'] });
+      toast.success('Message deleted successfully!');
+    },
+    onError: () => toast.error('Failed to delete message'),
+  });
+
+  const markAsReadMut = useMutation({
+    mutationFn: markMessageAsRead,
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['messages'] });
+      qc.invalidateQueries({ queryKey: ['allMessages'] });
+    },
+    onError: () => toast.error('Failed to mark message as read'),
+  });
+
+  // Xabarlar sonini real-time yangilash
+  useEffect(() => {
+    if (unreadCount > 0) {
+      // Yangi xabar kelganda toast ko'rsatish (faqat bir marta)
+      const hasNewMessages = allMessages.some(m => m.status === 'new');
+      if (hasNewMessages) {
+        toast.info(`You have ${unreadCount} new message${unreadCount > 1 ? 's' : ''}!`);
+      }
+    }
+  }, [unreadCount, allMessages]);
+
+  const startCreate = () => setEditing({ 
+    ...emptyDraft, 
+    category: categoryFilter, 
+    serviceType: categoryFilter === 'residential' ? 'standard-cleaning' : 'office-cleaning' 
+  });
   const startEdit = (s: Service) => {
     const priceWithoutDollar = s.price?.startsWith('$') ? s.price.slice(1) : s.price;
-    setEditing({ ...s, price: priceWithoutDollar || '' });
+    // Ensure serviceType is populated for legacy records
+    const fallbackType = s.category === 'residential' ? 'standard-cleaning' : 'office-cleaning';
+    setEditing({ ...s, serviceType: (s as any).serviceType || (fallbackType as any), price: priceWithoutDollar || '' });
   };
   const cancelEdit = () => setEditing(null);
   const confirmDelete = (id: string) => setDeleteConfirm(id);
@@ -143,7 +216,7 @@ export default function Admin() {
       <header className="sticky top-0 z-50 bg-white border-b">
         <div className="container mx-auto px-4 py-4">
           <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-3">
               <h1 className="text-xl sm:text-2xl font-bold text-brand-navy">Admin Panel</h1>
             </div>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
@@ -156,9 +229,34 @@ export default function Admin() {
                   <SelectItem value="commercial">Commercial</SelectItem>
                 </SelectContent>
               </Select>
-              <Button variant="brand" onClick={startCreate} className="w-full sm:w-auto">
-                <Plus className="w-4 h-4" /> Add Service
-              </Button>
+              {/* Desktop ko'rinishda tugmalar */}
+              <div className="hidden sm:flex gap-3">
+                <Button variant="brand" onClick={startCreate}>
+                  <Plus className="w-4 h-4" /> Add Service
+                </Button>
+                <Button variant="brand-secondary" onClick={() => setShowMessages(true)}>
+                  Messages
+                  {unreadCount > 0 && (
+                    <span className="ml-2 bg-red-500 text-white text-xs rounded-full px-2 py-1 min-w-[20px] flex items-center justify-center">
+                      {unreadCount}
+                    </span>
+                  )}
+                </Button>
+              </div>
+              {/* Mobile ko'rinishda tugmalar yonma-yon */}
+              <div className="flex sm:hidden gap-3 w-full">
+                <Button variant="brand" onClick={startCreate} className="flex-1">
+                  <Plus className="w-4 h-4" /> Add Service
+                </Button>
+                <Button variant="brand-secondary" onClick={() => setShowMessages(true)} className="flex-1">
+                  Messages
+                  {unreadCount > 0 && (
+                    <span className="ml-2 bg-red-500 text-white text-xs rounded-full px-2 py-1 min-w-[20px] flex items-center justify-center">
+                      {unreadCount}
+                    </span>
+                  )}
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -198,6 +296,10 @@ export default function Admin() {
                 <Label>Instagram</Label>
                 <Input value={settingsDraft?.social?.instagram || ''} onChange={(e) => setSettingsDraft(prev => ({ ...(prev as SiteSettings), social: { ...(prev as SiteSettings)?.social, instagram: e.target.value } }))} />
               </div>
+            </div>
+            <div>
+              <Label>Telegram</Label>
+              <Input value={settingsDraft?.social?.telegram || ''} onChange={(e) => setSettingsDraft(prev => ({ ...(prev as SiteSettings), social: { ...(prev as SiteSettings)?.social, telegram: e.target.value } }))} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -261,8 +363,11 @@ export default function Admin() {
                     </CardHeader>
                     <CardContent className="space-y-3 p-4 sm:p-6 pt-0">
                       <div className="aspect-video w-full rounded-lg overflow-hidden bg-gray-100">
-                        {s.images?.before ? (
-                          <img src={s.images.before} alt="Before" className="w-full h-full object-cover" />
+                        {(s.images?.before || s.images?.after) ? (
+                          <BeforeAfterSlider 
+                            beforeImageUrl={s.images?.before || s.images?.after || ''}
+                            afterImageUrl={s.images?.after || s.images?.before || ''}
+                          />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-gray-400">
                             <Image className="w-8 h-8" />
@@ -301,6 +406,54 @@ export default function Admin() {
         </Card>
       </main>
 
+             {/* Messages Modal */}
+       {showMessages && (
+         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-2 sm:p-4">
+           <div className="bg-white w-full max-w-4xl rounded-xl shadow-xl overflow-hidden max-h-[95vh] sm:max-h-[90vh]">
+                           <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b">
+                <h2 className="text-lg sm:text-xl font-semibold text-brand-navy">Messages</h2>
+                <Button variant="ghost" onClick={() => setShowMessages(false)} size="sm"><X className="w-4 h-4" /></Button>
+              </div>
+            <div className="p-4 sm:p-6 space-y-4 max-h-[calc(95vh-80px)] sm:max-h-[calc(90vh-80px)] overflow-y-auto">
+              {messagesLoading ? (
+                <p className="text-muted-foreground">Loading...</p>
+              ) : messages?.length ? (
+                <div className="space-y-3">
+                                     {messages.map((m) => (
+                     <Card key={m._id} className="border shadow-soft">
+                       <CardHeader className="pb-2">
+                         <div className="flex items-start justify-between">
+                           <CardTitle className="text-brand-navy text-base">
+                             {m.firstName} {m.lastName} • {m.email} • {m.phone}
+                           </CardTitle>
+                           <Button
+                             variant="destructive"
+                             size="sm"
+                             onClick={() => deleteMessageMut.mutate(m._id!)}
+                             disabled={deleteMessageMut.isPending}
+                             className="ml-2"
+                           >
+                             <Trash2 className="w-4 h-4" />
+                           </Button>
+                         </div>
+                       </CardHeader>
+                       <CardContent className="text-sm text-muted-foreground space-y-2">
+                         <p><b>Service:</b> {m.serviceNeeded}</p>
+                         {m.location && <p><b>Location:</b> {m.location}</p>}
+                         {m.details && <p className="whitespace-pre-wrap"><b>Details:</b> {m.details}</p>}
+                         <p className="text-xs">{new Date(m.createdAt!).toLocaleString()}</p>
+                       </CardContent>
+                     </Card>
+                   ))}
+                </div>
+              ) : (
+                <p className="text-muted-foreground">No messages yet.</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Edit Modal */}
       {editing && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-2 sm:p-4">
@@ -313,7 +466,11 @@ export default function Admin() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label>Category</Label>
-                  <Select value={editing.category} onValueChange={(v) => setEditing({ ...editing, category: v as ServiceCategory })}>
+                  <Select value={editing.category} onValueChange={(v) => {
+                    const nextCategory = v as ServiceCategory;
+                    const defaultType = nextCategory === 'residential' ? 'standard-cleaning' : 'office-cleaning';
+                    setEditing({ ...editing, category: nextCategory, serviceType: (editing.serviceType as any) || (defaultType as any) });
+                  }}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="residential">Residential</SelectItem>
@@ -404,27 +561,46 @@ export default function Admin() {
                   {editing.features.map((f, idx) => (
                     <div key={idx} className="flex flex-col sm:flex-row gap-2">
                       <Input value={f} onChange={(e) => setFeature(idx, e.target.value)} />
-                      <Button variant="destructive" size="icon" onClick={() => removeFeature(idx)} className="w-full sm:w-auto"><Trash2 /></Button>
+                      <Button
+                        variant="destructive"
+                        onClick={() => removeFeature(idx)}
+                        className="w-full sm:w-16 h-10 justify-center"
+                        aria-label="Remove feature"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </Button>
                     </div>
                   ))}
                   <Button variant="brand-outline" size="sm" onClick={addFeature} className="w-full sm:w-auto"><Plus className="w-4 h-4" /> Add feature</Button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-3">
                 <div>
-                  <Label>Before image</Label>
+                  <Label>Images Preview</Label>
                   <div className="aspect-video w-full rounded-lg overflow-hidden bg-gray-100 mb-2">
-                    {editing.images.before && <img src={editing.images.before} className="w-full h-full object-cover" />}
+                    {(editing.images.before || editing.images.after) ? (
+                      <BeforeAfterSlider 
+                        beforeImageUrl={editing.images.before || editing.images.after}
+                        afterImageUrl={editing.images.after || editing.images.before}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-400">
+                        <Image className="w-8 h-8" />
+                      </div>
+                    )}
                   </div>
-                  <Input type="file" accept="image/*" onChange={(e) => onPickImage('before', e.target.files?.[0])} />
                 </div>
-                <div>
-                  <Label>After image</Label>
-                  <div className="aspect-video w-full rounded-lg overflow-hidden bg-gray-100 mb-2">
-                    {editing.images.after && <img src={editing.images.after} className="w-full h-full object-cover" />}
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <Label>Before image</Label>
+                    <Input type="file" accept="image/*" onChange={(e) => onPickImage('before', e.target.files?.[0])} />
                   </div>
-                  <Input type="file" accept="image/*" onChange={(e) => onPickImage('after', e.target.files?.[0])} />
+                  <div>
+                    <Label>After image</Label>
+                    <Input type="file" accept="image/*" onChange={(e) => onPickImage('after', e.target.files?.[0])} />
+                  </div>
                 </div>
               </div>
 

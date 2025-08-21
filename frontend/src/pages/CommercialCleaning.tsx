@@ -20,9 +20,8 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { listServices } from "@/lib/api";
+import { listServices, getSettings } from "@/lib/api";
 import type { Service, ServiceType } from "@/lib/types";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const CommercialCleaning = () => {
   const [selectedServiceType, setSelectedServiceType] = useState<ServiceType | 'all'>('all');
@@ -31,6 +30,8 @@ const CommercialCleaning = () => {
     queryKey: ["services", "commercial"],
     queryFn: () => listServices("commercial"),
   });
+
+  const { data: settings } = useQuery({ queryKey: ['settings'], queryFn: getSettings });
 
   // Filter services by selected type
   const filteredServices = selectedServiceType === 'all' 
@@ -194,22 +195,28 @@ const CommercialCleaning = () => {
                 <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
                   Specialized cleaning solutions designed for businesses of all sizes and industries
                 </p>
-                
-                {/* Service Type Filter */}
-                <div className="flex justify-center mb-8">
-                  <Select value={selectedServiceType} onValueChange={(value) => setSelectedServiceType(value as ServiceType | 'all')}>
-                    <SelectTrigger className="w-64">
-                      <SelectValue placeholder="Filter by service type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Services</SelectItem>
-                      <SelectItem value="office-cleaning">Office Cleaning</SelectItem>
-                      <SelectItem value="retail-cleaning">Retail Cleaning</SelectItem>
-                      <SelectItem value="medical-clinic-cleaning">Medical/Clinic Cleaning</SelectItem>
-                      <SelectItem value="restaurant-cleaning">Restaurant Cleaning</SelectItem>
-                      <SelectItem value="post-construction-cleaning">Post-construction Cleaning</SelectItem>
-                    </SelectContent>
-                  </Select>
+                {/* Service Type Filter as clickable cards */}
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 max-w-5xl mx-auto">
+                  {[
+                    { key: 'all' as const, label: 'All Services' },
+                    { key: 'office-cleaning' as const, label: 'Office Cleaning' },
+                    { key: 'retail-cleaning' as const, label: 'Retail Cleaning' },
+                    { key: 'medical-clinic-cleaning' as const, label: 'Medical/Clinic' },
+                    { key: 'restaurant-cleaning' as const, label: 'Restaurant' },
+                    { key: 'post-construction-cleaning' as const, label: 'Post-construction' },
+                  ].map((opt) => (
+                    <button
+                      key={opt.key}
+                      onClick={() => setSelectedServiceType(opt.key)}
+                      className={`px-3 py-2 rounded-lg border transition-all text-sm font-medium 
+                        ${selectedServiceType === opt.key 
+                          ? 'bg-brand-navy text-white border-brand-navy shadow-brand' 
+                          : 'bg-white text-brand-navy border-gray-200 hover:border-brand-navy/50 hover:shadow'}
+                      `}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
                 </div>
               </div>
 
@@ -294,17 +301,28 @@ const CommercialCleaning = () => {
                         </div>
 
                         <div className="flex gap-2">
-                          <Button 
-                            variant="white-on-dark"
-                            size="lg"
-                            className="flex-1"
-                          >
-                            Get Quote
-                          </Button>
+                          <Link to="/contact#contact-form" className="flex-1">
+                            <Button 
+                              variant="white-on-dark"
+                              size="lg"
+                              className="w-full"
+                            >
+                              Get Quote
+                            </Button>
+                          </Link>
                           <Button 
                             variant="brand" 
                             size="lg"
                             className="flex-1"
+                            onClick={() => {
+                              const telegramLink = settings?.social?.telegram;
+                              if (telegramLink) {
+                                window.open(telegramLink, '_blank');
+                              } else {
+                                // Telegram link topilmaganda xabar ko'rsatish
+                                alert('Telegram link not configured. Please contact admin.');
+                              }
+                            }}
                           >
                             Book Service
                           </Button>
@@ -360,8 +378,8 @@ const CommercialCleaning = () => {
           </section>
         </div>
 
-        {/* CTA Section - Now with proper z-index */}
-        <div className="relative z-10 bg-gradient-hero text-white">
+        {/* CTA Section - Now with proper z-index and margin */}
+        <div className="relative z-10 bg-gradient-hero text-white mb-0">
           <section className="py-20">
             <div className="container mx-auto px-4 text-center">
               <h2 className="text-4xl font-bold mb-6">

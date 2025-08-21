@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import servicesRouter from './routes/services.js';
 import settingsRouter from './routes/settings.js';
+import messagesRouter from './routes/messages.js';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/services', servicesRouter);
 app.use('/api/settings', settingsRouter);
+app.use('/api/messages', messagesRouter);
 
 mongoose
   .connect(MONGODB_URI)

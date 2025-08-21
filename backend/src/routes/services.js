@@ -31,7 +31,11 @@ router.get('/:id', async (req, res) => {
 // Create (admin)
 router.post('/', requireAdmin, async (req, res) => {
   try {
-    const created = await Service.create(req.body);
+    const input = { ...req.body };
+    if (!input.serviceType) {
+      input.serviceType = input.category === 'commercial' ? 'office-cleaning' : 'standard-cleaning';
+    }
+    const created = await Service.create(input);
     res.status(201).json(created);
   } catch (e) {
     res.status(400).json({ error: 'Failed to create', details: e.message });
@@ -41,7 +45,11 @@ router.post('/', requireAdmin, async (req, res) => {
 // Update (admin)
 router.put('/:id', requireAdmin, async (req, res) => {
   try {
-    const updated = await Service.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const input = { ...req.body };
+    if (!input.serviceType && input.category) {
+      input.serviceType = input.category === 'commercial' ? 'office-cleaning' : 'standard-cleaning';
+    }
+    const updated = await Service.findByIdAndUpdate(req.params.id, input, { new: true });
     if (!updated) return res.status(404).json({ error: 'Not found' });
     res.json(updated);
   } catch (e) {

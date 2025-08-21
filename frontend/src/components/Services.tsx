@@ -17,8 +17,11 @@ import {
   ArrowRight
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getSettings } from "@/lib/api";
 
 const Services = () => {
+  const { data: settings } = useQuery({ queryKey: ['settings'], queryFn: getSettings });
   const cleaningServices = [
     {
       title: "Standard & Deep Cleaning",
@@ -476,16 +479,26 @@ const Services = () => {
                         variant="brand"
                         size="lg"
                         className="w-full sm:w-auto"
+                        onClick={() => {
+                          const telegramLink = settings?.social?.telegram;
+                          if (telegramLink) {
+                            window.open(telegramLink, '_blank');
+                          } else {
+                            alert('Telegram link not configured. Please contact admin.');
+                          }
+                        }}
                       >
                         Book This Service
                       </Button>
-                      <Button 
-                        variant="brand-outline" 
-                        size="lg"
-                        className="w-full sm:w-auto"
-                      >
-                        Get Quote
-                      </Button>
+                      <Link to="/contact" className="w-full sm:w-auto">
+                        <Button 
+                          variant="brand-outline" 
+                          size="lg"
+                          className="w-full"
+                        >
+                          Get Quote
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </DialogContent>
@@ -503,7 +516,7 @@ const Services = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center">
+        <div className="text-center mb-0">
           <h2 className="text-4xl font-bold text-brand-navy mb-6">
             Ready to get started?
           </h2>
@@ -519,14 +532,20 @@ const Services = () => {
                 Get Quote
               </Button>
             </Link>
-            <Link to="/contact">
-              <Button 
-                variant="outline-white" 
-                size="lg"
-              >
-                Book Service
-              </Button>
-            </Link>
+            <Button 
+              variant="outline-white" 
+              size="lg"
+              onClick={() => {
+                const telegramLink = settings?.social?.telegram;
+                if (telegramLink) {
+                  window.open(telegramLink, '_blank');
+                } else {
+                  alert('Telegram link not configured. Please contact admin.');
+                }
+              }}
+            >
+              Book Service
+            </Button>
           </div>
         </div>
       </div>

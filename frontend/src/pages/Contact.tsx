@@ -20,11 +20,13 @@ import {
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getSettings } from "@/lib/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getSettings, submitMessage } from "@/lib/api";
+import { toast } from "sonner";
 
 const Contact = () => {
   const { data: settings } = useQuery({ queryKey: ['settings'], queryFn: getSettings });
+
   
   const contactInfo = [
     {
@@ -256,7 +258,7 @@ const Contact = () => {
         </div>
 
         {/* Contact Form Section - Now with proper z-index */}
-        <div className="relative z-10 bg-gradient-service">
+        <div className="relative z-10 bg-gradient-service" id="contact-form">
           <section className="py-20">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
@@ -276,7 +278,28 @@ const Contact = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <form className="space-y-6">
+                    <form className="space-y-6" onSubmit={async (e) => {
+                      e.preventDefault();
+                      const form = e.currentTarget as HTMLFormElement;
+                      const fd = new FormData(form);
+                      const payload = {
+                        firstName: String(fd.get('firstName') || ''),
+                        lastName: String(fd.get('lastName') || ''),
+                        email: String(fd.get('email') || ''),
+                        phone: String(fd.get('phone') || ''),
+                        serviceNeeded: String(fd.get('service') || ''),
+                        location: String(fd.get('location') || ''),
+                        details: String(fd.get('message') || ''),
+                        page: 'contact'
+                      };
+                      try {
+                        await submitMessage(payload);
+                        toast.success('Message sent successfully!');
+                        form.reset();
+                      } catch (err) {
+                        toast.error('Failed to send message');
+                      }
+                    }}>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
                           <Label htmlFor="firstName" className="text-brand-navy font-semibold">
@@ -284,6 +307,7 @@ const Contact = () => {
                           </Label>
                           <Input 
                             id="firstName" 
+                            name="firstName"
                             placeholder="Enter your first name"
                             className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise"
                           />
@@ -294,6 +318,7 @@ const Contact = () => {
                           </Label>
                           <Input 
                             id="lastName" 
+                            name="lastName"
                             placeholder="Enter your last name"
                             className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise"
                           />
@@ -308,6 +333,7 @@ const Contact = () => {
                           <Input 
                             id="email" 
                             type="email"
+                            name="email"
                             placeholder="Enter your email address"
                             className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise"
                           />
@@ -319,6 +345,7 @@ const Contact = () => {
                           <Input 
                             id="phone" 
                             type="tel"
+                            name="phone"
                             placeholder="Enter your phone number"
                             className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise"
                           />
@@ -330,7 +357,7 @@ const Contact = () => {
                           <Label htmlFor="service" className="text-brand-navy font-semibold">
                             Service Needed *
                           </Label>
-                          <Select>
+                          <Select name="service">
                             <SelectTrigger className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise">
                               <SelectValue placeholder="Select a service" />
                             </SelectTrigger>
@@ -349,6 +376,7 @@ const Contact = () => {
                           </Label>
                           <Input 
                             id="location" 
+                            name="location"
                             placeholder="Enter your location or address"
                             className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise"
                           />
@@ -361,6 +389,7 @@ const Contact = () => {
                         </Label>
                         <Textarea 
                           id="message" 
+                          name="message"
                           placeholder="Tell us more about your cleaning needs, preferred dates, or any special requirements..."
                           rows={4}
                           className="border-gray-300 focus:border-brand-turquoise focus:ring-brand-turquoise"
@@ -462,8 +491,8 @@ const Contact = () => {
           </section>
         </div>
 
-        {/* CTA Section - Now with proper z-index */}
-        <div className="relative z-10 bg-gradient-hero text-white">
+        {/* CTA Section - Now with proper z-index and margin */}
+        <div className="relative z-10 bg-gradient-hero text-white mb-0">
           <section className="py-20">
             <div className="container mx-auto px-4 text-center">
               <h2 className="text-4xl font-bold mb-6">
