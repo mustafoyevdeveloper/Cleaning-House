@@ -3,52 +3,63 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
-  MapPin, 
-  Clock, 
   Users, 
+  Target, 
   Award, 
-  Heart, 
-  Star,
+  Shield,
   CheckCircle,
+  Star,
+  Heart,
   Building,
-  Sparkles
+  MapPin,
+  Phone,
+  Mail
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const AboutUs = () => {
-  const serviceAreas = ["Pasco", "Pinellas", "Hernando", "Hillsborough"];
-  
-  const whyChooseUs = [
+  const teamMembers = [
     {
-      icon: Clock,
-      title: "Many Years of Experience",
-      description: "We look back on many years of experience in professional craftsmanship and maintenance."
+      name: "Sarah Johnson",
+      position: "Founder & CEO",
+      description: "With over 15 years in the cleaning industry, Sarah leads our company with passion and expertise.",
+      image: "👩‍💼"
     },
     {
-      icon: Heart,
-      title: "We specialize in Happiness",
-      description: "Our focus is what makes you happy. No matter how hard a job is, we will be happy to help."
+      name: "Mike Rodriguez",
+      position: "Operations Manager",
+      description: "Mike ensures every service meets our high standards and customer expectations.",
+      image: "👨‍💼"
     },
     {
-      icon: Award,
-      title: "Affordable rates",
-      description: "Thanks to us, almost everyone can now get professional home improvement services."
-    },
-    {
-      icon: CheckCircle,
-      title: "It depends on the details",
-      description: "The eye for beauty, cleanliness and solid craftsmanship helps us improve your home just from a single source."
+      name: "Emily Chen",
+      position: "Customer Success Manager",
+      description: "Emily is dedicated to ensuring every customer has an exceptional experience.",
+      image: "👩‍💻"
     }
   ];
 
-  const workExamples = [
-    "Pressure Washing",
-    "Remodeling", 
-    "Front and Backyard",
-    "Pool Deck Construction",
-    "Painting",
-    "Fence Repair",
-    "Gutter & Roof Cleaning"
+  const certifications = [
+    {
+      title: "Licensed & Bonded",
+      description: "Fully licensed by the state of Texas with comprehensive bonding for your protection",
+      icon: Shield
+    },
+    {
+      title: "Insured",
+      description: "General liability insurance covering up to $2 million for complete peace of mind",
+      icon: Shield
+    },
+    {
+      title: "EPA Certified",
+      description: "Certified in safe and effective cleaning practices by the Environmental Protection Agency",
+      icon: Award
+    },
+    {
+      title: "Green Cleaning Certified",
+      description: "Certified in eco-friendly cleaning methods and sustainable practices",
+      icon: Award
+    }
   ];
 
   return (
@@ -60,118 +71,135 @@ const AboutUs = () => {
         <section className="py-20 bg-gradient-to-br from-brand-navy to-brand-navy/90 text-white">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              About All Around Your House
+              About Us
             </h1>
             <p className="text-xl md:text-2xl text-brand-cream max-w-4xl mx-auto leading-relaxed">
-              Professional Home Improvement and Cleaning Services in the Greater Tampa Bay Area
+              All Around Your House - Your trusted partner for professional cleaning and maintenance services
             </p>
             <div className="w-24 h-1 bg-brand-turquoise mx-auto mt-8"></div>
           </div>
         </section>
 
-        {/* Company Story */}
+        {/* Company Story Section */}
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-4xl font-bold text-brand-navy mb-8">
-                  We've got you covered!
+                <h2 className="text-4xl font-bold text-brand-navy mb-6">
+                  Our Story
                 </h2>
-                
-                <div className="mb-8">
-                  <h3 className="text-2xl font-semibold text-brand-navy mb-4">Service Areas:</h3>
-                  <div className="flex flex-wrap gap-3">
-                    {serviceAreas.map((area) => (
-                      <span key={area} className="px-4 py-2 bg-brand-turquoise/10 text-brand-turquoise rounded-full font-medium">
-                        {area}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-                  <p>
-                    Welcome to <strong>All Around your House</strong>, the new address for Home Improvement and Cleaning Services in Pasco.
-                  </p>
-                  <p>
-                    We gained the experience as handymen and building cleaners for years in Germany before coming to the USA. With the help of this experience, we can say that we are your best choice for any maintenance and beautification project around your home.
-                  </p>
-                  <p>
-                    We know how important it is to have a beautiful, clean, and comfortable home. We have professional knowledge and practical experience in all services such as home improvement, cleaning services and our special interior design coaching. We care about your home.
-                  </p>
-                </div>
-
-                <div className="mt-8">
-                  <h3 className="text-2xl font-semibold text-brand-navy mb-4">What are you looking for today?</h3>
-                  <div className="flex flex-wrap gap-4">
-                    <Link to="/cleaning-services">
-                      <Button variant="white-on-dark">
-                        <Sparkles className="w-4 h-4 mr-2" />
-                        Cleaning Services
-                      </Button>
-                    </Link>
-                    <Link to="/home-improvement">
-                      <Button variant="outline-white">
-                        <Building className="w-4 h-4 mr-2" />
-                        Home Improvement
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
+                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                  Founded in 2018, All Around Your House began with a simple mission: to provide exceptional cleaning and maintenance services that make a real difference in people's lives.
+                </p>
+                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                  What started as a small local cleaning service has grown into a trusted company serving homes and businesses across the Dallas-Fort Worth metroplex. Our journey has been driven by our commitment to quality, reliability, and customer satisfaction.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Today, we're proud to be the go-to choice for residential and commercial cleaning needs, known for our attention to detail, professional approach, and dedication to exceeding expectations.
+                </p>
               </div>
-
-              <div className="relative">
-                <div className="bg-gradient-hero rounded-2xl p-8 text-white">
-                  <div className="text-center">
-                    <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Building className="w-12 h-12" />
-                    </div>
-                    <h3 className="text-2xl font-bold mb-4">Ready to improve your home professionally?</h3>
-                    <p className="text-lg mb-6">
-                      Better leave it to us. Our professional home improvement team will gladly help you transform any problem into happiness.
-                    </p>
-                    <Link to="/contact">
-                      <Button variant="white-on-dark" size="lg">
-                        Contact Us
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
+              <div className="bg-gradient-hero p-8 rounded-2xl text-white text-center">
+                <Building className="w-24 h-24 mx-auto mb-6" />
+                <h3 className="text-2xl font-bold mb-4">Serving DFW Since 2018</h3>
+                <p className="text-lg">Over 5 years of excellence in cleaning and maintenance services</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Why Choose Us */}
-        <section className="py-20 bg-brand-cream">
+        {/* Mission & Values Section */}
+        <section className="py-20 bg-gradient-service">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-brand-navy mb-6">
-                Why choose us?
+                Our Mission & Values
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                We bring German precision and American service quality to every project
+                We're driven by core values that guide everything we do
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {whyChooseUs.map((item, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Target className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-brand-navy mb-3">Excellence</h3>
+                <p className="text-muted-foreground">We strive for excellence in every service, every time</p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Heart className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-brand-navy mb-3">Care</h3>
+                <p className="text-muted-foreground">We care about our customers, our team, and our community</p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-brand-navy mb-3">Reliability</h3>
+                <p className="text-muted-foreground">You can count on us to deliver on our promises</p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Star className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-brand-navy mb-3">Quality</h3>
+                <p className="text-muted-foreground">We never compromise on the quality of our services</p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Users className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-brand-navy mb-3">Teamwork</h3>
+                <p className="text-muted-foreground">We work together to achieve the best results</p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Shield className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-brand-navy mb-3">Integrity</h3>
+                <p className="text-muted-foreground">We conduct business with honesty and transparency</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Certifications Section */}
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-brand-navy mb-6">
+                Certifications, Insurance & License
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Your peace of mind is our priority. We maintain all necessary credentials and protections.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {certifications.map((cert, index) => (
                 <Card 
-                  key={item.title}
-                  className="text-center border-0 shadow-soft hover:shadow-brand transition-all duration-300 hover:-translate-y-2"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  key={cert.title}
+                  className="text-center hover:shadow-brand transition-all duration-300 hover:-translate-y-2 border-0 shadow-soft"
                 >
-                  <CardHeader>
+                  <CardHeader className="pb-4">
                     <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
-                      <item.icon className="w-8 h-8 text-white" />
+                      <cert.icon className="w-8 h-8 text-white" />
                     </div>
-                    <CardTitle className="text-xl font-bold text-brand-navy">
-                      {item.title}
+                    <CardTitle className="text-lg font-bold text-brand-navy">
+                      {cert.title}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {item.description}
+                    <p className="text-muted-foreground text-sm">
+                      {cert.description}
                     </p>
                   </CardContent>
                 </Card>
@@ -180,40 +208,74 @@ const AboutUs = () => {
           </div>
         </section>
 
-        {/* Work Examples */}
-        <section className="py-20 bg-white">
+        {/* Meet the Team Section */}
+        <section className="py-20 bg-gradient-service">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-brand-navy mb-6">
-                Examples of our work
+                Meet Our Team
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                From pressure washing to complete remodeling, we handle it all
+                Dedicated professionals committed to delivering exceptional service
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-              {workExamples.map((work) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {teamMembers.map((member, index) => (
                 <Card 
-                  key={work}
-                  className="text-center border-0 shadow-soft hover:shadow-brand transition-all duration-300 cursor-pointer"
+                  key={member.name}
+                  className="text-center hover:shadow-brand transition-all duration-300 hover:-translate-y-2 border-0 shadow-soft"
                 >
-                  <CardContent className="p-6">
-                    <div className="w-12 h-12 bg-brand-turquoise/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <Star className="w-6 h-6 text-brand-turquoise" />
+                  <CardHeader className="pb-4">
+                    <div className="w-24 h-24 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4 text-4xl">
+                      {member.image}
                     </div>
-                    <p className="text-sm font-medium text-brand-navy">{work}</p>
+                    <CardTitle className="text-xl font-bold text-brand-navy">
+                      {member.name}
+                    </CardTitle>
+                    <p className="text-brand-turquoise font-semibold">
+                      {member.position}
+                    </p>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">
+                      {member.description}
+                    </p>
                   </CardContent>
                 </Card>
               ))}
             </div>
+          </div>
+        </section>
 
-            <div className="text-center mt-12">
-              <Link to="/services">
-                <Button variant="white-on-dark" size="xl">
-                  View All Services
-                </Button>
-              </Link>
+        {/* Service Areas Section */}
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-brand-navy mb-6">
+                Service Areas
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                We proudly serve the Dallas-Fort Worth metroplex and surrounding areas
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="text-center p-6 bg-muted/50 rounded-lg">
+                <MapPin className="w-12 h-12 text-brand-turquoise mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-brand-navy mb-2">Dallas</h3>
+                <p className="text-muted-foreground">Downtown, Uptown, Oak Lawn, Lakewood</p>
+              </div>
+              <div className="text-center p-6 bg-muted/50 rounded-lg">
+                <MapPin className="w-12 h-12 text-brand-turquoise mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-brand-navy mb-2">Fort Worth</h3>
+                <p className="text-muted-foreground">Cultural District, West 7th, TCU Area</p>
+              </div>
+              <div className="text-center p-6 bg-muted/50 rounded-lg">
+                <MapPin className="w-12 h-12 text-brand-turquoise mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-brand-navy mb-2">Suburbs</h3>
+                <p className="text-muted-foreground">Plano, Irving, Arlington, Grapevine</p>
+              </div>
             </div>
           </div>
         </section>
@@ -222,20 +284,26 @@ const AboutUs = () => {
         <section className="py-20 bg-gradient-hero text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-4xl font-bold mb-6">
-              Ready to transform your space?
+              Ready to work with us?
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Let our experienced team help you create the home of your dreams with professional quality and attention to detail.
+              Contact us today to learn more about our services and get a free quote.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link to="/contact">
-                <Button variant="white-on-dark" size="xl">
+                <Button 
+                  variant="white-on-dark"
+                  size="lg"
+                >
                   Get Free Quote
                 </Button>
               </Link>
-              <Link to="/services">
-                <Button variant="outline-white" size="xl">
-                  Our Services
+              <Link to="/residential-cleaning">
+                <Button 
+                  variant="outline-white" 
+                  size="lg"
+                >
+                  View Services
                 </Button>
               </Link>
             </div>

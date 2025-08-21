@@ -1,4 +1,5 @@
 import { Phone, Mail, MapPin, Facebook, Instagram } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -38,34 +39,27 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Services & Quick Links Row */}
-          <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Services */}
-            <div>
-              <h4 className="text-lg font-semibold mb-6">Our Services</h4>
-              <ul className="space-y-3">
-                {services.map((service) => (
-                  <li key={service}>
-                    <a href="#" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">
-                      {service}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Services */}
+          <div className="lg:col-span-1">
+            <h4 className="text-lg font-semibold mb-6">Our Services</h4>
+            <ul className="space-y-3">
+              <li><Link to="/residential-cleaning" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Residential Cleaning</Link></li>
+              <li><Link to="/commercial-cleaning" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Commercial Cleaning</Link></li>
+              <li><Link to="/about-us" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">About Us</Link></li>
+              <li><Link to="/contact" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Contact Us</Link></li>
+            </ul>
+          </div>
 
-            {/* Quick Links */}
-            <div>
-              <h4 className="text-lg font-semibold mb-6">Quick Links</h4>
-              <ul className="space-y-3">
-                <li><a href="#home" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Home</a></li>
-                <li><a href="#about" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">About Us</a></li>
-                <li><a href="#services" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Services</a></li>
-                <li><a href="#contact" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Contact</a></li>
-                <li><a href="#jobs" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Careers</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Privacy Policy</a></li>
-              </ul>
-            </div>
+          {/* Quick Links */}
+          <div className="lg:col-span-1">
+            <h4 className="text-lg font-semibold mb-6">Quick Links</h4>
+            <ul className="space-y-3">
+              <li><Link to="/" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Home</Link></li>
+              <li><Link to="/about-us" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">About Us</Link></li>
+              <li><Link to="/residential-cleaning" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Residential Cleaning</Link></li>
+              <li><Link to="/commercial-cleaning" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Commercial Cleaning</Link></li>
+              <li><Link to="/contact" className="text-gray-300 hover:text-brand-turquoise transition-colors text-sm">Contact Us</Link></li>
+            </ul>
           </div>
 
           {/* Contact Info */}

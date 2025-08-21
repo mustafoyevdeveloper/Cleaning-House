@@ -7,14 +7,11 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigationItems = [
-    { name: "Home", href: "/" },
-    { name: "About Us", href: "/about-us" },
-    { name: "Services", href: "/services" },
-    { name: "Home Improvement", href: "/home-improvement" },
-    { name: "Cleaning Services", href: "/cleaning-services" },
-    { name: "Interior Design", href: "/interior-design" },
-    { name: "Real Estate Services", href: "/real-estate-services" },
-    { name: "Jobs", href: "/jobs" },
+    { name: "Home", to: "/" },
+    { name: "About Us", to: "/about-us" },
+    { name: "Residential Cleaning", to: "/residential-cleaning" },
+    { name: "Commercial Cleaning", to: "/commercial-cleaning" },
+    { name: "Contact Us", to: "/contact" }
   ];
 
   return (
@@ -55,7 +52,7 @@ const Header = () => {
               {navigationItems.map((item) => (
                 <Link
                   key={item.name}
-                  to={item.href}
+                  to={item.to}
                   className="text-gray-700 hover:text-brand-turquoise transition-colors font-medium"
                 >
                   {item.name}
@@ -89,7 +86,7 @@ const Header = () => {
               {navigationItems.map((item) => (
                 <Link
                   key={item.name}
-                  to={item.href}
+                  to={item.to}
                   className="block py-3 text-gray-700 hover:text-brand-turquoise transition-colors border-b border-border last:border-b-0"
                   onClick={() => setIsMenuOpen(false)}
                 >

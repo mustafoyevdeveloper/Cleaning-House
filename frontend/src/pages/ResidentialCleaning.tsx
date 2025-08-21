@@ -1,0 +1,288 @@
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { 
+  Sparkles, 
+  Home, 
+  ArrowRight, 
+  Building,
+  Star,
+  CheckCircle,
+  Clock,
+  Shield
+} from "lucide-react";
+import { Link } from "react-router-dom";
+
+const ResidentialCleaning = () => {
+  const residentialServices = [
+    {
+      title: "Standard Cleaning",
+      description: "Regular maintenance cleaning to keep your home fresh and tidy",
+      icon: Sparkles,
+      features: [
+        "Dusting all surfaces and furniture",
+        "Vacuuming and mopping floors",
+        "Kitchen and bathroom cleaning",
+        "Trash removal and recycling",
+        "Basic organization and tidying",
+        "Mirror and glass cleaning"
+      ],
+      duration: "2-4 hours",
+      price: "Starting from $100",
+      bestFor: "Weekly or bi-weekly maintenance"
+    },
+    {
+      title: "Deep Cleaning",
+      description: "Comprehensive cleaning service for thorough home sanitization",
+      icon: Star,
+      features: [
+        "All standard cleaning services",
+        "Deep kitchen appliance cleaning",
+        "Cabinet and drawer cleaning inside/out",
+        "Baseboard and corner cleaning",
+        "Window tracks and sills",
+        "Light fixture cleaning",
+        "Air vent cleaning"
+      ],
+      duration: "4-8 hours",
+      price: "Starting from $200",
+      bestFor: "Monthly deep cleaning or special occasions"
+    },
+    {
+      title: "Move-in/Move-out Cleaning",
+      description: "Complete property cleaning for moving transitions",
+      icon: ArrowRight,
+      features: [
+        "Complete property deep cleaning",
+        "Cabinet and drawer cleaning inside/out",
+        "Appliance cleaning and sanitization",
+        "Floor care and carpet cleaning",
+        "Window and fixture cleaning",
+        "Wall washing and baseboard cleaning",
+        "Final walkthrough and inspection"
+      ],
+      duration: "4-8 hours",
+      price: "Starting from $250",
+      bestFor: "Moving in or out of properties"
+    },
+    {
+      title: "Apartment Cleaning",
+      description: "Specialized cleaning for apartment living spaces",
+      icon: Building,
+      features: [
+        "Compact space optimization",
+        "Efficient cleaning techniques",
+        "Storage area organization",
+        "Balcony and patio cleaning",
+        "Entryway and hallway cleaning",
+        "Pet-friendly cleaning options",
+        "Flexible scheduling"
+      ],
+      duration: "2-5 hours",
+      price: "Starting from $80",
+      bestFor: "Apartment residents and renters"
+    },
+    {
+      title: "Specialty Cleaning",
+      description: "Customized cleaning solutions for specific needs",
+      icon: Star,
+      features: [
+        "Carpet and upholstery cleaning",
+        "Window and blind cleaning",
+        "Oven and refrigerator deep cleaning",
+        "Microwave and small appliance cleaning",
+        "Ceiling fan and light fixture cleaning",
+        "Garage and storage cleaning",
+        "Custom cleaning projects"
+      ],
+      duration: "Varies by service",
+      price: "Starting from $50 per service",
+      bestFor: "Specific cleaning needs and maintenance"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen">
+      <Header />
+      
+      <main>
+        {/* Hero Section */}
+        <section className="py-20 bg-gradient-to-br from-brand-navy to-brand-navy/90 text-white">
+          <div className="container mx-auto px-4 text-center">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              Residential Cleaning
+            </h1>
+            <p className="text-xl md:text-2xl text-brand-cream max-w-4xl mx-auto leading-relaxed">
+              Professional home cleaning services tailored to your needs. From regular maintenance to deep cleaning, we keep your home spotless and comfortable.
+            </p>
+            <div className="w-24 h-1 bg-brand-turquoise mx-auto mt-8"></div>
+          </div>
+        </section>
+
+        {/* Services Section */}
+        <section className="py-20 bg-gradient-service">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-brand-navy mb-6">
+                Our Residential Services
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Comprehensive cleaning solutions designed specifically for homes and apartments
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {residentialServices.map((service, index) => (
+                <Card 
+                  key={service.title}
+                  className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <CardHeader className="text-center pb-4">
+                    <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                      <service.icon className="w-8 h-8 text-white" />
+                    </div>
+                    <CardTitle className="text-xl font-bold text-brand-navy">
+                      {service.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                    <p className="text-muted-foreground mb-6 leading-relaxed">
+                      {service.description}
+                    </p>
+                    
+                    <div className="mb-6">
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        {service.features.map((feature, i) => (
+                          <li key={i} className="flex items-center gap-2">
+                            <CheckCircle className="w-4 h-4 text-brand-turquoise flex-shrink-0" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-brand-turquoise" />
+                        <div>
+                          <p className="font-semibold text-brand-navy text-sm">Duration</p>
+                          <p className="text-xs text-muted-foreground">{service.duration}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Shield className="w-4 h-4 text-brand-turquoise" />
+                        <div>
+                          <p className="font-semibold text-brand-navy text-sm">Price</p>
+                          <p className="text-xs text-muted-foreground">{service.price}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
+                      <p className="text-sm text-brand-turquoise font-semibold">
+                        Best for: {service.bestFor}
+                      </p>
+                    </div>
+
+                    <div className="flex gap-2">
+                      <Button 
+                        variant="white-on-dark"
+                        size="lg"
+                        className="flex-1"
+                      >
+                        Get Quote
+                      </Button>
+                      <Button 
+                        variant="brand" 
+                        size="lg"
+                        className="flex-1"
+                      >
+                        Book Service
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Why Choose Us Section */}
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-brand-navy mb-6">
+                Why Choose Us for Residential Cleaning?
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                We understand that your home is your sanctuary. That's why we provide the highest quality cleaning services.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-brand-navy mb-3">Professional Team</h3>
+                <p className="text-muted-foreground">Trained, insured, and background-checked cleaners</p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Shield className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-brand-navy mb-3">Eco-Friendly Products</h3>
+                <p className="text-muted-foreground">Safe cleaning products for your family and pets</p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Clock className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-brand-navy mb-3">Flexible Scheduling</h3>
+                <p className="text-muted-foreground">Convenient appointment times that work for you</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 bg-gradient-hero text-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-4xl font-bold mb-6">
+              Ready for a cleaner home?
+            </h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto">
+              Contact us today for a free consultation and quote. Our experienced team is ready to transform your home.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link to="/contact">
+                <Button 
+                  variant="white-on-dark"
+                  size="lg"
+                >
+                  Get Free Quote
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button 
+                  variant="outline-white" 
+                  size="lg"
+                >
+                  Schedule Service
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default ResidentialCleaning;
