@@ -17,9 +17,11 @@ import {
   Facebook,
   Instagram,
   Menu,
-  Leaf
+  Leaf,
+  X
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const CommercialCleaning = () => {
   const commercialServices = [
@@ -110,6 +112,8 @@ const CommercialCleaning = () => {
     }
   ];
 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen">
       {/* Custom Header for CommercialCleaning - White Background */}
@@ -168,10 +172,69 @@ const CommercialCleaning = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <button className="lg:hidden text-gray-700">
-              <Menu className="w-6 h-6" />
+            <button 
+              className="lg:hidden text-gray-700 p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 relative z-50"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
+
+          {/* Mobile Navigation Menu */}
+          {isMobileMenuOpen && (
+            <div className="lg:hidden bg-white/95 backdrop-blur-sm mt-4 rounded-xl shadow-2xl border border-gray-200/50 mx-4">
+              <div className="py-6">
+                <div className="space-y-1">
+                  <Link
+                    to="/"
+                    className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    to="/about-us"
+                    className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    About Us
+                  </Link>
+                  <Link
+                    to="/residential-cleaning"
+                    className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Residential Cleaning
+                  </Link>
+                  <Link
+                    to="/commercial-cleaning"
+                    className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Commercial Cleaning
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Contact Us
+                  </Link>
+                </div>
+                <div className="px-6 pt-6 border-t border-gray-200 mt-4">
+                  <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Button variant="brand" className="w-full py-3">
+                      GET IN TOUCH
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
         </nav>
       </header>
       

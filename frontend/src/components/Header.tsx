@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, Facebook, Instagram, Leaf } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -6,15 +6,31 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   const navigationItems = [
     { name: "Home", to: "/" },
@@ -103,32 +119,73 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className={`lg:hidden transition-colors duration-300 ${
-              isScrolled ? 'text-gray-700' : 'text-white'
+            className={`lg:hidden transition-colors duration-300 p-2 rounded-lg hover:bg-white/10 relative z-50 ${
+              isScrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10'
             }`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <Menu className="w-6 h-6" />
+            {isMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
 
         {/* Mobile Navigation Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden bg-white/95 backdrop-blur-sm mt-4 rounded-lg shadow-lg border border-gray-200">
-            <div className="py-4">
-              {navigationItems.map((item) => (
+          <div className="lg:hidden bg-white/95 backdrop-blur-sm mt-4 rounded-xl shadow-2xl border border-gray-200/50 mx-4" ref={menuRef}>
+            <div className="py-6">
+              {/* Close Button */}
+              <div className="flex justify-end px-6 mb-4">
+                <button
+                  onClick={() => setIsMenuOpen(false)}
+                  className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                >
+                  <X className="w-5 h-5 text-gray-600" />
+                </button>
+              </div>
+              
+              <div className="space-y-1">
                 <Link
-                  key={item.name}
-                  to={item.to}
-                  className="block py-3 text-gray-700 hover:text-brand-turquoise transition-colors border-b border-border last:border-b-0"
+                  to="/"
+                  className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {item.name}
+                  Home
                 </Link>
-              ))}
-              <div className="pt-4">
-                <Link to="/contact">
-                  <Button variant="white-on-dark" className="w-full">
+                <Link
+                  to="/about-us"
+                  className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  About Us
+                </Link>
+                <Link
+                  to="/residential-cleaning"
+                  className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Residential Cleaning
+                </Link>
+                <Link
+                  to="/commercial-cleaning"
+                  className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Commercial Cleaning
+                </Link>
+                <Link
+                  to="/contact"
+                  className="block px-6 py-4 text-gray-700 hover:text-brand-turquoise hover:bg-gray-50 transition-all duration-200 font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Contact Us
+                </Link>
+              </div>
+              <div className="px-6 pt-6 border-t border-gray-200 mt-4">
+                <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
+                  <Button variant="brand" className="w-full py-3">
                     GET IN TOUCH
                   </Button>
                 </Link>
