@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "build": "echo 'Backend build not required for Node.js'"
   },
   "dependencies": {
     "cors": "^2.8.5",
