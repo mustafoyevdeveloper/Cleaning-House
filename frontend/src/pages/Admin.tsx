@@ -443,7 +443,7 @@ export default function Admin() {
                               <p><b>Category:</b> <span className="capitalize">{m.category || 'NOT SET'}</span></p>
                               <p><b>Service:</b> {m.serviceNeeded.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
                               {m.location && <p><b>Location:</b> {m.location}</p>}
-                              <p className="text-xs text-red-500">Debug: category = "{m.category}", serviceNeeded = "{m.serviceNeeded}"</p>
+                              
                             </div>
                             <div>
                               <p><b>Page:</b> {m.page || 'Website'}</p>
