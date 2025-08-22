@@ -72,7 +72,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <div className="w-12 h-12 flex items-center justify-center">
-              <img src="Logo.png" alt="FreshC Your House Services" className="w-12 h-12" />
+              {/* <img src="Logo.png" alt="FreshC Your House Services" className="w-12 h-12" /> */}
             </div>
             <div>
               <div className="flex items-center gap-2">

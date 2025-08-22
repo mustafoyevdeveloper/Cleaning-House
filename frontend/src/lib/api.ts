@@ -66,6 +66,16 @@ export type Settings = {
   social: { facebook?: string; instagram?: string; telegram?: string };
   hero: { title?: string; subtitle?: string };
   bottomBar: { enabled: boolean; message: string; buttonText: string; buttonLink: string };
+  aboutUs: {
+    ourStory: string;
+    blueBox: {
+      title: string;
+      subtitle: string;
+    };
+    images: {
+      blueBoxImage: string;
+    };
+  };
 };
 
 export async function getSettings(): Promise<Settings> {

@@ -74,7 +74,7 @@ const AboutUs = () => {
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3">
               <div className="w-12 h-12 flex items-center justify-center">
-                <img src="Logo.png" alt="WE MAKE CLEAN FEEL FRESH" className="w-12 h-12" />
+                {/* <img src="Logo.png" alt="WE MAKE CLEAN FEEL FRESH" className="w-12 h-12" /> */}
               </div>
               <div>
                 <div className="flex items-center gap-2">
@@ -209,23 +209,31 @@ const AboutUs = () => {
                     Our Story
                   </h2>
                   <div className="space-y-4 text-muted-foreground leading-relaxed">
-                    <p>
-                      Founded in 2018, All Around Your House began with a simple mission: to provide exceptional cleaning and maintenance services that make homes and businesses shine. What started as a small local operation has grown into a trusted name in the Dallas-Fort Worth metroplex.
-                    </p>
-                    <p>
-                      Our journey has been driven by a commitment to quality, reliability, and customer satisfaction. We understand that every space is unique, and we've developed our services to meet the diverse needs of our community.
-                    </p>
-                    <p>
-                      Today, we're proud to serve hundreds of satisfied customers across DFW, maintaining the same dedication to excellence that inspired us from the beginning.
+                    <p className="break-words lg:break-normal">
+                      {settings?.aboutUs?.ourStory || 'Founded in 2018, All Around Your House began with a simple mission: to provide exceptional cleaning and maintenance services that make homes and businesses shine. What started as a small local operation has grown into a trusted name in the Dallas-Fort Worth metroplex. Our journey has been driven by a commitment to quality, reliability, and customer satisfaction. We understand that every space is unique, and we\'ve developed our services to meet the diverse needs of our community. Today, we\'re proud to serve hundreds of satisfied customers across DFW, maintaining the same dedication to excellence that inspired us from the beginning.'}
                     </p>
                   </div>
                 </div>
-                <div className="bg-gradient-hero p-8 rounded-2xl text-white text-center">
-                  <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Building className="w-10 h-10" />
+                <div className="bg-gradient-hero p-4 sm:p-8 rounded-2xl text-white text-center relative overflow-hidden min-h-[300px] sm:min-h-[400px] flex items-center justify-center">
+                  {settings?.aboutUs?.images?.blueBoxImage ? (
+                    <div className="absolute inset-0">
+                      <img 
+                        src={settings.aboutUs.images.blueBoxImage} 
+                        alt="Blue Box Background" 
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/40"></div>
+                    </div>
+                  ) : (
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                      <Building className="w-8 h-8 sm:w-10 sm:h-10" />
+                    </div>
+                  )}
+                  
+                  <div className="relative z-10 px-2 sm:px-0">
+                    <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3">{settings?.aboutUs?.blueBox?.title || 'Serving DFW Since 2018'}</h3>
+                    <p className="text-sm sm:text-base text-brand-cream leading-relaxed">{settings?.aboutUs?.blueBox?.subtitle || 'Over 5 years of excellence in cleaning and maintenance services'}</p>
                   </div>
-                  <h3 className="text-2xl font-bold mb-3">Serving DFW Since 2018</h3>
-                  <p className="text-brand-cream">Over 5 years of excellence in cleaning and maintenance services</p>
                 </div>
               </div>
             </div>

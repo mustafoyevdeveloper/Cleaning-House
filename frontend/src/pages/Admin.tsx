@@ -315,6 +315,126 @@ export default function Admin() {
               <Label>Bottom Bar Button Link</Label>
               <Input value={settingsDraft?.bottomBar?.buttonLink || ''} onChange={(e) => setSettingsDraft(prev => ({ ...(prev as SiteSettings), bottomBar: { ...(prev as SiteSettings)?.bottomBar, buttonLink: e.target.value } }))} />
             </div>
+            
+            {/* About Us Content */}
+            <div className="border-t pt-6 mt-6">
+              <h3 className="text-lg font-semibold text-brand-navy mb-4">About Us Content</h3>
+              
+              <div className="space-y-4">
+                <div>
+                  <Label>Our Story</Label>
+                  <Textarea 
+                    value={settingsDraft?.aboutUs?.ourStory || ''} 
+                    onChange={(e) => setSettingsDraft(prev => ({ 
+                      ...(prev as SiteSettings), 
+                      aboutUs: { 
+                        ...(prev as SiteSettings)?.aboutUs, 
+                        ourStory: e.target.value 
+                      } 
+                    }))} 
+                    rows={6}
+                    placeholder="Enter the complete Our Story text..."
+                  />
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <Label>Blue Box Title</Label>
+                    <Input 
+                      value={settingsDraft?.aboutUs?.blueBox?.title || ''} 
+                      onChange={(e) => setSettingsDraft(prev => ({ 
+                        ...(prev as SiteSettings), 
+                        aboutUs: { 
+                          ...(prev as SiteSettings)?.aboutUs, 
+                          blueBox: { 
+                            ...(prev as SiteSettings)?.aboutUs?.blueBox, 
+                            title: e.target.value 
+                          } 
+                        } 
+                      }))} 
+                      placeholder="Blue box title..."
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label>Blue Box Subtitle</Label>
+                    <Input 
+                      value={settingsDraft?.aboutUs?.blueBox?.subtitle || ''} 
+                      onChange={(e) => setSettingsDraft(prev => ({ 
+                        ...(prev as SiteSettings), 
+                        aboutUs: { 
+                          ...(prev as SiteSettings)?.aboutUs, 
+                          blueBox: { 
+                            ...(prev as SiteSettings)?.aboutUs?.blueBox, 
+                            subtitle: e.target.value 
+                          } 
+                        } 
+                      }))} 
+                      placeholder="Blue box subtitle..."
+                    />
+                  </div>
+                </div>
+                
+                {/* Image Uploads */}
+                <div>
+                  <Label>Blue Box Background Image</Label>
+                  <div className="space-y-2">
+                    <Input 
+                      type="file" 
+                      accept="image/*"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          try {
+                            const dataUrl = await fileToDataUrl(file);
+                            setSettingsDraft(prev => ({ 
+                              ...(prev as SiteSettings), 
+                              aboutUs: { 
+                                ...(prev as SiteSettings)?.aboutUs, 
+                                images: { 
+                                  ...(prev as SiteSettings)?.aboutUs?.images, 
+                                  blueBoxImage: dataUrl 
+                                } 
+                              } 
+                            }));
+                          } catch (error) {
+                            toast.error('Failed to process image');
+                          }
+                        }
+                      }}
+                    />
+                    {settingsDraft?.aboutUs?.images?.blueBoxImage && (
+                      <div className="relative">
+                        <img 
+                          src={settingsDraft.aboutUs.images.blueBoxImage} 
+                          alt="Blue Box Background Preview" 
+                          className="w-full h-32 object-cover rounded-lg border"
+                        />
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="sm"
+                          className="absolute top-2 right-2"
+                          onClick={() => setSettingsDraft(prev => ({ 
+                            ...(prev as SiteSettings), 
+                            aboutUs: { 
+                              ...(prev as SiteSettings)?.aboutUs, 
+                              images: { 
+                                ...(prev as SiteSettings)?.aboutUs?.images, 
+                                blueBoxImage: '' 
+                              } 
+                            } 
+                          }))}
+                        >
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+            
             <div className="flex justify-end">
               <Button variant="brand" disabled={!settingsDraft || saveSettingsMut.isPending} onClick={() => {
                 if (settingsDraft) {
