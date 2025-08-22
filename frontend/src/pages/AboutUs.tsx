@@ -94,15 +94,6 @@ const AboutUs = () => {
               <Link to="/contact" className="text-gray-700 hover:text-brand-turquoise transition-colors font-medium">Contact Us</Link>
             </div>
 
-            {/* GET IN TOUCH Button */}
-            <div className="hidden lg:block">
-              <Link to="/contact">
-                <Button variant="white-on-dark" size="sm">
-                  GET IN TOUCH
-                </Button>
-              </Link>
-            </div>
-
             {/* Mobile Menu Button */}
             <button 
               className={`lg:hidden text-gray-700 p-2 rounded-lg hover:bg-gray-100 transition-all duration-300 relative z-50 ${isMobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`}
@@ -170,13 +161,6 @@ const AboutUs = () => {
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Contact Us
-                  </Link>
-                </div>
-                <div className="px-6 pt-6 border-t border-gray-200 mt-4">
-                  <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button variant="brand" className="w-full py-3 transition-all duration-300 hover:scale-105 transform">
-                      GET IN TOUCH
-                    </Button>
                   </Link>
                 </div>
               </div>

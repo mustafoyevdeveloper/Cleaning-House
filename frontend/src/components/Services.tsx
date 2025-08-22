@@ -357,20 +357,15 @@ const Services = () => {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                      <Button 
-                        variant="white-on-dark"
-                        size="lg"
-                        className="w-full sm:w-auto"
-                      >
-                        Book This Service
-                      </Button>
-                      <Button 
-                        variant="outline-white" 
-                        size="lg"
-                        className="w-full sm:w-auto"
-                      >
-                        Get Quote
-                      </Button>
+                      <Link to="/contact" className="w-full sm:w-auto">
+                        <Button 
+                          variant="brand-outline" 
+                          size="lg"
+                          className="w-full"
+                        >
+                          Get Quote
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </DialogContent>
@@ -532,20 +527,6 @@ const Services = () => {
                 Get Quote
               </Button>
             </Link>
-            <Button 
-              variant="outline-white" 
-              size="lg"
-              onClick={() => {
-                const telegramLink = settings?.social?.telegram;
-                if (telegramLink) {
-                  window.open(telegramLink, '_blank');
-                } else {
-                  alert('Telegram link not configured. Please contact admin.');
-                }
-              }}
-            >
-              Book Service
-            </Button>
           </div>
         </div>
       </div>

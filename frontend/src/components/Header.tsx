@@ -110,15 +110,6 @@ const Header = () => {
             }`}>Contact Us</Link>
           </div>
 
-          {/* GET IN TOUCH Button */}
-          <div className="hidden lg:block">
-            <Link to="/contact">
-              <Button variant="white-on-dark" size="sm">
-                GET IN TOUCH
-              </Button>
-            </Link>
-          </div>
-
           {/* Mobile Menu Button */}
           <button
             className={`lg:hidden transition-all duration-300 p-2 rounded-lg hover:bg-white/10 relative z-50 ${
@@ -188,13 +179,6 @@ const Header = () => {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Contact Us
-                </Link>
-              </div>
-              <div className="px-6 pt-6 border-t border-gray-200 mt-4">
-                <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="brand" className="w-full py-3 transition-all duration-300 hover:scale-105 transform">
-                    GET IN TOUCH
-                  </Button>
                 </Link>
               </div>
             </div>
