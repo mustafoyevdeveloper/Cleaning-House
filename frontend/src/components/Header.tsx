@@ -86,7 +86,7 @@ const Header = () => {
               <p className={`text-sm transition-colors duration-300 ${
                 isScrolled ? 'text-muted-foreground' : 'text-brand-cream'
               }`}>
-                Your House Services
+                WE MAKE CLEAN FEEL FRESH
               </p>
             </div>
           </Link>
