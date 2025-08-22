@@ -20,7 +20,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getSettings } from "@/lib/api";
 
 const AboutUs = () => {
-  const { data: settings } = useQuery({ queryKey: ['settings'], queryFn: getSettings });
+  const { data: settings, isLoading: settingsLoading } = useQuery({ queryKey: ['settings'], queryFn: getSettings });
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -209,9 +209,18 @@ const AboutUs = () => {
                     Our Story
                   </h2>
                   <div className="space-y-4 text-muted-foreground leading-relaxed">
-                    <p className="break-words lg:break-normal">
-                      {settings?.aboutUs?.ourStory || 'Founded in 2018, All Around Your House began with a simple mission: to provide exceptional cleaning and maintenance services that make homes and businesses shine. What started as a small local operation has grown into a trusted name in the Dallas-Fort Worth metroplex. Our journey has been driven by a commitment to quality, reliability, and customer satisfaction. We understand that every space is unique, and we\'ve developed our services to meet the diverse needs of our community. Today, we\'re proud to serve hundreds of satisfied customers across DFW, maintaining the same dedication to excellence that inspired us from the beginning.'}
-                    </p>
+                    {settingsLoading ? (
+                      <div className="animate-pulse">
+                        <div className="h-4 bg-gray-200 rounded mb-3"></div>
+                        <div className="h-4 bg-gray-200 rounded mb-3"></div>
+                        <div className="h-4 bg-gray-200 rounded mb-3"></div>
+                        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                      </div>
+                    ) : (
+                      <p className="break-words lg:break-normal">
+                        {settings?.aboutUs?.ourStory || 'Founded in 2018, All Around Your House began with a simple mission: to provide exceptional cleaning and maintenance services that make homes and businesses shine. What started as a small local operation has grown into a trusted name in the Dallas-Fort Worth metroplex. Our journey has been driven by a commitment to quality, reliability, and customer satisfaction. We understand that every space is unique, and we\'ve developed our services to meet the diverse needs of our community. Today, we\'re proud to serve hundreds of satisfied customers across DFW, maintaining the same dedication to excellence that inspired us from the beginning.'}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="bg-gradient-hero p-4 sm:p-8 rounded-2xl text-white text-center relative overflow-hidden min-h-[300px] sm:min-h-[400px] flex items-center justify-center">
@@ -230,9 +239,18 @@ const AboutUs = () => {
                     </div>
                   )}
                   
-                  <div className="relative z-10 px-2 sm:px-0">
-                    <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3">{settings?.aboutUs?.blueBox?.title || 'Serving DFW Since 2018'}</h3>
-                    <p className="text-sm sm:text-base text-brand-cream leading-relaxed">{settings?.aboutUs?.blueBox?.subtitle || 'Over 5 years of excellence in cleaning and maintenance services'}</p>
+                  <div className="relative z-10">
+                    {settingsLoading ? (
+                      <div className="animate-pulse">
+                        <div className="h-8 bg-white/20 rounded mb-3 w-3/4 mx-auto"></div>
+                        <div className="h-4 bg-white/20 rounded w-2/3 mx-auto"></div>
+                      </div>
+                    ) : (
+                      <>
+                        <h3 className="text-2xl font-bold mb-3">{settings?.aboutUs?.blueBox?.title || 'Serving DFW Since 2018'}</h3>
+                        <p className="text-brand-cream">{settings?.aboutUs?.blueBox?.subtitle || 'Over 5 years of excellence in cleaning and maintenance services'}</p>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
