@@ -74,12 +74,12 @@ const AboutUs = () => {
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3">
               <div className="w-12 h-12 flex items-center justify-center">
-                <img src="Logo.png" alt="FreshC Your House Services" className="w-12 h-12" />
+                <img src="Logo.png" alt="WE MAKE CLEAN FEEL FRESH" className="w-12 h-12" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
                   <h1 className="text-xl font-bold text-brand-navy">{settings?.siteName || 'FreshC'}</h1>
-                  <Leaf className="w-5 h-5 text-green-500" />
+                  <Leaf className="w-5 h-5 text-blue-green-500" />
                 </div>
                 <p className="text-sm text-muted-foreground">WE MAKE CLEAN FEEL FRESH</p>
               </div>

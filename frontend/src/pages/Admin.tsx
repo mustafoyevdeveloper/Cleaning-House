@@ -354,7 +354,7 @@ export default function Admin() {
                         <CardTitle className="text-brand-navy text-base sm:text-lg flex-1">{s.title}</CardTitle>
                         <div className="flex items-center gap-1 ml-2">
                           {s.isActive ? (
-                            <CheckCircle className="w-4 h-4 text-green-500" />
+                            <CheckCircle className="w-4 h-4 text-blue-green-500" />
                           ) : (
                             <AlertTriangle className="w-4 h-4 text-yellow-500" />
                           )}
@@ -447,7 +447,7 @@ export default function Admin() {
                             </div>
                             <div>
                               <p><b>Page:</b> {m.page || 'Website'}</p>
-                              <p><b>Status:</b> <span className={`px-2 py-1 rounded-full text-xs ${m.status === 'new' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>{m.status}</span></p>
+                              <p><b>Status:</b> <span className={`px-2 py-1 rounded-full text-xs ${m.status === 'new' ? 'bg-blue-green-100 text-blue-green-800' : 'bg-gray-100 text-gray-800'}`}>{m.status}</span></p>
                               <p className="text-xs">{new Date(m.createdAt!).toLocaleString()}</p>
                             </div>
                           </div>
