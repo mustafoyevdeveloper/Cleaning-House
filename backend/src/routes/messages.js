@@ -5,12 +5,20 @@ import nodemailer from 'nodemailer';
 
 const router = Router();
 
+// Debug helper: log only in non-production environments
+function debug(...args) {
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line no-console
+    console.log(...args);
+  }
+}
+
 // Create transporter from env
 function buildTransporter() {
   const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
   if (!SMTP_HOST) return null;
   
-  console.log('Building SMTP transporter with:', { SMTP_HOST, SMTP_PORT, SMTP_USER });
+  debug('Building SMTP transporter with:', { SMTP_HOST, SMTP_PORT, SMTP_USER });
   
   return nodemailer.createTransport({
     host: SMTP_HOST,
@@ -26,17 +34,17 @@ function buildTransporter() {
 // Public: submit message
 router.post('/', async (req, res) => {
   try {
-    console.log('Received message data:', req.body);
+    debug('Received message data:', req.body);
     const msg = await Message.create(req.body);
-    console.log('Created message:', msg);
+    debug('Created message:', msg);
 
     // Send email if configured
     const { ADMIN_EMAIL_FROM, ADMIN_EMAIL_TO } = process.env;
     const transporter = buildTransporter();
     if (transporter && ADMIN_EMAIL_TO) {
       const subject = `New Contact Message: ${msg.firstName} ${msg.lastName}`;
-      console.log('Email template - category:', msg.category);
-      console.log('Email template - serviceNeeded:', msg.serviceNeeded);
+      debug('Email template - category:', msg.category);
+      debug('Email template - serviceNeeded:', msg.serviceNeeded);
       const html = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
           <div style="background-color: #1e3a8a; color: white; padding: 20px; border-radius: 8px 8px 0 0;">
@@ -102,8 +110,8 @@ router.post('/', async (req, res) => {
         </div>
       `;
       try {
-        console.log('Sending email to:', ADMIN_EMAIL_TO);
-        console.log('From email:', ADMIN_EMAIL_FROM || ADMIN_EMAIL_TO);
+        debug('Sending email to:', ADMIN_EMAIL_TO);
+        debug('From email:', ADMIN_EMAIL_FROM || ADMIN_EMAIL_TO);
         
         await transporter.sendMail({
           from: ADMIN_EMAIL_FROM || ADMIN_EMAIL_TO,
@@ -112,7 +120,7 @@ router.post('/', async (req, res) => {
           html,
         });
         
-        console.log('Email sent successfully!');
+        debug('Email sent successfully!');
       } catch (e) {
         console.error('Email error:', e.message);
         console.error('Email error details:', e);
@@ -129,7 +137,7 @@ router.post('/', async (req, res) => {
 router.get('/', requireAdmin, async (req, res) => {
   try {
     const items = await Message.find().sort({ createdAt: -1 });
-    console.log('Fetched messages:', items.map(m => ({ 
+    debug('Fetched messages:', items.map(m => ({ 
       id: m._id, 
       category: m.category, 
       serviceNeeded: m.serviceNeeded,
