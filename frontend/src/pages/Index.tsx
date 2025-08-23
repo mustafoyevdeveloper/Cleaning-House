@@ -34,7 +34,7 @@ const Index = () => {
 
             <div className="w-24 h-1 bg-brand-turquoise mx-auto mb-6"></div>
 
-            <p className="text-xl md:text-2xl mb-8 text-brand-cream">
+            <p className="text-xl md:text-2xl mb-8 text-red-500 font-bold animate-construction-bounce">
               The website is under construction
             </p>
 
@@ -43,18 +43,22 @@ const Index = () => {
             </p>
 
             {/* Service Highlights */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <div className="flex items-center gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 justify-center items-center mb-12 max-w-4xl mx-auto">
+              <div className="flex items-center gap-2 justify-center">
                 <CheckCircle className="w-6 h-6 text-brand-turquoise" />
-                <span className="text-white font-medium">Handyman</span>
+                <span className="text-white font-medium">Residential Cleaning</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 justify-center">
                 <CheckCircle className="w-6 h-6 text-brand-turquoise" />
-                <span className="text-white font-medium">Maintenance</span>
+                <span className="text-white font-medium">Commercial Cleaning</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 justify-center">
                 <CheckCircle className="w-6 h-6 text-brand-turquoise" />
-                <span className="text-white font-medium">Cleaning</span>
+                <span className="text-white font-medium">Apartment Cleaning</span>
+              </div>
+              <div className="flex items-center gap-2 justify-center">
+                <CheckCircle className="w-6 h-6 text-brand-turquoise" />
+                <span className="text-white font-medium">Special Cleaning</span>
               </div>
             </div>
 
