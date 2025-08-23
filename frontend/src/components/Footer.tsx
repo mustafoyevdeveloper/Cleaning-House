@@ -96,7 +96,7 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © {currentYear} {settings?.siteName || 'All Around FrashC'}. All rights reserved.
+              © {currentYear} {settings?.siteName || 'All Around FrashCo'}. All rights reserved.
             </p>
             <p className="text-gray-400 text-sm mt-2 md:mt-0">
             Service area: {settings?.address || 'North Dallas'}
