@@ -28,8 +28,8 @@ const Index = () => {
           {/* Content */}
           <div className="relative z-10 container mx-auto px-4 text-center text-white pt-10 md:pt-0 animate-fade-in">
             <h1 className="text-xl md:text-6xl font-bold mb-6 leading-tight">
-              TRUSTED CLEANING EXPERTS{" "}
-              <span className="text-brand-turquoise block">CARING FOR YOUR SPACE AND THE PLANET</span>
+            Expert Cleaning You Can Trust - {" "}
+              <span className="text-brand-turquoise block">Healthy Homes, Green Spaces</span>
             </h1>
 
             <div className="w-24 h-1 bg-brand-turquoise mx-auto mb-6"></div>
@@ -39,26 +39,26 @@ const Index = () => {
             </p>
 
             <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-              Home Improvement and Cleaning Services in the Greater Tampa Bay Area.
+              Your partner is trusted, eco-friendly cleaning for healthier living in Colling Country
             </p>
 
             {/* Service Highlights */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 justify-center items-center mb-12 max-w-4xl mx-auto">
               <div className="flex items-center gap-2 justify-center">
                 <CheckCircle className="w-6 h-6 text-brand-turquoise" />
-                <span className="text-white font-medium">Residential Cleaning</span>
+                <span className="text-white font-medium">Residential</span>
               </div>
               <div className="flex items-center gap-2 justify-center">
                 <CheckCircle className="w-6 h-6 text-brand-turquoise" />
-                <span className="text-white font-medium">Commercial Cleaning</span>
+                <span className="text-white font-medium">Commercial</span>
               </div>
               <div className="flex items-center gap-2 justify-center">
                 <CheckCircle className="w-6 h-6 text-brand-turquoise" />
-                <span className="text-white font-medium">Apartment Cleaning</span>
+                <span className="text-white font-medium">Apartment</span>
               </div>
               <div className="flex items-center gap-2 justify-center">
                 <CheckCircle className="w-6 h-6 text-brand-turquoise" />
-                <span className="text-white font-medium">Special Cleaning</span>
+                <span className="text-white font-medium">Special</span>
               </div>
             </div>
 

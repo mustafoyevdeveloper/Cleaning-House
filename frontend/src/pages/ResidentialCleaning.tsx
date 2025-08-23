@@ -88,19 +88,17 @@ const ResidentialCleaning = () => {
         {/* Navigation Bar - White Background */}
         <nav className="bg-white py-4 px-4">
           <div className="container mx-auto flex justify-between items-center">
-            {/* Logo */}
-            <Link to="/" className="flex items-center gap-3">
-              <div className="w-12 h-12 flex items-center justify-center">
-                {/* <img src="Logo.png" alt="WE MAKE CLEAN FEEL FRESH" className="w-12 h-12" /> */}
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h1 className="text-xl font-bold text-brand-navy">FreshC</h1>
-                  <Leaf className="w-5 h-5 text-blue-green-500" />
+                          {/* Logo */}
+              <Link to="/" className="flex items-center gap-3 ml-[-20px]">
+               
+                <div>
+                  <div className="flex items-center gap-0">
+                    <h1 className="text-xl font-bold text-brand-navy">FreshC</h1>
+                    <Leaf className="w-[4.5] h-[4.5] text-blue-green-500" />
+                  </div>
+                  <p className="text-sm text-muted-foreground">We Make Clean Feel Fresh</p>
                 </div>
-                <p className="text-sm text-muted-foreground">We Make Clean Feel Fresh</p>
-              </div>
-            </Link>
+              </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-8 justify-center flex-1">
@@ -113,7 +111,7 @@ const ResidentialCleaning = () => {
 
             {/* Mobile Menu Button */}
             <button 
-              className={`lg:hidden text-gray-700 p-2 rounded-lg hover:bg-gray-100 transition-all duration-300 relative z-50 ${isMobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`}
+              className={`lg:hidden text-gray-700 p-2 rounded-lg hover:bg-gray-100 transition-all duration-300 relative z-50 mr-[-30px] ${isMobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               <div className="relative w-6 h-6 pointer-events-none">

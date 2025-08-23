@@ -69,11 +69,9 @@ const Header = () => {
         isScrolled ? 'bg-white' : 'bg-transparent'
       }`}>
         <div className="container mx-auto flex justify-between items-center">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <div className="w-12 h-12 flex items-center justify-center">
-              {/* <img src="Logo.png" alt="FreshC Your House Services" className="w-12 h-12" /> */}
-            </div>
+                    {/* Logo */}
+          <Link to="/" className="flex items-center gap-[-1] ml-[-20px]">
+ 
             <div>
               <div className="flex items-center gap-0">
                 <h1 className={`text-xl font-bold transition-colors duration-300 ${
@@ -112,7 +110,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className={`lg:hidden transition-all duration-300 p-2 rounded-lg hover:bg-white/10 relative z-50 ${
+            className={`lg:hidden transition-all duration-300 p-2 rounded-lg hover:bg-white/10 relative z-50 mr-[-30px] ${
               isScrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10'
             } ${isMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -134,6 +132,20 @@ const Header = () => {
         }`}>
           <div className="bg-white/95 backdrop-blur-sm mt-4 rounded-xl shadow-2xl border border-gray-200/50 mx-4 transform transition-all duration-300 ease-in-out" ref={menuRef}>
             <div className="py-6">
+                            {/* Mobile Logo and Tagline */}
+              <div className="px-6 mb-6">
+                                <div className="flex items-center gap-3 mb-3 ml-[-20px]">
+ 
+                  <div>
+                    <div className="flex items-center gap-0">
+                      <h3 className="text-lg font-bold text-brand-navy">FreshC</h3>
+                      <Leaf className="w-4 h-4 text-blue-green-500" />
+                    </div>
+                    <p className="text-sm text-muted-foreground">We Make Clean Feel Fresh</p>
+                  </div>
+                </div>
+              </div>
+              
               {/* Close Button */}
               <div className="flex justify-end px-6 mb-4">
                 <button

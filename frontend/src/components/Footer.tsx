@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, Facebook, Instagram } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Instagram, Leaf } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getSettings } from "@/lib/api";
@@ -17,11 +17,12 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 flex items-center justify-center">
-                {/* <img src="Logo.png" alt="ALL AROUND YOUR HOUSE Services" className="w-12 h-12" /> */}
-              </div>
+
               <div>
-                <h3 className="text-xl font-bold text-white">{settings?.siteName || 'FreshC'}</h3>
+                <div className="flex items-center gap-0">
+                  <h3 className="text-xl font-bold text-white">{settings?.siteName || 'FreshC'}</h3>
+                  <Leaf className="w-[4.5] h-[4.5] text-blue-green-500" />
+                </div>
                 <p className="text-brand-cream">We Make Clean Feel Fresh</p>
               </div>
             </div>
