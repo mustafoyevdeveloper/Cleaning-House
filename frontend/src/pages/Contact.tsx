@@ -164,7 +164,7 @@ const Contact = () => {
                   <h1 className="text-xl font-bold text-brand-navy">{settings?.siteName || 'FreshC'}</h1>
                   <Leaf className="w-5 h-5 text-blue-green-500" />
                 </div>
-                <p className="text-sm text-muted-foreground">WE MAKE CLEAN FEEL FRESH</p>
+                <p className="text-sm text-muted-foreground">We Make Clean Feel Fresh</p>
               </div>
             </Link>
 

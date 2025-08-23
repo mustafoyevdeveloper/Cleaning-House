@@ -265,7 +265,7 @@ const Services = () => {
             Our Services
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            All Around Your House - Complete Home Improvement and Cleaning Services from a Single Source
+            All around your house - Complete Home Improvement and Cleaning Services from a Single Source
           </p>
         </div>
 

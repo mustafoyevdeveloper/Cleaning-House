@@ -123,7 +123,7 @@ const Contact = () => {
             {/* Why Choose Us */}
             <Card className="border-0 shadow-soft">
               <CardHeader>
-                <CardTitle className="text-brand-navy">Why Choose All Around Your House?</CardTitle>
+                <CardTitle className="text-brand-navy">Why Choose All around your house?</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3 text-muted-foreground">

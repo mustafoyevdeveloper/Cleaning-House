@@ -34,15 +34,20 @@ const Hero = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
           <div className="flex items-center gap-2">
             <CheckCircle className="w-6 h-6 text-brand-turquoise" />
-            <span className="text-white font-medium">Handyman</span>
+            <span className="text-white font-medium">Residential Cleaning</span>
           </div>
           <div className="flex items-center gap-2">
             <CheckCircle className="w-6 h-6 text-brand-turquoise" />
-            <span className="text-white font-medium">Maintenance</span>
+            <span className="text-white font-medium">Commercial Cleaning</span>
           </div>
           <div className="flex items-center gap-2">
             <CheckCircle className="w-6 h-6 text-brand-turquoise" />
-            <span className="text-white font-medium">Cleaning</span>
+            <span className="text-white font-medium">Apartment Cleaning</span>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+            <CheckCircle className="w-6 h-6 text-brand-turquoise" />
+            <span className="text-white font-medium">Special Cleaning</span>
           </div>
         </div>
 
