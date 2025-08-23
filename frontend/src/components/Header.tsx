@@ -75,13 +75,13 @@ const Header = () => {
               {/* <img src="Logo.png" alt="FreshC Your House Services" className="w-12 h-12" /> */}
             </div>
             <div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-0">
                 <h1 className={`text-xl font-bold transition-colors duration-300 ${
                   isScrolled ? 'text-brand-navy' : 'text-white'
                 }`}>
                   {settings?.siteName || 'FreshC'}
                 </h1>
-                <Leaf className="w-5 h-5 text-blue-green-500" />
+                <Leaf className="w-[4.5] h-[4.5] text-blue-green-500" />
               </div>
               <p className={`text-sm transition-colors duration-300 ${
                 isScrolled ? 'text-muted-foreground' : 'text-brand-cream'
