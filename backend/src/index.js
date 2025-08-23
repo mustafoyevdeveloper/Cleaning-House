@@ -17,6 +17,8 @@ const DEFAULT_ALLOWED_ORIGINS = [
   'http://localhost:8080',
   'http://localhost:5173',
   'http://localhost:3000',
+  "https://www.freshco-cleaning.com",
+  "https://freshco-cleaning.com",
   // Production frontend (adjustable via env below)
   'https://freshc-cleaning-house.vercel.app',
 ];
