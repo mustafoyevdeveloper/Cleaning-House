@@ -20,6 +20,7 @@ const DEFAULT_ALLOWED_ORIGINS = [
   "https://www.freshco-cleaning.com",
   "https://freshco-cleaning.com",
   // Production frontend (adjustable via env below)
+  'https://freshco-cleaning-house.vercel.app',
   'https://freshc-cleaning-house.vercel.app',
 ];
 
