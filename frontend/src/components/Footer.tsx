@@ -18,7 +18,7 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 flex items-center justify-center">
-                {/* <img src="Logo.png" alt="All around your house Services" className="w-12 h-12" /> */}
+                {/* <img src="Logo.png" alt="ALL AROUND YOUR HOUSE Services" className="w-12 h-12" /> */}
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white">{settings?.siteName || 'FreshC'}</h3>

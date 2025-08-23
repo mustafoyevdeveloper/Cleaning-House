@@ -265,7 +265,7 @@ const Services = () => {
             Our Services
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            All around your house - Complete Home Improvement and Cleaning Services from a Single Source
+            ALL AROUND YOUR HOUSE - Complete Home Improvement and Cleaning Services from a Single Source
           </p>
         </div>
 
@@ -389,7 +389,7 @@ const Services = () => {
               All Around Improvement
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              A well-maintained home or business is the foundation for a better life. Get your service all around your house from one single source.
+              A well-maintained home or business is the foundation for a better life. Get your service ALL AROUND YOUR HOUSE from one single source.
             </p>
           </div>
 

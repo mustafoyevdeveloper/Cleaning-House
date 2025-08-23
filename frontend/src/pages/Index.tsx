@@ -27,9 +27,9 @@ const Index = () => {
 
           {/* Content */}
           <div className="relative z-10 container mx-auto px-4 text-center text-white pt-10 md:pt-0 animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              All around{" "}
-              <span className="text-brand-turquoise block">your house</span>
+            <h1 className="text-xl md:text-6xl font-bold mb-6 leading-tight">
+              TRUSTED CLEANING EXPERTS{" "}
+              <span className="text-brand-turquoise block">CARING FOR YOUR SPACE AND THE PLANET</span>
             </h1>
 
             <div className="w-24 h-1 bg-brand-turquoise mx-auto mb-6"></div>

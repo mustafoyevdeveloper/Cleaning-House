@@ -202,7 +202,7 @@ const AboutUs = () => {
                       </div>
                     ) : (
                       <p className="break-words lg:break-normal">
-                        {settings?.aboutUs?.ourStory || 'Founded in 2018, All Around Your House began with a simple mission: to provide exceptional cleaning and maintenance services that make homes and businesses shine. What started as a small local operation has grown into a trusted name in the Dallas-Fort Worth metroplex. Our journey has been driven by a commitment to quality, reliability, and customer satisfaction. We understand that every space is unique, and we\'ve developed our services to meet the diverse needs of our community. Today, we\'re proud to serve hundreds of satisfied customers across DFW, maintaining the same dedication to excellence that inspired us from the beginning.'}
+                        {settings?.aboutUs?.ourStory || 'Founded in 2018, ALL AROUND YOUR HOUSE began with a simple mission: to provide exceptional cleaning and maintenance services that make homes and businesses shine. What started as a small local operation has grown into a trusted name in the Dallas-Fort Worth metroplex. Our journey has been driven by a commitment to quality, reliability, and customer satisfaction. We understand that every space is unique, and we\'ve developed our services to meet the diverse needs of our community. Today, we\'re proud to serve hundreds of satisfied customers across DFW, maintaining the same dedication to excellence that inspired us from the beginning.'}
                       </p>
                     )}
                   </div>
