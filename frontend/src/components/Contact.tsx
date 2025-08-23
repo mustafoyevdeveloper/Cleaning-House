@@ -83,7 +83,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-brand-navy">Phone</p>
-                    <p className="text-muted-foreground">{settings?.phone || '(727) 992-3578'}</p>
+                    <p className="text-muted-foreground">{settings?.phone || '469-592-4438'}</p>
                   </div>
                 </div>
 
@@ -93,7 +93,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-brand-navy">Email</p>
-                    <p className="text-muted-foreground">{settings?.email || 'info@all-aroundyourhouse.com'}</p>
+                    <p className="text-muted-foreground">{settings?.email || 'info@freshco-cleaning.com'}</p>
                   </div>
                 </div>
 
@@ -103,7 +103,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-brand-navy">Service Area</p>
-                    <p className="text-muted-foreground">{settings?.address || 'Greater Tampa Bay Area, FL'}</p>
+                    <p className="text-muted-foreground">{settings?.address || '3300 Dallas Pkwy, Plano, TX 75093'}</p>
                   </div>
                 </div>
 
