@@ -16,14 +16,14 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          ALL AROUND{" "}
-          <span className="text-brand-turquoise block">YOUR HOUSE</span>
+          All around
+          <span className="text-brand-turquoise block">your house</span>
         </h1>
         
         <div className="w-24 h-1 bg-brand-turquoise mx-auto mb-6"></div>
         
         <p className="text-xl md:text-2xl mb-8 text-brand-cream">
-          FROM A SINGLE SOURCE!
+         
         </p>
         
         <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto">

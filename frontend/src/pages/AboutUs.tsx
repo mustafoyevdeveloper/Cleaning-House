@@ -177,7 +177,7 @@ const AboutUs = () => {
               About Us
             </h1>
             <p className="text-xl md:text-2xl text-brand-cream max-w-4xl mx-auto leading-relaxed animate-fade-in">
-              All Around Your House - Your trusted partner for professional cleaning and maintenance services
+            FreshCo Cleaning - Professional cleaning you can trust, for a clean and healthy environment
             </p>
             <div className="w-24 h-1 bg-brand-turquoise mx-auto mt-8"></div>
           </div>

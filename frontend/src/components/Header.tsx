@@ -79,7 +79,7 @@ const Header = () => {
                 <h1 className={`text-xl font-bold transition-colors duration-300 ${
                   isScrolled ? 'text-brand-navy' : 'text-white'
                 }`}>
-                  {settings?.siteName || 'FreshC'}
+                  {settings?.siteName || 'FreshCo Cleaning'}
                 </h1>
                 <Leaf className="w-5 h-5 text-blue-green-500" />
               </div>
