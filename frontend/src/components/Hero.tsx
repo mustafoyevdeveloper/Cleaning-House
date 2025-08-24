@@ -16,8 +16,8 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          ALL AROUND
-          <span className="text-brand-turquoise block">YOUR HOUSE</span>
+          
+          <span className="text-brand-turquoise block"></span>
         </h1>
         
         <div className="w-24 h-1 bg-brand-turquoise mx-auto mb-6"></div>

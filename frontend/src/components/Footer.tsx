@@ -27,7 +27,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-brand-cream mb-4 max-w-md">
-              Professional cleaning and maintenance services for homes and businesses in the Dallas-Fort Worth metroplex.
+            Professional residential and commercial cleaning services throughout Collin County.
             </p>
             <div className="flex gap-4">
               {settings?.social?.facebook && (

@@ -675,12 +675,11 @@ const Contact = () => {
                   Google Maps Integration
                 </h3>
                 <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                  Interactive map showing our service areas in the Dallas-Fort Worth metroplex. 
-                  We cover Dallas, Fort Worth, Plano, Irving, Arlington, Grapevine, and surrounding areas.
+                  Interactive map showing our service areas in Collin Country.
                 </p>
                 <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
                   <p className="text-muted-foreground">
-                    Google Maps will be embedded here showing DFW service areas
+                    Google Maps will be embedded here showing service areas
                   </p>
                 </div>
               </div>

@@ -102,7 +102,7 @@ const Contact = () => {
                     <MapPin className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <p className="font-semibold text-brand-navy">Service Area</p>
+                    <p className="font-semibold text-brand-navy">Collin County</p>
                     <p className="text-muted-foreground">{settings?.address || '3300 Dallas Pkwy, Plano, TX 75093'}</p>
                   </div>
                 </div>
@@ -123,7 +123,7 @@ const Contact = () => {
             {/* Why Choose Us */}
             <Card className="border-0 shadow-soft">
               <CardHeader>
-                <CardTitle className="text-brand-navy">Why Choose ALL AROUND YOUR HOUSE?</CardTitle>
+                <CardTitle className="text-brand-navy">Why choose FreshCo Cleaning?</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3 text-muted-foreground">

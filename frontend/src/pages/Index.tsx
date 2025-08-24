@@ -51,7 +51,7 @@ const Index = () => {
             <div className="w-24 h-1 bg-brand-turquoise mx-auto mb-6"></div>
 
             <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-              Your partner is trusted, eco-friendly cleaning for healthier living in Colling Country
+              Your partner in trusted, eco-friendly cleaning for healthier living in Collin Country
             </p>
 
             {/* Service Highlights */}
@@ -528,7 +528,7 @@ const Index = () => {
                       About Us
                     </h3>
                     <p className="text-muted-foreground">
-                      Learn about our company story, mission, and team
+                      Learn about our story, mission, and team
                     </p>
                   </div>
                 </Link>
