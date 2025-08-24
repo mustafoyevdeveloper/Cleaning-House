@@ -236,19 +236,19 @@ const CommercialCleaning = () => {
 
               {/* Conditional Layout based on filter */}
               {selectedServiceType === 'all' ? (
-                // All Services - Grid layout with cards only (NO DESCRIPTION)
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                // All Services - Custom layout: 2 cards centered on top, 3 cards below
+                <div className="space-y-8">
                   {isLoading ? (
-                    <div className="col-span-full text-center py-8">
+                    <div className="text-center py-8">
                       <p className="text-lg text-muted-foreground">Loading services...</p>
                     </div>
                   ) : error ? (
-                    <div className="col-span-full text-center py-8">
+                    <div className="text-center py-8">
                       <p className="text-lg text-red-600">Error loading services. Please try again later.</p>
                       <p className="text-sm text-muted-foreground mt-2">Make sure the backend server is running.</p>
                     </div>
                   ) : filteredServices.length === 0 ? (
-                    <div className="col-span-full text-center py-8">
+                    <div className="text-center py-8">
                       <p className="text-lg text-muted-foreground">
                         {selectedServiceType === 'all' 
                           ? 'No services available yet. Please add services through the admin panel.'
@@ -257,66 +257,204 @@ const CommercialCleaning = () => {
                       </p>
                     </div>
                   ) : (
-                    filteredServices.map((service: any, index: number) => (
-                      <Card 
-                        key={service.title}
-                        className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft"
-                        style={{ animationDelay: `${index * 0.08}s` }}
-                      >
-                        <CardHeader className="text-center pb-4">
-                          <BeforeAfterSlider
-                            beforeImageUrl={service.images?.before || "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop"}
-                            afterImageUrl={service.images?.after || "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1600&auto=format&fit=crop"}
-                            className="mb-4"
-                          />
-                          <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
-                            <Sparkles className="w-8 h-8 text-white" />
-                          </div>
-                          <CardTitle className="text-xl font-bold text-brand-navy">
-                            {service.title}
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent className="text-center">
-                          {/* NO DESCRIPTION in All Services view */}
-                          <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
-                            <div className="flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-brand-turquoise" />
-                              <div>
-                                <p className="font-semibold text-brand-navy text-sm">Duration</p>
-                                <p className="text-xs text-muted-foreground">{service.duration}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Shield className="w-4 h-4 text-brand-turquoise" />
-                              <div>
-                                <p className="font-semibold text-brand-navy text-sm">Price</p>
-                                <p className="text-xs text-muted-foreground">
-                                  {service.price ? (service.price.startsWith('$') ? service.price : `$${service.price}`) : 'N/A'}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="mb-4">
-                            <p className="text-sm text-brand-turquoise font-semibold">
-                              Best for: {service.bestFor}
-                            </p>
-                          </div>
-
-                          <div className="flex gap-3">
-                            <Link to="/contact#contact-form" className="flex-1">
-                              <Button 
-                                variant="white-on-dark"
-                                size="lg"
-                                className="w-full"
+                    <>
+                      {/* First row - 2 cards centered */}
+                      {filteredServices.length >= 2 && (
+                        <div className="flex justify-center">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto">
+                            {filteredServices.slice(0, 2).map((service: any, index: number) => (
+                              <Card 
+                                key={service.title}
+                                className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft"
+                                style={{ animationDelay: `${index * 0.08}s` }}
                               >
-                                Get Quote
-                              </Button>
-                            </Link>
+                                <CardHeader className="text-center pb-4">
+                                  <BeforeAfterSlider
+                                    beforeImageUrl={service.images?.before || "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop"}
+                                    afterImageUrl={service.images?.after || "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1600&auto=format&fit=crop"}
+                                    className="mb-4"
+                                  />
+                                  <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <Sparkles className="w-8 h-8 text-white" />
+                                  </div>
+                                  <CardTitle className="text-xl font-bold text-brand-navy">
+                                    {service.title}
+                                  </CardTitle>
+                                </CardHeader>
+                                <CardContent className="text-center">
+                                  {/* NO DESCRIPTION in All Services view */}
+                                  <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
+                                    <div className="flex items-center gap-2">
+                                      <Clock className="w-4 h-4 text-brand-turquoise" />
+                                      <div>
+                                        <p className="font-semibold text-brand-navy text-sm">Duration</p>
+                                        <p className="text-xs text-muted-foreground">{service.duration}</p>
+                                      </div>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <Shield className="w-4 h-4 text-brand-turquoise" />
+                                      <div>
+                                        <p className="font-semibold text-brand-navy text-sm">Price</p>
+                                        <p className="text-xs text-muted-foreground">
+                                          {service.price ? (service.price.startsWith('$') ? service.price : `$${service.price}`) : 'N/A'}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div className="mb-4">
+                                    <p className="text-sm text-brand-turquoise font-semibold">
+                                      Best for: {service.bestFor}
+                                    </p>
+                                  </div>
+
+                                  <div className="flex gap-3">
+                                    <Link to="/contact#contact-form" className="flex-1">
+                                      <Button 
+                                        variant="white-on-dark"
+                                        size="lg"
+                                        className="w-full"
+                                      >
+                                        Get Quote
+                                      </Button>
+                                    </Link>
+                                  </div>
+                                </CardContent>
+                              </Card>
+                            ))}
                           </div>
-                        </CardContent>
-                      </Card>
-                    ))
+                        </div>
+                      )}
+
+                      {/* Second row - 3 cards side by side */}
+                      {filteredServices.length >= 3 && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+                          {filteredServices.slice(2).map((service: any, index: number) => (
+                            <Card 
+                              key={service.title}
+                              className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft"
+                              style={{ animationDelay: `${(index + 2) * 0.08}s` }}
+                            >
+                              <CardHeader className="text-center pb-4">
+                                <BeforeAfterSlider
+                                  beforeImageUrl={service.images?.before || "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop"}
+                                  afterImageUrl={service.images?.after || "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1600&auto=format&fit=crop"}
+                                  className="mb-4"
+                                />
+                                <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                                  <Sparkles className="w-8 h-8 text-white" />
+                                </div>
+                                <CardTitle className="text-xl font-bold text-brand-navy">
+                                  {service.title}
+                                </CardTitle>
+                              </CardHeader>
+                              <CardContent className="text-center">
+                                {/* NO DESCRIPTION in All Services view */}
+                                <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
+                                  <div className="flex items-center gap-2">
+                                    <Clock className="w-4 h-4 text-brand-turquoise" />
+                                    <div>
+                                      <p className="font-semibold text-brand-navy text-sm">Duration</p>
+                                      <p className="text-xs text-muted-foreground">{service.duration}</p>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <Shield className="w-4 h-4 text-brand-turquoise" />
+                                    <div>
+                                      <p className="font-semibold text-brand-navy text-sm">Price</p>
+                                      <p className="text-xs text-muted-foreground">
+                                        {service.price ? (service.price.startsWith('$') ? service.price : `$${service.price}`) : 'N/A'}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="mb-4">
+                                  <p className="text-sm text-brand-turquoise font-semibold">
+                                    Best for: {service.bestFor}
+                                  </p>
+                                </div>
+
+                                <div className="flex gap-3">
+                                  <Link to="/contact#contact-form" className="flex-1">
+                                    <Button 
+                                      variant="white-on-dark"
+                                      size="lg"
+                                      className="w-full"
+                                    >
+                                      Get Quote
+                                    </Button>
+                                  </Link>
+                                </div>
+                              </CardContent>
+                            </Card>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* If only 1 service, show it centered */}
+                      {filteredServices.length === 1 && (
+                        <div className="flex justify-center">
+                          <div className="max-w-md">
+                            <Card 
+                              className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft"
+                            >
+                              <CardHeader className="text-center pb-4">
+                                <BeforeAfterSlider
+                                  beforeImageUrl={filteredServices[0].images?.before || "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop"}
+                                  afterImageUrl={filteredServices[0].images?.after || "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1600&auto=format&fit=crop"}
+                                  className="mb-4"
+                                />
+                                <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                                  <Sparkles className="w-8 h-8 text-white" />
+                                </div>
+                                <CardTitle className="text-xl font-bold text-brand-navy">
+                                  {filteredServices[0].title}
+                                </CardTitle>
+                              </CardHeader>
+                              <CardContent className="text-center">
+                                <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
+                                  <div className="flex items-center gap-2">
+                                    <Clock className="w-4 h-4 text-brand-turquoise" />
+                                    <div>
+                                      <p className="font-semibold text-brand-navy text-sm">Duration</p>
+                                      <p className="text-xs text-muted-foreground">{filteredServices[0].duration}</p>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <Shield className="w-4 h-4 text-brand-turquoise" />
+                                    <div>
+                                      <p className="font-semibold text-brand-navy text-sm">Price</p>
+                                      <p className="text-xs text-muted-foreground">
+                                        {filteredServices[0].price ? (filteredServices[0].price.startsWith('$') ? filteredServices[0].price : `$${filteredServices[0].price}`) : 'N/A'}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="mb-4">
+                                  <p className="text-sm text-brand-turquoise font-semibold">
+                                    Best for: {filteredServices[0].bestFor}
+                                  </p>
+                                </div>
+
+                                <div className="flex gap-3">
+                                  <Link to="/contact#contact-form" className="flex-1">
+                                    <Button 
+                                      variant="white-on-dark"
+                                      size="lg"
+                                      className="w-full"
+                                    >
+                                      Get Quote
+                                    </Button>
+                                  </Link>
+                                </div>
+                              </CardContent>
+                            </Card>
+                          </div>
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               ) : (
