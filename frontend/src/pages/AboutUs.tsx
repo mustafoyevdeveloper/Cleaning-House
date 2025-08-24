@@ -215,7 +215,7 @@ const AboutUs = () => {
       
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-16 sm:py-24 bg-cover bg-center sm:bg-top bg-no-repeat text-white relative" style={{
+        <section className="py-28 sm:py-36 bg-cover bg-center sm:bg-top bg-no-repeat text-white relative" style={{
           backgroundImage: "url('/About.jpg')",
           backgroundPosition: "center center"
         }}>
