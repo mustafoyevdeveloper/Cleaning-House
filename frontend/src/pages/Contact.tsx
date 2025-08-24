@@ -297,15 +297,22 @@ const Contact = () => {
       
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-brand-navy to-brand-navy/90 text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 animate-fade-in">
-              Contact Us
-            </h1>
-            <p className="text-xl md:text-2xl text-brand-cream max-w-4xl mx-auto leading-relaxed animate-fade-in">
-              Get in touch with us today for a free consultation and quote. We're here to help with all your cleaning and maintenance needs.
-            </p>
-            <div className="w-24 h-1 bg-brand-turquoise mx-auto mt-8"></div>
+        <section className="py-16 sm:py-24 bg-cover bg-center sm:bg-top bg-no-repeat text-white relative" style={{
+          backgroundImage: "url('/Contact.jpg')",
+          backgroundPosition: "center center"
+        }}>
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="relative z-10">
+            <div className="container mx-auto px-4 text-center">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
+                Contact Us
+              </h1>
+              <p className="text-lg sm:text-xl md:text-2xl text-white max-w-4xl mx-auto leading-relaxed animate-fade-in">
+                Get in touch with us today for a free consultation and quote. We're here to help with all your cleaning and maintenance needs.
+              </p>
+              <div className="w-24 h-1 bg-brand-turquoise mx-auto mt-8"></div>
+            </div>
           </div>
         </section>
 

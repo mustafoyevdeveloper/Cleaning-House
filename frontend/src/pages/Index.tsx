@@ -35,7 +35,6 @@ const Index = () => {
         <section className="relative h-screen flex items-center justify-center overflow-hidden">
           {/* Background Image - Fixed Position */}
           <div className="fixed inset-0 z-0">
-            <div className="absolute inset-0 bg-gradient-to-br from-brand-navy/80 via-brand-navy/60 to-brand-navy/40"></div>
             <div className="w-full h-full bg-cover sm:bg-cover bg-center bg-no-repeat" style={{
               backgroundImage: "url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')"
             }}></div>
@@ -112,7 +111,7 @@ const Index = () => {
         <section className="relative py-20 overflow-hidden">
           {/* Header Image Background - Fixed Position */}
           <div className="fixed inset-0 z-0">
-            <div className="absolute inset-0 bg-gradient-to-br from-brand-navy/90 via-brand-navy/80 to-brand-navy/70"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-navy/90 via-brand-navy/40 to-brand-navy/70"></div>
             <div className="w-full h-full bg-cover bg-center bg-no-repeat" style={{
               backgroundImage: "url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')"
             }}></div>

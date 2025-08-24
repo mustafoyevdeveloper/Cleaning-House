@@ -241,7 +241,7 @@ const ResidentialCleaning = () => {
           backgroundPosition: "center center"
         }}>
           {/* Dark overlay for better text readability */}
-          <div className="absolute inset-0 bg-black/65"></div>
+          <div className="absolute inset-0 bg-black/40"></div>
           <div className="relative z-10">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
