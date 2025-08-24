@@ -506,7 +506,7 @@ const Index = () => {
         </div>
 
         {/* Quick Navigation Section - Now with proper z-index */}
-        <div className="relative z-10 bg-brand-cream">
+        <div className="relative z-10 bg-white">
           <section className="py-20">
             <div className="container mx-auto px-4">
               <div className="text-center mb-16">
