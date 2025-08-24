@@ -67,7 +67,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full rounded-lg overflow-hidden select-none ${className} aspect-video md:aspect-video sm:aspect-square`}
+      className={`relative w-full rounded-lg overflow-hidden select-none ${className} aspect-[3/2] sm:aspect-square md:aspect-video`}
       onMouseDown={(e) => startDrag(e.clientX)}
       onTouchStart={(e) => {
         if (e.touches && e.touches[0]) startDrag(e.touches[0].clientX);
@@ -79,7 +79,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
       <img
         src={afterImageUrl}
         alt="After cleaning"
-        className="absolute inset-0 w-full h-full object-contain sm:object-cover md:object-cover"
+        className="absolute inset-0 w-full h-full object-cover"
         draggable={false}
       />
 
@@ -87,7 +87,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
       <img
         src={beforeImageUrl}
         alt="Before cleaning"
-        className="absolute inset-0 w-full h-full object-contain sm:object-cover md:object-cover"
+        className="absolute inset-0 w-full h-full object-cover"
         style={{ 
           clipPath: `inset(0 ${100 - positionPercent}% 0 0)`,
           WebkitClipPath: `inset(0 ${100 - positionPercent}% 0 0)`
@@ -97,26 +97,26 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
 
       {/* Divider line */}
       <div
-        className="absolute top-0 bottom-0 border-r-2 border-white/90"
+        className="absolute top-0 bottom-0 border-r-4 sm:border-r-2 border-white/90"
         style={{ left: `${positionPercent}%` }}
       />
 
       {/* Handle */}
       <div
-        className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white shadow-md rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center cursor-col-resize"
+        className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white shadow-md rounded-full w-12 h-12 sm:w-10 sm:h-10 flex items-center justify-center cursor-col-resize"
         style={{ left: `${positionPercent}%` }}
       >
         <div className="flex items-center gap-1 text-gray-700">
-          <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4" />
-          <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
+          <ChevronLeft className="w-4 h-4 sm:w-4 sm:h-4" />
+          <ChevronRight className="w-4 h-4 sm:w-4 sm:h-4" />
         </div>
       </div>
 
       {/* Helper text badges (optional) */}
-      <div className="absolute left-2 sm:left-3 bottom-2 sm:bottom-3 text-xs px-2 py-1 rounded-md bg-black/40 text-white">
+      <div className="absolute left-3 sm:left-3 bottom-3 sm:bottom-3 text-sm sm:text-xs px-3 py-2 sm:px-2 sm:py-1 rounded-md bg-black/60 text-white font-medium">
         Before
       </div>
-      <div className="absolute right-2 sm:right-3 bottom-2 sm:bottom-3 text-xs px-2 py-1 rounded-md bg-black/40 text-white">
+      <div className="absolute right-3 sm:right-3 bottom-3 sm:bottom-3 text-sm sm:text-xs px-3 py-2 sm:px-2 sm:py-1 rounded-md bg-black/60 text-white font-medium">
         After
       </div>
     </div>
