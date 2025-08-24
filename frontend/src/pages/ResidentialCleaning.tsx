@@ -14,7 +14,8 @@ import {
   Instagram,
   Menu,
   Leaf,
-  X
+  X,
+  MapPin
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
@@ -69,18 +70,67 @@ const ResidentialCleaning = () => {
       <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-lg">
         {/* Top Contact Bar */}
         <div className="bg-brand-navy text-white py-2 px-4">
-          <div className="container mx-auto flex justify-between items-center text-sm">
-            <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4" />
-              <span>Call us: 469-592-4438</span>
+          <div className="container mx-auto">
+            {/* Desktop Layout */}
+            <div className="hidden md:flex justify-between items-center text-sm">
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4" />
+                <span>Call us: 469-592-4438</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4" />
+                <span>Cleaning Services in Collin County</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4" />
+                <span>Mon-Fri: 8am-6pm | Sat-Sun: 9am-4pm</span>
+              </div>
+              <div className="flex gap-4">
+                {settings?.social?.facebook && (
+                  <a href={settings.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-brand-turquoise transition-colors">
+                    <Facebook className="w-4 h-4" />
+                  </a>
+                )}
+                {settings?.social?.instagram && (
+                  <a href={settings.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-brand-turquoise transition-colors">
+                    <Instagram className="w-4 h-4" />
+                  </a>
+                )}
+              </div>
             </div>
-            <div className="flex gap-4">
-              <a href="#" className="hover:text-brand-turquoise transition-colors">
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a href="#" className="hover:text-brand-turquoise transition-colors">
-                <Instagram className="w-4 h-4" />
-              </a>
+            
+            {/* Mobile Layout */}
+            <div className="md:hidden space-y-2 text-xs">
+              {/* First Row: Phone | Social Media */}
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-1">
+                  <Phone className="w-3 h-3" />
+                  <span className="truncate">Call us: 469 592 4438</span>
+                </div>
+                <div className="flex gap-3">
+                  {settings?.social?.facebook && (
+                    <a href={settings.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-brand-turquoise transition-colors">
+                      <Facebook className="w-3 h-3" />
+                    </a>
+                  )}
+                  {settings?.social?.instagram && (
+                    <a href={settings.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-brand-turquoise transition-colors">
+                      <Instagram className="w-3 h-3" />
+                    </a>
+                  )}
+                </div>
+              </div>
+              {/* Second Row: Location | Time */}
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-1 flex-1 min-w-0">
+                  <MapPin className="w-3 h-3 flex-shrink-0" />
+                  <span className="truncate text-xs">Collin County</span>
+                </div>
+                <div className="flex items-center gap-1 flex-1 min-w-0 justify-end">
+                  <Clock className="w-3 h-3 flex-shrink-0" />
+                  <span className="truncate text-xs">Mon-Fri: 8am-6pm | Sat-Sun: 9am-4pm</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -186,16 +236,23 @@ const ResidentialCleaning = () => {
       
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-brand-navy to-brand-navy/90 text-white">
+        <section className="py-24 bg-cover bg-top bg-no-repeat text-white relative" style={{
+          backgroundImage: "url('/Residential.jpg')",
+          backgroundPosition: "center -180px"
+        }}>
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/65"></div>
+          <div className="relative z-10">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
               Residential Cleaning
             </h1>
-            <p className="text-xl md:text-2xl text-brand-cream max-w-4xl mx-auto leading-relaxed animate-fade-in">
+            <p className="text-xl md:text-2xl text-white max-w-4xl mx-auto leading-relaxed animate-fade-in">
               Professional home cleaning services tailored to your needs. From regular maintenance to deep cleaning, we keep your home spotless and comfortable.
             </p>
             <div className="w-24 h-1 bg-brand-turquoise mx-auto mt-8"></div>
           </div>
+        </div>
         </section>
 
         {/* Services Section - Now with proper z-index */}

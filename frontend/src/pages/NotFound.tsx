@@ -94,22 +94,67 @@ const NotFound = () => {
       <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-lg">
         {/* Top Contact Bar */}
         <div className="bg-brand-navy text-white py-2 px-4">
-          <div className="container mx-auto flex justify-between items-center text-sm">
-            <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4" />
-              <span>Call us: {settings?.phone || '469-592-4438'}</span>
+          <div className="container mx-auto">
+            {/* Desktop Layout */}
+            <div className="hidden md:flex justify-between items-center text-sm">
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4" />
+                <span>Call us: {settings?.phone || '469-592-4438'}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4" />
+                <span>Cleaning Services in Collin County</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4" />
+                <span>Mon-Fri: 8am-6pm | Sat-Sun: 9am-4pm</span>
+              </div>
+              <div className="flex gap-4">
+                {settings?.social?.facebook && (
+                  <a href={settings.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-brand-turquoise transition-colors">
+                    <Facebook className="w-4 h-4" />
+                  </a>
+                )}
+                {settings?.social?.instagram && (
+                  <a href={settings.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-brand-turquoise transition-colors">
+                    <Instagram className="w-4 h-4" />
+                  </a>
+                )}
+              </div>
             </div>
-            <div className="flex gap-4">
-              {settings?.social?.facebook && (
-                <a href={settings.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-brand-turquoise transition-colors">
-                  <Facebook className="w-4 h-4" />
-                </a>
-              )}
-              {settings?.social?.instagram && (
-                <a href={settings.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-brand-turquoise transition-colors">
-                  <Instagram className="w-4 h-4" />
-                </a>
-              )}
+            
+            {/* Mobile Layout */}
+            <div className="md:hidden space-y-2 text-xs">
+              {/* First Row: Phone | Social Media */}
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-1">
+                  <Phone className="w-3 h-3" />
+                  <span className="truncate">Call us: {settings?.phone || '469-592-4438'}</span>
+                </div>
+                <div className="flex gap-3">
+                  {settings?.social?.facebook && (
+                    <a href={settings.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-brand-turquoise transition-colors">
+                      <Facebook className="w-3 h-3" />
+                    </a>
+                  )}
+                  {settings?.social?.instagram && (
+                    <a href={settings.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-brand-turquoise transition-colors">
+                      <Instagram className="w-3 h-3" />
+                    </a>
+                  )}
+                </div>
+              </div>
+              {/* Second Row: Location | Time */}
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-1 flex-1 min-w-0">
+                  <MapPin className="w-3 h-3 flex-shrink-0" />
+                  <span className="truncate text-xs">Collin County</span>
+                </div>
+                <div className="flex items-center gap-1 flex-1 min-w-0 justify-end">
+                  <Clock className="w-3 h-3 flex-shrink-0" />
+                  <span className="truncate text-xs">Mon-Fri: 8am-6pm | Sat-Sun: 9am-4pm</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

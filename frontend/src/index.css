@@ -44,7 +44,7 @@ All colors MUST be HSL.
     --brand-turquoise-light: 180 100% 51%;
     --brand-turquoise-dark: 180 100% 31%;
     --brand-navy: 220 39% 11%;
-    --brand-cream: 45 29% 97%;
+    --brand-cream: 45 29% 85%;
     
     /* Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(var(--brand-turquoise)), hsl(var(--brand-turquoise-light)));
