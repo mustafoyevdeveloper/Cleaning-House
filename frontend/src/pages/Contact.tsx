@@ -45,7 +45,7 @@ const Contact = () => {
       icon: MapPin,
       title: "Office Address",
       value: settings?.address || "Dallas-Fort Worth Metroplex",
-      description: "Serving the entire DFW area"
+      description: "Serving all of Collin County"
     },
     {
       icon: Clock,

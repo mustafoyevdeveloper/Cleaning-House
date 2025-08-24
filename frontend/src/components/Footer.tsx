@@ -27,7 +27,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-brand-cream mb-4 max-w-md">
-            Professional residential and commercial cleaning services throughout Collin County.
+            Professional residential and commercial cleaning services throughout Collin County
             </p>
             <div className="flex gap-4">
               {settings?.social?.facebook && (
@@ -57,7 +57,7 @@ const Footer = () => {
                   Commercial Cleaning
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/about-us" className="text-brand-cream hover:text-brand-turquoise transition-colors">
                   About Us
                 </Link>
@@ -66,7 +66,7 @@ const Footer = () => {
                 <Link to="/contact" className="text-brand-cream hover:text-brand-turquoise transition-colors">
                   Contact Us
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -92,7 +92,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-700">
+      {/* <div className="border-t border-gray-700">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
@@ -103,7 +103,7 @@ const Footer = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
     </footer>
   );
 };

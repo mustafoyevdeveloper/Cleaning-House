@@ -102,7 +102,7 @@ const Contact = () => {
                     <MapPin className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <p className="font-semibold text-brand-navy">Collin County</p>
+                    <p className="font-semibold text-brand-navy">Address</p>
                     <p className="text-muted-foreground">{settings?.address || '3300 Dallas Pkwy, Plano, TX 75093'}</p>
                   </div>
                 </div>
