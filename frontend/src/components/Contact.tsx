@@ -129,19 +129,27 @@ const Contact = () => {
                 <ul className="space-y-3 text-muted-foreground">
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-brand-turquoise rounded-full"></div>
-                    Licensed & Insured
+                    Expert Knowledge
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-brand-turquoise rounded-full"></div>
-                    Free Estimates
+                    Professionalism
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-brand-turquoise rounded-full"></div>
-                    Satisfaction Guaranteed
+                    Satisfaction Guarantee
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-brand-turquoise rounded-full"></div>
-                    Local Tampa Bay Experts
+                    Consistent Quality
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-brand-turquoise rounded-full"></div>
+                    Healthier Indoor Environment
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-brand-turquoise rounded-full"></div>
+                    Transparent Pricing
                   </li>
                 </ul>
               </CardContent>
