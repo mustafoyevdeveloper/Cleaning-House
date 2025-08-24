@@ -169,4 +169,23 @@ All colors MUST be HSL.
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+  
+  /* Mobile responsive image optimizations */
+  @media (max-width: 640px) {
+    /* Ensure images are fully visible on mobile */
+    .mobile-image-contain {
+      object-fit: contain !important;
+      object-position: center !important;
+    }
+    
+    /* Adjust aspect ratios for mobile */
+    .mobile-aspect-square {
+      aspect-ratio: 1 / 1 !important;
+    }
+    
+    /* Better background positioning for mobile */
+    .mobile-bg-center {
+      background-position: center center !important;
+    }
+  }
 }

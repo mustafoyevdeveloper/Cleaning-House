@@ -788,7 +788,7 @@ export default function Admin() {
               <div className="space-y-3">
                 <div>
                   <Label>Images Preview</Label>
-                  <div className="aspect-video w-full rounded-lg overflow-hidden bg-gray-100 mb-2">
+                  <div className="aspect-square sm:aspect-video w-full rounded-lg overflow-hidden bg-gray-100 mb-2">
                     {(editing.images.before || editing.images.after) ? (
                       <BeforeAfterSlider 
                         beforeImageUrl={editing.images.before || editing.images.after}
