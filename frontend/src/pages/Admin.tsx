@@ -239,7 +239,7 @@ export default function Admin() {
   };
 
   return (
-    <div className="min-h-screen bg-brand-cream">
+    <div className="min-h-screen bg-white">
       <header className="sticky top-0 z-50 bg-white border-b">
         <div className="container mx-auto px-4 py-4">
           <div className="flex flex-col gap-4">

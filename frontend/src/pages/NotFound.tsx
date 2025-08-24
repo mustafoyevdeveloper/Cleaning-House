@@ -295,7 +295,7 @@ const NotFound = () => {
         </section>
 
         {/* Help Section */}
-        <section className="py-20 bg-gradient-service">
+        <section className="py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-brand-navy mb-6">
@@ -364,7 +364,7 @@ const NotFound = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-brand-cream">
+        <section className="py-20 bg-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-4xl font-bold text-brand-navy mb-6">
               Can't find what you're looking for?

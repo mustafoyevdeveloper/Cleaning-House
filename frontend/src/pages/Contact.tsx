@@ -352,7 +352,7 @@ const Contact = () => {
         </div>
 
         {/* Contact Form Section - Now with proper z-index */}
-        <div className="relative z-10 bg-gradient-service" id="contact-form">
+        <div className="relative z-10 bg-white" id="contact-form">
           <section className="py-20">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
@@ -733,12 +733,12 @@ const Contact = () => {
         </div>
 
         {/* Why Choose Us Section - Now with proper z-index */}
-        <div className="relative z-10 bg-brand-cream">
+        <div className="relative z-10 bg-white">
           <section className="py-20">
             <div className="container mx-auto px-4">
               <div className="text-center mb-16">
                 <h2 className="text-4xl font-bold text-brand-navy mb-6">
-                  Why Choose Us?
+                 Why choose FreshCo Cleaning?
                 </h2>
                 <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
                   We're committed to providing the best cleaning and maintenance services
