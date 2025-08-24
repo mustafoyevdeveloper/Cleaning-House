@@ -50,7 +50,7 @@ const Index = () => {
             <div className="w-24 h-1 bg-brand-turquoise mx-auto mb-6"></div>
 
             <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-              Your partner in trusted, eco-friendly cleaning for healthier living in Collin Country
+              Your partner in trusted, eco-friendly cleaning for healthier living in Collin County
             </p>
 
             {/* Service Highlights */}

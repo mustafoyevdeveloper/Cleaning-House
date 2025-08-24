@@ -297,7 +297,7 @@ const Contact = () => {
       
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-28 sm:py-36 bg-cover bg-center sm:bg-top bg-no-repeat text-white relative" style={{
+        <section className="py-20 sm:py-28 bg-cover bg-center sm:bg-top bg-no-repeat text-white relative" style={{
           backgroundImage: "url('/Contact.jpg')",
           backgroundPosition: "center center"
         }}>
@@ -727,7 +727,7 @@ const Contact = () => {
                   Google Maps Integration
                 </h3>
                 <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                  Interactive map showing our service areas in Collin Country.
+                  Interactive map showing our service areas in Collin County.
                 </p>
                 <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
                   <p className="text-muted-foreground">
