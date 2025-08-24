@@ -146,19 +146,46 @@ export default function Admin() {
     }
   }, [unreadCount, allMessages]);
 
-  const startCreate = () => setEditing({ 
-    ...emptyDraft, 
-    category: categoryFilter, 
-    serviceType: categoryFilter === 'residential' ? 'standard-cleaning' : 'office-cleaning' 
-  });
+  const startCreate = () => {
+    // Check if there's already a service being edited
+    if (editing) {
+      toast.error('Please save or cancel the current service before creating a new one');
+      return;
+    }
+    
+    setEditing({ 
+      ...emptyDraft, 
+      category: categoryFilter, 
+      serviceType: categoryFilter === 'residential' ? 'standard-cleaning' : 'office-cleaning' 
+    });
+  };
   const startEdit = (s: Service) => {
+    // Check if there's already a service being edited
+    if (editing) {
+      toast.error('Please save or cancel the current service before editing another one');
+      return;
+    }
+    
     const priceWithoutDollar = s.price?.startsWith('$') ? s.price.slice(1) : s.price;
     // Ensure serviceType is populated for legacy records
     const fallbackType = s.category === 'residential' ? 'standard-cleaning' : 'office-cleaning';
     setEditing({ ...s, serviceType: (s as any).serviceType || (fallbackType as any), price: priceWithoutDollar || '' });
   };
-  const cancelEdit = () => setEditing(null);
-  const confirmDelete = (id: string) => setDeleteConfirm(id);
+  const cancelEdit = () => {
+    if (createMut.isPending || updateMut.isPending) {
+      toast.error('Please wait for the current operation to complete');
+      return;
+    }
+    setEditing(null);
+    toast.info('Editing cancelled');
+  };
+  const confirmDelete = (id: string) => {
+    if (editing) {
+      toast.error('Please save or cancel the current service before deleting another one');
+      return;
+    }
+    setDeleteConfirm(id);
+  };
   const cancelDelete = () => setDeleteConfirm(null);
   const handleDelete = (id: string) => {
     deleteMut.mutate(id);
@@ -231,10 +258,20 @@ export default function Admin() {
               </Select>
               {/* Desktop ko'rinishda tugmalar */}
               <div className="hidden sm:flex gap-3">
-                <Button variant="brand" onClick={startCreate}>
+                <Button 
+                  variant="brand" 
+                  onClick={startCreate}
+                  disabled={!!editing}
+                  className={editing ? 'opacity-50 cursor-not-allowed' : ''}
+                >
                   <Plus className="w-4 h-4" /> Add Service
                 </Button>
-                <Button variant="brand-secondary" onClick={() => setShowMessages(true)}>
+                <Button 
+                  variant="brand-secondary" 
+                  onClick={() => setShowMessages(true)}
+                  disabled={!!editing}
+                  className={editing ? 'opacity-50 cursor-not-allowed' : ''}
+                >
                   Messages
                   {unreadCount > 0 && (
                     <span className="ml-2 bg-red-500 text-white text-xs rounded-full px-2 py-1 min-w-[20px] flex items-center justify-center">
@@ -245,10 +282,20 @@ export default function Admin() {
               </div>
               {/* Mobile ko'rinishda tugmalar yonma-yon */}
               <div className="flex sm:hidden gap-3 w-full">
-                <Button variant="brand" onClick={startCreate} className="flex-1">
+                <Button 
+                  variant="brand" 
+                  onClick={startCreate} 
+                  className={`flex-1 ${editing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  disabled={!!editing}
+                >
                   <Plus className="w-4 h-4" /> Add Service
                 </Button>
-                <Button variant="brand-secondary" onClick={() => setShowMessages(true)} className="flex-1">
+                <Button 
+                  variant="brand-secondary" 
+                  onClick={() => setShowMessages(true)} 
+                  className={`flex-1 ${editing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  disabled={!!editing}
+                >
                   Messages
                   {unreadCount > 0 && (
                     <span className="ml-2 bg-red-500 text-white text-xs rounded-full px-2 py-1 min-w-[20px] flex items-center justify-center">
@@ -510,10 +557,22 @@ export default function Admin() {
                       </div>
 
                       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                        <Button variant="brand-secondary" size="sm" onClick={() => startEdit(s)} className="w-full sm:w-auto">
+                        <Button 
+                          variant="brand-secondary" 
+                          size="sm" 
+                          onClick={() => startEdit(s)} 
+                          className={`w-full sm:w-auto ${editing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                          disabled={!!editing}
+                        >
                           <Edit className="w-4 h-4" /> Edit
                         </Button>
-                        <Button variant="destructive" size="sm" onClick={() => confirmDelete(s._id!)} className="w-full sm:w-auto">
+                        <Button 
+                          variant="destructive" 
+                          size="sm" 
+                          onClick={() => confirmDelete(s._id!)} 
+                          className={`w-full sm:w-auto ${editing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                          disabled={!!editing}
+                        >
                           <Trash2 className="w-4 h-4" /> Delete
                         </Button>
                       </div>
@@ -532,7 +591,14 @@ export default function Admin() {
            <div className="bg-white w-full max-w-4xl rounded-xl shadow-xl overflow-hidden max-h-[95vh] sm:max-h-[90vh]">
                            <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b">
                 <h2 className="text-lg sm:text-xl font-semibold text-brand-navy">Messages</h2>
-                <Button variant="ghost" onClick={() => setShowMessages(false)} size="sm"><X className="w-4 h-4" /></Button>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => setShowMessages(false)} 
+                  size="sm"
+                  disabled={!!editing}
+                >
+                  <X className="w-4 h-4" />
+                </Button>
               </div>
             <div className="p-4 sm:p-6 space-y-4 max-h-[calc(95vh-80px)] sm:max-h-[calc(90vh-80px)] overflow-y-auto">
               {messagesLoading ? (
@@ -550,8 +616,8 @@ export default function Admin() {
                              variant="destructive"
                              size="sm"
                              onClick={() => deleteMessageMut.mutate(m._id!)}
-                             disabled={deleteMessageMut.isPending}
-                             className="ml-2"
+                             disabled={deleteMessageMut.isPending || !!editing}
+                             className={`ml-2 ${editing ? 'opacity-50 cursor-not-allowed' : ''}`}
                            >
                              <Trash2 className="w-4 h-4" />
                            </Button>
@@ -594,8 +660,17 @@ export default function Admin() {
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-2 sm:p-4">
           <div className="bg-white w-full max-w-3xl rounded-xl shadow-xl overflow-hidden max-h-[95vh] sm:max-h-[90vh]">
             <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b">
-              <h2 className="text-lg sm:text-xl font-semibold text-brand-navy">{editing._id ? 'Edit Service' : 'Create Service'}</h2>
-              <Button variant="ghost" onClick={cancelEdit} size="sm"><X className="w-4 h-4" /></Button>
+              <h2 className="text-lg sm:text-xl font-semibold text-brand-navy">
+                {editing._id ? `Edit Service: ${editing.title || 'Untitled'}` : 'Create New Service'}
+              </h2>
+              <Button 
+                variant="ghost" 
+                onClick={cancelEdit} 
+                size="sm"
+                disabled={createMut.isPending || updateMut.isPending}
+              >
+                <X className="w-4 h-4" />
+              </Button>
             </div>
             <div className="p-4 sm:p-6 space-y-4 max-h-[calc(95vh-80px)] sm:max-h-[calc(90vh-80px)] overflow-y-auto">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -740,8 +815,20 @@ export default function Admin() {
               </div>
 
               <div className="flex flex-col sm:flex-row justify-end gap-2 pt-2">
-                <Button variant="ghost" onClick={cancelEdit} className="w-full sm:w-auto"><X className="w-4 h-4" /> Cancel</Button>
-                <Button variant="brand" onClick={submit} disabled={createMut.isPending || updateMut.isPending} className="w-full sm:w-auto">
+                <Button 
+                  variant="ghost" 
+                  onClick={cancelEdit} 
+                  className="w-full sm:w-auto"
+                  disabled={createMut.isPending || updateMut.isPending}
+                >
+                  <X className="w-4 h-4" /> Cancel
+                </Button>
+                <Button 
+                  variant="brand" 
+                  onClick={submit} 
+                  disabled={createMut.isPending || updateMut.isPending} 
+                  className="w-full sm:w-auto"
+                >
                   {createMut.isPending || updateMut.isPending ? 'Saving...' : <><Save className="w-4 h-4" /> Save</>}
                 </Button>
               </div>
@@ -764,13 +851,18 @@ export default function Admin() {
               Are you sure you want to delete this service? This action cannot be undone.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button variant="ghost" onClick={cancelDelete} className="w-full sm:w-auto">
+              <Button 
+                variant="ghost" 
+                onClick={cancelDelete} 
+                className="w-full sm:w-auto"
+                disabled={!!editing}
+              >
                 Cancel
               </Button>
               <Button 
                 variant="destructive" 
                 onClick={() => handleDelete(deleteConfirm)}
-                disabled={deleteMut.isPending}
+                disabled={deleteMut.isPending || !!editing}
                 className="w-full sm:w-auto"
               >
                 {deleteMut.isPending ? 'Deleting...' : 'Delete Service'}
