@@ -67,7 +67,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full aspect-video rounded-lg overflow-hidden select-none ${className}`}
+      className={`relative w-full rounded-lg overflow-hidden select-none ${className} aspect-video md:aspect-video sm:aspect-square`}
       onMouseDown={(e) => startDrag(e.clientX)}
       onTouchStart={(e) => {
         if (e.touches && e.touches[0]) startDrag(e.touches[0].clientX);
@@ -79,7 +79,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
       <img
         src={afterImageUrl}
         alt="After cleaning"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-contain sm:object-cover md:object-cover"
         draggable={false}
       />
 
@@ -87,7 +87,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
       <img
         src={beforeImageUrl}
         alt="Before cleaning"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-contain sm:object-cover md:object-cover"
         style={{ 
           clipPath: `inset(0 ${100 - positionPercent}% 0 0)`,
           WebkitClipPath: `inset(0 ${100 - positionPercent}% 0 0)`
@@ -103,20 +103,20 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
 
       {/* Handle */}
       <div
-        className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white shadow-md rounded-full w-10 h-10 flex items-center justify-center cursor-col-resize"
+        className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white shadow-md rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center cursor-col-resize"
         style={{ left: `${positionPercent}%` }}
       >
         <div className="flex items-center gap-1 text-gray-700">
-          <ChevronLeft className="w-4 h-4" />
-          <ChevronRight className="w-4 h-4" />
+          <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4" />
+          <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
         </div>
       </div>
 
       {/* Helper text badges (optional) */}
-      <div className="absolute left-3 bottom-3 text-xs px-2 py-1 rounded-md bg-black/40 text-white">
+      <div className="absolute left-2 sm:left-3 bottom-2 sm:bottom-3 text-xs px-2 py-1 rounded-md bg-black/40 text-white">
         Before
       </div>
-      <div className="absolute right-3 bottom-3 text-xs px-2 py-1 rounded-md bg-black/40 text-white">
+      <div className="absolute right-2 sm:right-3 bottom-2 sm:bottom-3 text-xs px-2 py-1 rounded-md bg-black/40 text-white">
         After
       </div>
     </div>

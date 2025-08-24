@@ -257,7 +257,7 @@ const AboutUs = () => {
                       <img 
                         src={settings.aboutUs.images.blueBoxImage} 
                         alt="Blue Box Background" 
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain sm:object-cover"
                       />
                       <div className="absolute inset-0 bg-black/40"></div>
                     </div>
