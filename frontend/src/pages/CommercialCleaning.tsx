@@ -279,6 +279,10 @@ const CommercialCleaning = () => {
                     { key: 'medical-clinic-cleaning' as const, label: 'Public & Private' },
                     { key: 'restaurant-cleaning' as const, label: 'Restaurant' },
                     { key: 'post-construction-cleaning' as const, label: 'Post-construction' },
+                    { key: 'floor-care-services' as const, label: 'Floor Care' },
+                    { key: 'high-touch-sanitizing' as const, label: 'High-Touch Sanitizing' },
+                    { key: 'pressure-washing' as const, label: 'Pressure Washing' },
+                    { key: 'event-clean-up' as const, label: 'Event Clean-Up' },
                   ].map((opt) => (
                     <button
                       key={opt.key}

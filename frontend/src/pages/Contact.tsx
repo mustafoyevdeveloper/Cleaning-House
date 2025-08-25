@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   Phone, 
@@ -66,6 +68,30 @@ const Contact = () => {
     location: '',
     details: ''
   });
+  const residentialOptions = [
+    { value: 'standard-cleaning', label: 'Standard Cleaning' },
+    { value: 'deep-cleaning', label: 'Deep Cleaning' },
+    { value: 'move-in-out-cleaning', label: 'Move-in/Move-out Cleaning' },
+    { value: 'apartment-cleaning', label: 'Apartment Cleaning' },
+    { value: 'specialty-cleaning', label: 'Specialty Cleaning' },
+    { value: 'carpet-upholstery-cleaning', label: 'Carpet & Upholstery Cleaning' },
+    { value: 'window-cleaning', label: 'Window Cleaning' },
+    { value: 'fridge-oven-cleaning', label: 'Fridge & Oven Cleaning' },
+    { value: 'laundry-ironing-services', label: 'Laundry & Ironing Services' },
+    { value: 'bed-making-linen-changes', label: 'Bed Making & Linen Changes' },
+    { value: 'organizing-services', label: 'Organizing Services' },
+  ];
+  const commercialOptions = [
+    { value: 'office-cleaning', label: 'Office Cleaning' },
+    { value: 'retail-cleaning', label: 'Retail Cleaning' },
+    { value: 'medical-clinic-cleaning', label: 'Public & Private Institutions' },
+    { value: 'restaurant-cleaning', label: 'Restaurant Cleaning' },
+    { value: 'post-construction-cleaning', label: 'Post-construction Cleaning' },
+    { value: 'floor-care-services', label: 'Floor Care Services' },
+    { value: 'high-touch-sanitizing', label: 'High-Touch Sanitizing' },
+    { value: 'pressure-washing', label: 'Pressure Washing' },
+    { value: 'event-clean-up', label: 'Event Clean-Up' },
+  ];
 
   const submitMut = useMutation({
     mutationFn: submitMessage,
@@ -471,7 +497,41 @@ const Contact = () => {
                           <Label htmlFor="services" className="text-brand-navy font-semibold">
                             Services Needed *
                           </Label>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button type="button" variant="outline" className="w-full justify-between">
+                                {formData.services.length > 0 ? `${formData.services.length} selected` : 'Select services'}
+                                <span className="text-muted-foreground">▾</span>
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[320px] p-2">
+                              <div className="space-y-2 max-h-64 overflow-auto pr-1">
+                                {(formData.category === 'commercial' ? commercialOptions : formData.category === 'residential' ? residentialOptions : []).map((opt) => (
+                                  <label key={opt.value} className="flex items-center gap-2 text-sm">
+                                    <Checkbox
+                                      checked={formData.services.includes(opt.value)}
+                                      onCheckedChange={(checked) => {
+                                        setFormData((prev) => ({
+                                          ...prev,
+                                          services: checked
+                                            ? [...prev.services, opt.value]
+                                            : prev.services.filter((s) => s !== opt.value),
+                                        }));
+                                      }}
+                                    />
+                                    <span>{opt.label}</span>
+                                  </label>
+                                ))}
+                                {formData.category && (formData.category === 'commercial' ? commercialOptions : residentialOptions).length === 0 && (
+                                  <p className="text-xs text-muted-foreground">No services available</p>
+                                )}
+                                {!formData.category && (
+                                  <p className="text-xs text-muted-foreground">Select category first</p>
+                                )}
+                              </div>
+                            </PopoverContent>
+                          </Popover>
+                          <div className="hidden">
                             {formData.category === 'residential' && (
                               <>
                                 <label className="flex items-center space-x-2">
@@ -558,6 +618,108 @@ const Contact = () => {
                                     className="h-4 w-4 text-brand-turquoise focus:ring-brand-turquoise border-gray-300 rounded"
                                   />
                                   <span>Specialty Cleaning</span>
+                                </label>
+                                <label className="flex items-center space-x-2">
+                                  <input
+                                    type="checkbox"
+                                    value="carpet-upholstery-cleaning"
+                                    checked={formData.services.includes('carpet-upholstery-cleaning')}
+                                    onChange={(e) => {
+                                      setFormData(prev => ({
+                                        ...prev,
+                                        services: e.target.checked 
+                                          ? [...prev.services, 'carpet-upholstery-cleaning']
+                                          : prev.services.filter(s => s !== 'carpet-upholstery-cleaning')
+                                      }));
+                                    }}
+                                    className="h-4 w-4 text-brand-turquoise focus:ring-brand-turquoise border-gray-300 rounded"
+                                  />
+                                  <span>Carpet & Upholstery Cleaning</span>
+                                </label>
+                                <label className="flex items-center space-x-2">
+                                  <input
+                                    type="checkbox"
+                                    value="window-cleaning"
+                                    checked={formData.services.includes('window-cleaning')}
+                                    onChange={(e) => {
+                                      setFormData(prev => ({
+                                        ...prev,
+                                        services: e.target.checked 
+                                          ? [...prev.services, 'window-cleaning']
+                                          : prev.services.filter(s => s !== 'window-cleaning')
+                                      }));
+                                    }}
+                                    className="h-4 w-4 text-brand-turquoise focus:ring-brand-turquoise border-gray-300 rounded"
+                                  />
+                                  <span>Window Cleaning</span>
+                                </label>
+                                <label className="flex items-center space-x-2">
+                                  <input
+                                    type="checkbox"
+                                    value="fridge-oven-cleaning"
+                                    checked={formData.services.includes('fridge-oven-cleaning')}
+                                    onChange={(e) => {
+                                      setFormData(prev => ({
+                                        ...prev,
+                                        services: e.target.checked 
+                                          ? [...prev.services, 'fridge-oven-cleaning']
+                                          : prev.services.filter(s => s !== 'fridge-oven-cleaning')
+                                      }));
+                                    }}
+                                    className="h-4 w-4 text-brand-turquoise focus:ring-brand-turquoise border-gray-300 rounded"
+                                  />
+                                  <span>Fridge & Oven Cleaning</span>
+                                </label>
+                                <label className="flex items-center space-x-2">
+                                  <input
+                                    type="checkbox"
+                                    value="laundry-ironing-services"
+                                    checked={formData.services.includes('laundry-ironing-services')}
+                                    onChange={(e) => {
+                                      setFormData(prev => ({
+                                        ...prev,
+                                        services: e.target.checked 
+                                          ? [...prev.services, 'laundry-ironing-services']
+                                          : prev.services.filter(s => s !== 'laundry-ironing-services')
+                                      }));
+                                    }}
+                                    className="h-4 w-4 text-brand-turquoise focus:ring-brand-turquoise border-gray-300 rounded"
+                                  />
+                                  <span>Laundry & Ironing Services</span>
+                                </label>
+                                <label className="flex items-center space-x-2">
+                                  <input
+                                    type="checkbox"
+                                    value="bed-making-linen-changes"
+                                    checked={formData.services.includes('bed-making-linen-changes')}
+                                    onChange={(e) => {
+                                      setFormData(prev => ({
+                                        ...prev,
+                                        services: e.target.checked 
+                                          ? [...prev.services, 'bed-making-linen-changes']
+                                          : prev.services.filter(s => s !== 'bed-making-linen-changes')
+                                      }));
+                                    }}
+                                    className="h-4 w-4 text-brand-turquoise focus:ring-brand-turquoise border-gray-300 rounded"
+                                  />
+                                  <span>Bed Making & Linen Changes</span>
+                                </label>
+                                <label className="flex items-center space-x-2">
+                                  <input
+                                    type="checkbox"
+                                    value="organizing-services"
+                                    checked={formData.services.includes('organizing-services')}
+                                    onChange={(e) => {
+                                      setFormData(prev => ({
+                                        ...prev,
+                                        services: e.target.checked 
+                                          ? [...prev.services, 'organizing-services']
+                                          : prev.services.filter(s => s !== 'organizing-services')
+                                      }));
+                                    }}
+                                    className="h-4 w-4 text-brand-turquoise focus:ring-brand-turquoise border-gray-300 rounded"
+                                  />
+                                  <span>Organizing Services</span>
                                 </label>
                               </>
                             )}
@@ -647,6 +809,74 @@ const Contact = () => {
                                     className="h-4 w-4 text-brand-turquoise focus:ring-brand-turquoise border-gray-300 rounded"
                                   />
                                   <span>Post-construction Cleaning</span>
+                                </label>
+                                <label className="flex items-center space-x-2">
+                                  <input
+                                    type="checkbox"
+                                    value="floor-care-services"
+                                    checked={formData.services.includes('floor-care-services')}
+                                    onChange={(e) => {
+                                      setFormData(prev => ({
+                                        ...prev,
+                                        services: e.target.checked 
+                                          ? [...prev.services, 'floor-care-services']
+                                          : prev.services.filter(s => s !== 'floor-care-services')
+                                      }));
+                                    }}
+                                    className="h-4 w-4 text-brand-turquoise focus:ring-brand-turquoise border-gray-300 rounded"
+                                  />
+                                  <span>Floor Care Services</span>
+                                </label>
+                                <label className="flex items-center space-x-2">
+                                  <input
+                                    type="checkbox"
+                                    value="high-touch-sanitizing"
+                                    checked={formData.services.includes('high-touch-sanitizing')}
+                                    onChange={(e) => {
+                                      setFormData(prev => ({
+                                        ...prev,
+                                        services: e.target.checked 
+                                          ? [...prev.services, 'high-touch-sanitizing']
+                                          : prev.services.filter(s => s !== 'high-touch-sanitizing')
+                                      }));
+                                    }}
+                                    className="h-4 w-4 text-brand-turquoise focus:ring-brand-turquoise border-gray-300 rounded"
+                                  />
+                                  <span>High-Touch Sanitizing</span>
+                                </label>
+                                <label className="flex items-center space-x-2">
+                                  <input
+                                    type="checkbox"
+                                    value="pressure-washing"
+                                    checked={formData.services.includes('pressure-washing')}
+                                    onChange={(e) => {
+                                      setFormData(prev => ({
+                                        ...prev,
+                                        services: e.target.checked 
+                                          ? [...prev.services, 'pressure-washing']
+                                          : prev.services.filter(s => s !== 'pressure-washing')
+                                      }));
+                                    }}
+                                    className="h-4 w-4 text-brand-turquoise focus:ring-brand-turquoise border-gray-300 rounded"
+                                  />
+                                  <span>Pressure Washing</span>
+                                </label>
+                                <label className="flex items-center space-x-2">
+                                  <input
+                                    type="checkbox"
+                                    value="event-clean-up"
+                                    checked={formData.services.includes('event-clean-up')}
+                                    onChange={(e) => {
+                                      setFormData(prev => ({
+                                        ...prev,
+                                        services: e.target.checked 
+                                          ? [...prev.services, 'event-clean-up']
+                                          : prev.services.filter(s => s !== 'event-clean-up')
+                                      }));
+                                    }}
+                                    className="h-4 w-4 text-brand-turquoise focus:ring-brand-turquoise border-gray-300 rounded"
+                                  />
+                                  <span>Event Clean-Up</span>
                                 </label>
                               </>
                             )}

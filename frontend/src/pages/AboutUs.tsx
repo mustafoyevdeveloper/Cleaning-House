@@ -452,7 +452,7 @@ const AboutUs = () => {
               <div className="text-center p-6 bg-muted/50 rounded-lg">
                 <MapPin className="w-12 h-12 text-brand-turquoise mx-auto mb-4" />
                 <h3 className="text-lg font-bold text-brand-navy mb-2">Suburbs</h3>
-                <p className="text-muted-foreground">Prosper,Selina, Melissa, Anna, Princeton, Fairview</p>
+                <p className="text-muted-foreground">Prosper, Celina, Melissa, Anna, Princeton, Fairview</p>
               </div>
               <div className="text-center p-6 bg-muted/50 rounded-lg">
                 <MapPin className="w-12 h-12 text-brand-turquoise mx-auto mb-4" />

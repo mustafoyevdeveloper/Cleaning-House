@@ -700,6 +700,12 @@ export default function Admin() {
                           <SelectItem value="move-in-out-cleaning">Move-in/Move-out Cleaning</SelectItem>
                           <SelectItem value="apartment-cleaning">Apartment Cleaning</SelectItem>
                           <SelectItem value="specialty-cleaning">Specialty Cleaning</SelectItem>
+                          <SelectItem value="carpet-upholstery-cleaning">Carpet & Upholstery Cleaning</SelectItem>
+                          <SelectItem value="window-cleaning">Window Cleaning</SelectItem>
+                          <SelectItem value="fridge-oven-cleaning">Fridge & Oven Cleaning</SelectItem>
+                          <SelectItem value="laundry-ironing-services">Laundry & Ironing Services</SelectItem>
+                          <SelectItem value="bed-making-linen-changes">Bed Making & Linen Changes</SelectItem>
+                          <SelectItem value="organizing-services">Organizing Services</SelectItem>
                         </>
                       ) : (
                         <>
@@ -708,6 +714,10 @@ export default function Admin() {
                           <SelectItem value="medical-clinic-cleaning">Public & Private Institutions</SelectItem>
                           <SelectItem value="restaurant-cleaning">Restaurant Cleaning</SelectItem>
                           <SelectItem value="post-construction-cleaning">Post-construction Cleaning</SelectItem>
+                          <SelectItem value="floor-care-services">Floor Care Services</SelectItem>
+                          <SelectItem value="high-touch-sanitizing">High-Touch Sanitizing</SelectItem>
+                          <SelectItem value="pressure-washing">Pressure Washing</SelectItem>
+                          <SelectItem value="event-clean-up">Event Clean-Up</SelectItem>
                         </>
                       )}
                     </SelectContent>

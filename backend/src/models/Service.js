@@ -20,12 +20,24 @@ const ServiceSchema = new mongoose.Schema(
         'move-in-out-cleaning',
         'apartment-cleaning',
         'specialty-cleaning',
+        // Newly added residential specialties
+        'carpet-upholstery-cleaning',
+        'window-cleaning',
+        'fridge-oven-cleaning',
+        'laundry-ironing-services',
+        'bed-making-linen-changes',
+        'organizing-services',
         // Commercial services
         'office-cleaning',
         'retail-cleaning',
         'medical-clinic-cleaning',
         'restaurant-cleaning',
-        'post-construction-cleaning'
+        'post-construction-cleaning',
+        // Newly added commercial specialties
+        'floor-care-services',
+        'high-touch-sanitizing',
+        'pressure-washing',
+        'event-clean-up'
       ], 
       required: true 
     },
