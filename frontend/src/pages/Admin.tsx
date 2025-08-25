@@ -627,9 +627,31 @@ export default function Admin() {
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                               <p><b>Category:</b> <span className="capitalize">{m.category || 'NOT SET'}</span></p>
-                              <p><b>Service:</b> {m.serviceNeeded.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
+                              {(() => {
+                                const parts = (m.serviceNeeded || '').split(',').map(s => s.trim()).filter(Boolean);
+                                const derivedMain = (m as any).mainService || parts[0] || '';
+                                const derivedExtras = (m as any).additionalServices && (m as any).additionalServices.length
+                                  ? (m as any).additionalServices
+                                  : parts.slice(1);
+                                return (
+                                  <>
+                                    {derivedMain && (
+                                      <p><b>Main Service:</b> {derivedMain.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}</p>
+                                    )}
+                                    {Array.isArray(derivedExtras) && derivedExtras.length > 0 && (
+                                      <div className="mt-1">
+                                        <b>Additional Services:</b>
+                                        <ul className="list-disc list-inside text-sm">
+                                          {derivedExtras.map((s: string, i: number) => (
+                                            <li key={i}>{String(s).replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}</li>
+                                          ))}
+                                        </ul>
+                                      </div>
+                                    )}
+                                  </>
+                                );
+                              })()}
                               {m.location && <p><b>Location:</b> {m.location}</p>}
-                              
                             </div>
                             <div>
                               <p><b>Page:</b> {m.page || 'Website'}</p>
@@ -700,12 +722,6 @@ export default function Admin() {
                           <SelectItem value="move-in-out-cleaning">Move-in/Move-out Cleaning</SelectItem>
                           <SelectItem value="apartment-cleaning">Apartment Cleaning</SelectItem>
                           <SelectItem value="specialty-cleaning">Specialty Cleaning</SelectItem>
-                          <SelectItem value="carpet-upholstery-cleaning">Carpet & Upholstery Cleaning</SelectItem>
-                          <SelectItem value="window-cleaning">Window Cleaning</SelectItem>
-                          <SelectItem value="fridge-oven-cleaning">Fridge & Oven Cleaning</SelectItem>
-                          <SelectItem value="laundry-ironing-services">Laundry & Ironing Services</SelectItem>
-                          <SelectItem value="bed-making-linen-changes">Bed Making & Linen Changes</SelectItem>
-                          <SelectItem value="organizing-services">Organizing Services</SelectItem>
                         </>
                       ) : (
                         <>
@@ -714,10 +730,6 @@ export default function Admin() {
                           <SelectItem value="medical-clinic-cleaning">Public & Private Institutions</SelectItem>
                           <SelectItem value="restaurant-cleaning">Restaurant Cleaning</SelectItem>
                           <SelectItem value="post-construction-cleaning">Post-construction Cleaning</SelectItem>
-                          <SelectItem value="floor-care-services">Floor Care Services</SelectItem>
-                          <SelectItem value="high-touch-sanitizing">High-Touch Sanitizing</SelectItem>
-                          <SelectItem value="pressure-washing">Pressure Washing</SelectItem>
-                          <SelectItem value="event-clean-up">Event Clean-Up</SelectItem>
                         </>
                       )}
                     </SelectContent>

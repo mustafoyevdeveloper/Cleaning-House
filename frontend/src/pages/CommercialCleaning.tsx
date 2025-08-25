@@ -48,6 +48,13 @@ const CommercialCleaning = () => {
   const menuRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
 
+  const noButtonServiceTypes = new Set([
+    'floor-care-services',
+    'high-touch-sanitizing',
+    'pressure-washing',
+    'event-clean-up',
+  ]);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -279,10 +286,6 @@ const CommercialCleaning = () => {
                     { key: 'medical-clinic-cleaning' as const, label: 'Public & Private' },
                     { key: 'restaurant-cleaning' as const, label: 'Restaurant' },
                     { key: 'post-construction-cleaning' as const, label: 'Post-construction' },
-                    { key: 'floor-care-services' as const, label: 'Floor Care' },
-                    { key: 'high-touch-sanitizing' as const, label: 'High-Touch Sanitizing' },
-                    { key: 'pressure-washing' as const, label: 'Pressure Washing' },
-                    { key: 'event-clean-up' as const, label: 'Event Clean-Up' },
                   ].map((opt) => (
                     <button
                       key={opt.key}
@@ -372,17 +375,19 @@ const CommercialCleaning = () => {
                                   </p>
                                 </div>
 
-                                <div className="flex gap-3">
-                                  <Link to="/contact#contact-form" className="flex-1">
-                                    <Button 
-                                      variant="white-on-dark"
-                                      size="lg"
-                                      className="w-full"
-                                    >
-                                      Get Quote
-                                    </Button>
-                                  </Link>
-                                </div>
+                                {!noButtonServiceTypes.has(service.serviceType) && (
+                                  <div className="flex gap-3">
+                                    <Link to="/contact#contact-form" className="flex-1">
+                                      <Button 
+                                        variant="white-on-dark"
+                                        size="lg"
+                                        className="w-full"
+                                      >
+                                        Get Quote
+                                      </Button>
+                                    </Link>
+                                  </div>
+                                )}
                               </CardContent>
                             </Card>
                           ))}
@@ -438,17 +443,19 @@ const CommercialCleaning = () => {
                                   </p>
                                 </div>
 
-                                <div className="flex gap-3">
-                                  <Link to="/contact#contact-form" className="flex-1">
-                                    <Button 
-                                      variant="white-on-dark"
-                                      size="lg"
-                                      className="w-full"
-                                    >
-                                      Get Quote
-                                    </Button>
-                                  </Link>
-                                </div>
+                                {!noButtonServiceTypes.has(service.serviceType) && (
+                                  <div className="flex gap-3">
+                                    <Link to="/contact#contact-form" className="flex-1">
+                                      <Button 
+                                        variant="white-on-dark"
+                                        size="lg"
+                                        className="w-full"
+                                      >
+                                        Get Quote
+                                      </Button>
+                                    </Link>
+                                  </div>
+                                )}
                               </CardContent>
                             </Card>
                           ))}
@@ -501,17 +508,19 @@ const CommercialCleaning = () => {
                                   </p>
                         </div>
 
-                                <div className="flex gap-3">
-                                  <Link to="/contact#contact-form" className="flex-1">
-                                    <Button 
-                                      variant="white-on-dark"
-                                      size="lg"
-                                      className="w-full"
-                                    >
-                                      Get Quote
-                                    </Button>
-                                  </Link>
-                                </div>
+                                {!noButtonServiceTypes.has(filteredServices[0].serviceType) && (
+                                  <div className="flex gap-3">
+                                    <Link to="/contact#contact-form" className="flex-1">
+                                      <Button 
+                                        variant="white-on-dark"
+                                        size="lg"
+                                        className="w-full"
+                                      >
+                                        Get Quote
+                                      </Button>
+                                    </Link>
+                                  </div>
+                                )}
                               </CardContent>
                             </Card>
                           </div>

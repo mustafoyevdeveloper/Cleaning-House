@@ -8,6 +8,8 @@ const MessageSchema = new mongoose.Schema(
     phone: { type: String, required: true },
     category: { type: String, required: false, enum: ['residential', 'commercial'] },
     serviceNeeded: { type: String, required: true },
+    mainService: { type: String, default: '' },
+    additionalServices: { type: [String], default: [] },
     location: { type: String, default: '' },
     details: { type: String, default: '' },
     page: { type: String, default: '' },

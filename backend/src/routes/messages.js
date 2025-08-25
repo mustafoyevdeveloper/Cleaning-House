@@ -35,7 +35,14 @@ function buildTransporter() {
 router.post('/', async (req, res) => {
   try {
     debug('Received message data:', req.body);
-    const msg = await Message.create(req.body);
+    const payload = { ...req.body };
+    // Backward compatibility: if mainService not provided, derive from serviceNeeded
+    if (!payload.mainService && typeof payload.serviceNeeded === 'string') {
+      const parts = payload.serviceNeeded.split(',').map(s => s.trim()).filter(Boolean);
+      payload.mainService = parts[0] || '';
+      payload.additionalServices = parts.slice(1);
+    }
+    const msg = await Message.create(payload);
     debug('Created message:', msg);
 
     // Send email if configured
@@ -81,13 +88,23 @@ router.post('/', async (req, res) => {
               <h2 style="color: #1e3a8a; margin-bottom: 15px; border-bottom: 2px solid #06b6d4; padding-bottom: 5px;">Service Request</h2>
               <table style="width: 100%; border-collapse: collapse;">
                 <tr>
-                  <td style="padding: 8px 0; font-weight: bold; color: #374151; width: 120px;">Category:</td>
+                  <td style="padding: 8px 0; font-weight: bold; color: #374151; width: 160px;">Category:</td>
                   <td style="padding: 8px 0; color: #6b7280; text-transform: capitalize;">${msg.category}</td>
                 </tr>
                 <tr>
-                  <td style="padding: 8px 0; font-weight: bold; color: #374151;">Service:</td>
-                  <td style="padding: 8px 0; color: #6b7280;">${msg.serviceNeeded.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</td>
+                  <td style="padding: 8px 0; font-weight: bold; color: #374151;">Main Service:</td>
+                  <td style="padding: 8px 0; color: #6b7280;">${(msg.mainService || '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</td>
                 </tr>
+                ${Array.isArray(msg.additionalServices) && msg.additionalServices.length ? `
+                <tr>
+                  <td style="padding: 8px 0; font-weight: bold; color: #374151; vertical-align: top;">Additional Services:</td>
+                  <td style="padding: 8px 0; color: #6b7280;">
+                    <ul style="margin: 0; padding-left: 18px;">
+                      ${msg.additionalServices.map(s => `<li>${String(s).replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</li>`).join('')}
+                    </ul>
+                  </td>
+                </tr>
+                ` : ''}
               </table>
             </div>
             

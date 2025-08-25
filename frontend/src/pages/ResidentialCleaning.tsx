@@ -48,6 +48,15 @@ const ResidentialCleaning = () => {
   const menuRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
 
+  const noButtonServiceTypes = new Set([
+    'carpet-upholstery-cleaning',
+    'window-cleaning',
+    'fridge-oven-cleaning',
+    'laundry-ironing-services',
+    'bed-making-linen-changes',
+    'organizing-services',
+  ]);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -279,12 +288,6 @@ const ResidentialCleaning = () => {
                     { key: 'move-in-out-cleaning' as const, label: 'Move-in/Move-out' },
                     { key: 'apartment-cleaning' as const, label: 'Apartment' },
                     { key: 'specialty-cleaning' as const, label: 'Specialty' },
-                    { key: 'carpet-upholstery-cleaning' as const, label: 'Carpet & Upholstery' },
-                    { key: 'window-cleaning' as const, label: 'Window Cleaning' },
-                    { key: 'fridge-oven-cleaning' as const, label: 'Fridge & Oven' },
-                    { key: 'laundry-ironing-services' as const, label: 'Laundry & Ironing' },
-                    { key: 'bed-making-linen-changes' as const, label: 'Bed & Linen' },
-                    { key: 'organizing-services' as const, label: 'Organizing' },
                   ].map((opt) => (
                     <button
                       key={opt.key}
@@ -374,17 +377,19 @@ const ResidentialCleaning = () => {
                                   </p>
                                 </div>
 
-                                <div className="flex gap-3">
-                                  <Link to="/contact#contact-form" className="flex-1">
-                                    <Button 
-                                      variant="white-on-dark"
-                                      size="lg"
-                                      className="w-full"
-                                    >
-                                      Get Quote
-                                    </Button>
-                                  </Link>
-                                </div>
+                                {!noButtonServiceTypes.has(service.serviceType) && (
+                                  <div className="flex gap-3">
+                                    <Link to="/contact#contact-form" className="flex-1">
+                                      <Button 
+                                        variant="white-on-dark"
+                                        size="lg"
+                                        className="w-full"
+                                      >
+                                        Get Quote
+                                      </Button>
+                                    </Link>
+                                  </div>
+                                )}
                               </CardContent>
                             </Card>
                           ))}
@@ -440,17 +445,19 @@ const ResidentialCleaning = () => {
                                   </p>
                                 </div>
 
-                                <div className="flex gap-3">
-                                  <Link to="/contact#contact-form" className="flex-1">
-                                    <Button 
-                                      variant="white-on-dark"
-                                      size="lg"
-                                      className="w-full"
-                                    >
-                                      Get Quote
-                                    </Button>
-                                  </Link>
-                                </div>
+                                {!noButtonServiceTypes.has(service.serviceType) && (
+                                  <div className="flex gap-3">
+                                    <Link to="/contact#contact-form" className="flex-1">
+                                      <Button 
+                                        variant="white-on-dark"
+                                        size="lg"
+                                        className="w-full"
+                                      >
+                                        Get Quote
+                                      </Button>
+                                    </Link>
+                                  </div>
+                                )}
                               </CardContent>
                             </Card>
                           ))}
@@ -503,17 +510,19 @@ const ResidentialCleaning = () => {
                                   </p>
                         </div>
 
-                                <div className="flex gap-3">
-                                  <Link to="/contact#contact-form" className="flex-1">
-                                    <Button 
-                                      variant="white-on-dark"
-                                      size="lg"
-                                      className="w-full"
-                                    >
-                                      Get Quote
-                                    </Button>
-                                  </Link>
-                                </div>
+                                {!noButtonServiceTypes.has(filteredServices[0].serviceType) && (
+                                  <div className="flex gap-3">
+                                    <Link to="/contact#contact-form" className="flex-1">
+                                      <Button 
+                                        variant="white-on-dark"
+                                        size="lg"
+                                        className="w-full"
+                                      >
+                                        Get Quote
+                                      </Button>
+                                    </Link>
+                                  </div>
+                                )}
                               </CardContent>
                             </Card>
                           </div>

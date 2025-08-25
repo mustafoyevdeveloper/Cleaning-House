@@ -103,6 +103,8 @@ export type ContactMessage = {
   phone: string;
   category: string;
   serviceNeeded: string;
+  mainService?: string;
+  additionalServices?: string[];
   location?: string;
   details?: string;
   page?: string;

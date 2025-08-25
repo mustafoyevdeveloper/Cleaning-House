@@ -68,12 +68,16 @@ const Contact = () => {
     location: '',
     details: ''
   });
+  // Core services (dropdown)
   const residentialOptions = [
     { value: 'standard-cleaning', label: 'Standard Cleaning' },
     { value: 'deep-cleaning', label: 'Deep Cleaning' },
     { value: 'move-in-out-cleaning', label: 'Move-in/Move-out Cleaning' },
     { value: 'apartment-cleaning', label: 'Apartment Cleaning' },
     { value: 'specialty-cleaning', label: 'Specialty Cleaning' },
+  ];
+  // Extra services (checklist)
+  const residentialExtraOptions = [
     { value: 'carpet-upholstery-cleaning', label: 'Carpet & Upholstery Cleaning' },
     { value: 'window-cleaning', label: 'Window Cleaning' },
     { value: 'fridge-oven-cleaning', label: 'Fridge & Oven Cleaning' },
@@ -81,12 +85,16 @@ const Contact = () => {
     { value: 'bed-making-linen-changes', label: 'Bed Making & Linen Changes' },
     { value: 'organizing-services', label: 'Organizing Services' },
   ];
+  // Core services (dropdown)
   const commercialOptions = [
     { value: 'office-cleaning', label: 'Office Cleaning' },
     { value: 'retail-cleaning', label: 'Retail Cleaning' },
     { value: 'medical-clinic-cleaning', label: 'Public & Private Institutions' },
     { value: 'restaurant-cleaning', label: 'Restaurant Cleaning' },
     { value: 'post-construction-cleaning', label: 'Post-construction Cleaning' },
+  ];
+  // Extra services (checklist)
+  const commercialExtraOptions = [
     { value: 'floor-care-services', label: 'Floor Care Services' },
     { value: 'high-touch-sanitizing', label: 'High-Touch Sanitizing' },
     { value: 'pressure-washing', label: 'Pressure Washing' },
@@ -114,16 +122,23 @@ const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate that at least one service is selected
-    if (formData.services.length === 0) {
-      toast.error('Please select at least one service');
+    // Validate exactly one core service selected
+    const coreSet = new Set((formData.category === 'commercial' ? commercialOptions : formData.category === 'residential' ? residentialOptions : []).map(o => o.value));
+    const selectedCore = formData.services.filter(s => coreSet.has(s));
+    if (selectedCore.length !== 1) {
+      toast.error('Please select exactly one main service');
       return;
     }
     
     console.log('Submitting form data:', formData);
+    const coreSet = new Set((formData.category === 'commercial' ? commercialOptions : formData.category === 'residential' ? residentialOptions : []).map(o => o.value));
+    const mainService = formData.services.find(s => coreSet.has(s)) || '';
+    const additionalServices = formData.services.filter(s => !coreSet.has(s));
     submitMut.mutate({
       ...formData,
-      serviceNeeded: formData.services.join(', '), // Convert services array to string for API
+      serviceNeeded: [mainService, ...additionalServices].filter(Boolean).join(', '),
+      mainService,
+      additionalServices,
       page: 'contact-page'
     });
   };
@@ -511,12 +526,15 @@ const Contact = () => {
                                     <Checkbox
                                       checked={formData.services.includes(opt.value)}
                                       onCheckedChange={(checked) => {
-                                        setFormData((prev) => ({
-                                          ...prev,
-                                          services: checked
-                                            ? [...prev.services, opt.value]
-                                            : prev.services.filter((s) => s !== opt.value),
-                                        }));
+                                        setFormData((prev) => {
+                                          const coreOptions = (prev.category === 'commercial' ? commercialOptions : prev.category === 'residential' ? residentialOptions : []).map(o => o.value);
+                                          const extras = prev.services.filter(s => !coreOptions.includes(s));
+                                          if (checked) {
+                                            return { ...prev, services: [opt.value, ...extras] };
+                                          }
+                                          const remainingCore = prev.services.filter(s => coreOptions.includes(s) && s !== opt.value);
+                                          return { ...prev, services: [...remainingCore, ...extras] };
+                                        });
                                       }}
                                     />
                                     <span>{opt.label}</span>
@@ -531,6 +549,34 @@ const Contact = () => {
                               </div>
                             </PopoverContent>
                           </Popover>
+                          {/* Extra services inline checklist with dropdown-like styling */}
+                          {(formData.category === 'residential' ? residentialExtraOptions : formData.category === 'commercial' ? commercialExtraOptions : []).length > 0 && (
+                            <div className="mt-3">
+                              <div className="border rounded-md bg-white shadow-sm p-2">
+                                <div className="text-xs text-muted-foreground mb-2">
+                                  Additional Services {`(${formData.services.filter(s => ((formData.category === 'residential' ? residentialExtraOptions : formData.category === 'commercial' ? commercialExtraOptions : []).some(o => o.value === s))).length} selected)`}
+                                </div>
+                                <div className="space-y-2 max-h-64 overflow-auto pr-1">
+                                  {(formData.category === 'residential' ? residentialExtraOptions : formData.category === 'commercial' ? commercialExtraOptions : []).map((opt) => (
+                                    <label key={opt.value} className="flex items-center gap-2 text-sm">
+                                      <Checkbox
+                                        checked={formData.services.includes(opt.value)}
+                                        onCheckedChange={(checked) => {
+                                          setFormData((prev) => ({
+                                            ...prev,
+                                            services: checked
+                                              ? [...prev.services, opt.value]
+                                              : prev.services.filter((s) => s !== opt.value),
+                                          }));
+                                        }}
+                                      />
+                                      <span>{opt.label}</span>
+                                    </label>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          )}
                           <div className="hidden">
                             {formData.category === 'residential' && (
                               <>
