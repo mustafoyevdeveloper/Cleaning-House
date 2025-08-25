@@ -738,11 +738,11 @@ const ResidentialCleaning = () => {
         <div className="relative z-10 bg-brand-navy text-white mb-0">
           <section className="py-20">
             <div className="container mx-auto px-4 text-center">
-              <h2 className="text-4xl font-bold mb-6">
-                Ready for a cleaner home?
+            <h2 className="text-4xl font-bold mb-6">
+              Ready to get started?
               </h2>
               <p className="text-xl mb-8 max-w-2xl mx-auto">
-                Contact us today for a free consultation and quote. Our experienced team is ready to transform your home.
+              Contact us today for a free consultation and quote. Our trusted professionals deliver expert service to keep your home healthy and spotless
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link to="/contact">

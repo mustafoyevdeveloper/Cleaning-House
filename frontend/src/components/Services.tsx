@@ -516,7 +516,7 @@ const Services = () => {
             Ready to get started?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto text-muted-foreground">
-            Contact us today for a free consultation and quote. Our experienced team is ready to help with all your home improvement and cleaning needs.
+          Contact us today for a free consultation and quote. Our trusted professionals deliver expert service to keep your home healthy and spotless
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/contact">

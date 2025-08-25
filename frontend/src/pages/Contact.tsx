@@ -720,7 +720,7 @@ const Contact = () => {
                   Service Areas
                 </h2>
                 <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                  We proudly serve the Dallas-Fort Worth metroplex and surrounding areas
+                We proudly serve Collin County and the surrounding areas
                 </p>
               </div>
 
@@ -786,8 +786,8 @@ const Contact = () => {
         <div className="relative z-10 bg-brand-navy text-white mb-0">
           <section className="py-20">
             <div className="container mx-auto px-4 text-center">
-              <h2 className="text-4xl font-bold mb-6">
-                Ready to get started?
+            <h2 className="text-4xl font-bold mb-6">
+              Ready to get started?
               </h2>
               <p className="text-xl mb-8 max-w-2xl mx-auto">
               Contact us today for a free consultation and quote. Our trusted professionals deliver expert service to keep your home healthy and spotless

@@ -137,354 +137,184 @@ const Index = () => {
                 <p className="text-lg text-red-300">Error loading services. Please try again later.</p>
               </div>
             ) : (
-              <div className="space-y-12">
-                {/* Residential Services */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                {/* Residential Services (Left Column) */}
                 {residentialServices.length > 0 && (
-                  <div>
+                  <div className="order-1 lg:order-none">
                     <h3 className="text-2xl font-bold text-white text-center mb-8">
                       Residential Cleaning Services
                     </h3>
                     
-                    {/* First row - 2 cards */}
-                    {residentialServices.length >= 2 && (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8">
-                        {residentialServices.slice(0, 2).map((service: any, index: number) => (
-                          <Card 
-                            key={service.title}
-                            className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft bg-white/95 backdrop-blur-sm"
-                            style={{ animationDelay: `${index * 0.08}s` }}
-                          >
-                            <CardHeader className="text-center pb-4">
-                              <BeforeAfterSlider
-                                beforeImageUrl={service.images?.before || "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop"}
-                                afterImageUrl={service.images?.after || "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1600&auto=format&fit=crop"}
-                                className="mb-4"
-                              />
-                              <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Sparkles className="w-8 h-8 text-white" />
-                              </div>
-                              <CardTitle className="text-xl font-bold text-brand-navy">
-                                {service.title}
-                              </CardTitle>
-                            </CardHeader>
-                            <CardContent className="text-center">
-                              <div className="mb-6">
-                                <ul className="space-y-2 text-sm text-muted-foreground">
-                                  {service.features && service.features.length > 0 ? (
-                                    service.features.slice(0, 3).map((feature: string, i: number) => (
-                                      <li key={i} className="flex items-center gap-2">
-                                        <CheckCircle className="w-4 h-4 text-brand-turquoise flex-shrink-0" />
-                                        {feature}
-                                      </li>
-                                    ))
-                                  ) : (
-                                    <li className="flex items-center gap-2">
+                    {/* Single column, up to 5 cards */}
+                    <div className="grid grid-cols-1 gap-6 max-w-2xl mx-auto mb-8">
+                      {residentialServices.slice(0, 5).map((service: any, index: number) => (
+                        <Card 
+                          key={service.title}
+                          className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft bg-white/95 backdrop-blur-sm"
+                          style={{ animationDelay: `${index * 0.08}s` }}
+                        >
+                          <CardHeader className="text-center pb-4">
+                            <BeforeAfterSlider
+                              beforeImageUrl={service.images?.before || "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop"}
+                              afterImageUrl={service.images?.after || "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1600&auto=format&fit=crop"}
+                              className="mb-4"
+                            />
+                            <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                              <Sparkles className="w-8 h-8 text-white" />
+                            </div>
+                            <CardTitle className="text-xl font-bold text-brand-navy">
+                              {service.title}
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent className="text-center">
+                            <div className="mb-6">
+                              <ul className="space-y-2 text-sm text-muted-foreground">
+                                {service.features && service.features.length > 0 ? (
+                                  service.features.slice(0, 3).map((feature: string, i: number) => (
+                                    <li key={i} className="flex items-center gap-2">
                                       <CheckCircle className="w-4 h-4 text-brand-turquoise flex-shrink-0" />
-                                      Professional residential cleaning
+                                      {feature}
                                     </li>
-                                  )}
-                                </ul>
-                              </div>
+                                  ))
+                                ) : (
+                                  <li className="flex items-center gap-2">
+                                    <CheckCircle className="w-4 h-4 text-brand-turquoise flex-shrink-0" />
+                                    Professional residential cleaning
+                                  </li>
+                                )}
+                              </ul>
+                            </div>
 
-                              <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
-                                <div className="flex items-center gap-2">
-                                  <Clock className="w-4 h-4 text-brand-turquoise" />
-                                  <div>
-                                    <p className="font-semibold text-brand-navy text-sm">Duration</p>
-                                    <p className="text-xs text-muted-foreground">{service.duration || 'Varies'}</p>
-                                  </div>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <Shield className="w-4 h-4 text-brand-turquoise" />
-                                  <div>
-                                    <p className="font-semibold text-brand-navy text-sm">Price</p>
-                                    <p className="text-xs text-muted-foreground">
-                                      {service.price ? (service.price.startsWith('$') ? service.price : `$${service.price}`) : 'Contact for quote'}
-                                    </p>
-                                  </div>
+                            <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
+                              <div className="flex items-center gap-2">
+                                <Clock className="w-4 h-4 text-brand-turquoise" />
+                                <div>
+                                  <p className="font-semibold text-brand-navy text-sm">Duration</p>
+                                  <p className="text-xs text-muted-foreground">{service.duration || 'Varies'}</p>
                                 </div>
                               </div>
-
-                              <div className="mb-4">
-                                <p className="text-sm text-brand-turquoise font-semibold">
-                                  Best for: {service.bestFor || 'Residential cleaning needs'}
-                                </p>
-                              </div>
-
-                              <div className="flex gap-3">
-                                <Link to="/contact#contact-form" className="flex-1">
-                                  <Button 
-                                    variant="white-on-dark"
-                                    size="lg"
-                                    className="w-full"
-                                  >
-                                    Get Quote
-                                  </Button>
-                                </Link>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Second row - 3 cards */}
-                    {residentialServices.length >= 3 && (
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {residentialServices.slice(2).map((service: any, index: number) => (
-                          <Card 
-                            key={service.title}
-                            className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft bg-white/95 backdrop-blur-sm"
-                            style={{ animationDelay: `${(index + 2) * 0.08}s` }}
-                          >
-                            <CardHeader className="text-center pb-4">
-                              <BeforeAfterSlider
-                                beforeImageUrl={service.images?.before || "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop"}
-                                afterImageUrl={service.images?.after || "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1600&auto=format&fit=crop"}
-                                className="mb-4"
-                              />
-                              <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Sparkles className="w-8 h-8 text-white" />
-                              </div>
-                              <CardTitle className="text-xl font-bold text-brand-navy">
-                                {service.title}
-                              </CardTitle>
-                            </CardHeader>
-                            <CardContent className="text-center">
-                              <div className="mb-6">
-                                <ul className="space-y-2 text-sm text-muted-foreground">
-                                  {service.features && service.features.length > 0 ? (
-                                    service.features.slice(0, 3).map((feature: string, i: number) => (
-                                      <li key={i} className="flex items-center gap-2">
-                                        <CheckCircle className="w-4 h-4 text-brand-turquoise flex-shrink-0" />
-                                        {feature}
-                                      </li>
-                                    ))
-                                  ) : (
-                                    <li className="flex items-center gap-2">
-                                      <CheckCircle className="w-4 h-4 text-brand-turquoise flex-shrink-0" />
-                                      Professional residential cleaning
-                                    </li>
-                                  )}
-                                </ul>
-                              </div>
-
-                              <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
-                                <div className="flex items-center gap-2">
-                                  <Clock className="w-4 h-4 text-brand-turquoise" />
-                                  <div>
-                                    <p className="font-semibold text-brand-navy text-sm">Duration</p>
-                                    <p className="text-xs text-muted-foreground">{service.duration || 'Varies'}</p>
-                                  </div>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <Shield className="w-4 h-4 text-brand-turquoise" />
-                                  <div>
-                                    <p className="font-semibold text-brand-navy text-sm">Price</p>
-                                    <p className="text-xs text-muted-foreground">
-                                      {service.price ? (service.price.startsWith('$') ? service.price : `$${service.price}`) : 'Contact for quote'}
-                                    </p>
-                                  </div>
+                              <div className="flex items-center gap-2">
+                                <Shield className="w-4 h-4 text-brand-turquoise" />
+                                <div>
+                                  <p className="font-semibold text-brand-navy text-sm">Price</p>
+                                  <p className="text-xs text-muted-foreground">
+                                    {service.price ? (service.price.startsWith('$') ? service.price : `$${service.price}`) : 'Contact for quote'}
+                                  </p>
                                 </div>
                               </div>
+                            </div>
 
-                              <div className="mb-4">
-                                <p className="text-sm text-brand-turquoise font-semibold">
-                                  Best for: {service.bestFor || 'Residential cleaning needs'}
-                                </p>
-                              </div>
+                            <div className="mb-4">
+                              <p className="text-sm text-brand-turquoise font-semibold">
+                                Best for: {service.bestFor || 'Residential cleaning needs'}
+                              </p>
+                            </div>
 
-                              <div className="flex gap-3">
-                                <Link to="/contact#contact-form" className="flex-1">
-                                  <Button 
-                                    variant="white-on-dark"
-                                    size="lg"
-                                    className="w-full"
-                                  >
-                                    Get Quote
-                                  </Button>
-                                </Link>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        ))}
-                      </div>
-                    )}
+                            <div className="flex gap-3">
+                              <Link to="/contact#contact-form" className="flex-1">
+                                <Button 
+                                  variant="white-on-dark"
+                                  size="lg"
+                                  className="w-full"
+                                >
+                                  Get Quote
+                                </Button>
+                              </Link>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
                   </div>
                 )}
 
-                {/* Commercial Services */}
+                {/* Commercial Services (Right Column) */}
                 {commercialServices.length > 0 && (
-                  <div>
+                  <div className="order-2 lg:order-none">
                     <h3 className="text-2xl font-bold text-white text-center mb-8">
                       Commercial Cleaning Services
                     </h3>
                     
-                    {/* First row - 2 cards */}
-                    {commercialServices.length >= 2 && (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8">
-                        {commercialServices.slice(0, 2).map((service: any, index: number) => (
-                          <Card 
-                            key={service.title}
-                            className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft bg-white/95 backdrop-blur-sm"
-                            style={{ animationDelay: `${(index + residentialServices.length) * 0.08}s` }}
-                          >
-                            <CardHeader className="text-center pb-4">
-                              <BeforeAfterSlider
-                                beforeImageUrl={service.images?.before || "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop"}
-                                afterImageUrl={service.images?.after || "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1600&auto=format&fit=crop"}
-                                className="mb-4"
-                              />
-                              <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Building className="w-8 h-8 text-white" />
-                              </div>
-                              <CardTitle className="text-xl font-bold text-brand-navy">
-                                {service.title}
-                              </CardTitle>
-                            </CardHeader>
-                            <CardContent className="text-center">
-                              <div className="mb-6">
-                                <ul className="space-y-2 text-sm text-muted-foreground">
-                                  {service.features && service.features.length > 0 ? (
-                                    service.features.slice(0, 3).map((feature: string, i: number) => (
-                                      <li key={i} className="flex items-center gap-2">
-                                        <CheckCircle className="w-4 h-4 text-brand-turquoise flex-shrink-0" />
-                                        {feature}
-                                      </li>
-                                    ))
-                                  ) : (
-                                    <li className="flex items-center gap-2">
+                    {/* Single column, up to 5 cards */}
+                    <div className="grid grid-cols-1 gap-6 max-w-2xl mx-auto mb-8">
+                      {commercialServices.slice(0, 5).map((service: any, index: number) => (
+                        <Card 
+                          key={service.title}
+                          className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft bg-white/95 backdrop-blur-sm"
+                          style={{ animationDelay: `${(index + residentialServices.length) * 0.08}s` }}
+                        >
+                          <CardHeader className="text-center pb-4">
+                            <BeforeAfterSlider
+                              beforeImageUrl={service.images?.before || "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop"}
+                              afterImageUrl={service.images?.after || "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1600&auto=format&fit=crop"}
+                              className="mb-4"
+                            />
+                            <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
+                              <Building className="w-8 h-8 text-white" />
+                            </div>
+                            <CardTitle className="text-xl font-bold text-brand-navy">
+                              {service.title}
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent className="text-center">
+                            <div className="mb-6">
+                              <ul className="space-y-2 text-sm text-muted-foreground">
+                                {service.features && service.features.length > 0 ? (
+                                  service.features.slice(0, 3).map((feature: string, i: number) => (
+                                    <li key={i} className="flex items-center gap-2">
                                       <CheckCircle className="w-4 h-4 text-brand-turquoise flex-shrink-0" />
-                                      Professional commercial cleaning
+                                      {feature}
                                     </li>
-                                  )}
-                                </ul>
-                              </div>
+                                  ))
+                                ) : (
+                                  <li className="flex items-center gap-2">
+                                    <CheckCircle className="w-4 h-4 text-brand-turquoise flex-shrink-0" />
+                                    Professional commercial cleaning
+                                  </li>
+                                )}
+                              </ul>
+                            </div>
 
-                              <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
-                                <div className="flex items-center gap-2">
-                                  <Clock className="w-4 h-4 text-brand-turquoise" />
-                                  <div>
-                                    <p className="font-semibold text-brand-navy text-sm">Duration</p>
-                                    <p className="text-xs text-muted-foreground">{service.duration || 'Varies'}</p>
-                                  </div>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <Shield className="w-4 h-4 text-brand-turquoise" />
-                                  <div>
-                                    <p className="font-semibold text-brand-navy text-sm">Price</p>
-                                    <p className="text-xs text-muted-foreground">
-                                      {service.price ? (service.price.startsWith('$') ? service.price : `$${service.price}`) : 'Contact for quote'}
-                                    </p>
-                                  </div>
+                            <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
+                              <div className="flex items-center gap-2">
+                                <Clock className="w-4 h-4 text-brand-turquoise" />
+                                <div>
+                                  <p className="font-semibold text-brand-navy text-sm">Duration</p>
+                                  <p className="text-xs text-muted-foreground">{service.duration || 'Varies'}</p>
                                 </div>
                               </div>
-
-                              <div className="mb-4">
-                                <p className="text-sm text-brand-turquoise font-semibold">
-                                  Best for: {service.bestFor || 'Commercial cleaning needs'}
-                                </p>
-                              </div>
-
-                              <div className="flex gap-3">
-                                <Link to="/contact#contact-form" className="flex-1">
-                                  <Button 
-                                    variant="white-on-dark"
-                                    size="lg"
-                                    className="w-full"
-                                  >
-                                    Get Quote
-                                  </Button>
-                                </Link>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Second row - 3 cards */}
-                    {commercialServices.length >= 3 && (
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {commercialServices.slice(2).map((service: any, index: number) => (
-                          <Card 
-                            key={service.title}
-                            className="hover:shadow-brand transition-all duration-300 hover:-translate-y-2 animate-slide-up border-0 shadow-soft bg-white/95 backdrop-blur-sm"
-                            style={{ animationDelay: `${(index + residentialServices.length + 2) * 0.08}s` }}
-                          >
-                            <CardHeader className="text-center pb-4">
-                              <BeforeAfterSlider
-                                beforeImageUrl={service.images?.before || "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop"}
-                                afterImageUrl={service.images?.after || "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1600&auto=format&fit=crop"}
-                                className="mb-4"
-                              />
-                              <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Building className="w-8 h-8 text-white" />
-                              </div>
-                              <CardTitle className="text-xl font-bold text-brand-navy">
-                                {service.title}
-                              </CardTitle>
-                            </CardHeader>
-                            <CardContent className="text-center">
-                              <div className="mb-6">
-                                <ul className="space-y-2 text-sm text-muted-foreground">
-                                  {service.features && service.features.length > 0 ? (
-                                    service.features.slice(0, 3).map((feature: string, i: number) => (
-                                      <li key={i} className="flex items-center gap-2">
-                                        <CheckCircle className="w-4 h-4 text-brand-turquoise flex-shrink-0" />
-                                        {feature}
-                                      </li>
-                                    ))
-                                  ) : (
-                                    <li className="flex items-center gap-2">
-                                      <CheckCircle className="w-4 h-4 text-brand-turquoise flex-shrink-0" />
-                                      Professional commercial cleaning
-                                    </li>
-                                  )}
-                                </ul>
-                              </div>
-
-                              <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
-                                <div className="flex items-center gap-2">
-                                  <Clock className="w-4 h-4 text-brand-turquoise" />
-                                  <div>
-                                    <p className="font-semibold text-brand-navy text-sm">Duration</p>
-                                    <p className="text-xs text-muted-foreground">{service.duration || 'Varies'}</p>
-                                  </div>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <Shield className="w-4 h-4 text-brand-turquoise" />
-                                  <div>
-                                    <p className="font-semibold text-brand-navy text-sm">Price</p>
-                                    <p className="text-xs text-muted-foreground">
-                                      {service.price ? (service.price.startsWith('$') ? service.price : `$${service.price}`) : 'Contact for quote'}
-                                    </p>
-                                  </div>
+                              <div className="flex items-center gap-2">
+                                <Shield className="w-4 h-4 text-brand-turquoise" />
+                                <div>
+                                  <p className="font-semibold text-brand-navy text-sm">Price</p>
+                                  <p className="text-xs text-muted-foreground">
+                                    {service.price ? (service.price.startsWith('$') ? service.price : `$${service.price}`) : 'Contact for quote'}
+                                  </p>
                                 </div>
                               </div>
+                            </div>
 
-                              <div className="mb-4">
-                                <p className="text-sm text-brand-turquoise font-semibold">
-                                  Best for: {service.bestFor || 'Commercial cleaning needs'}
-                                </p>
-                              </div>
+                            <div className="mb-4">
+                              <p className="text-sm text-brand-turquoise font-semibold">
+                                Best for: {service.bestFor || 'Commercial cleaning needs'}
+                              </p>
+                            </div>
 
-                              <div className="flex gap-3">
-                                <Link to="/contact#contact-form" className="flex-1">
-                                  <Button 
-                                    variant="white-on-dark"
-                                    size="lg"
-                                    className="w-full"
-                                  >
-                                    Get Quote
-                                  </Button>
-                                </Link>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        ))}
-                      </div>
-                    )}
+                            <div className="flex gap-3">
+                              <Link to="/contact#contact-form" className="flex-1">
+                                <Button 
+                                  variant="white-on-dark"
+                                  size="lg"
+                                  className="w-full"
+                                >
+                                  Get Quote
+                                </Button>
+                              </Link>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
                   </div>
                 )}
 
@@ -587,7 +417,7 @@ const Index = () => {
               {settings?.bottomBar?.message || 'Ready to get started?'}
             </h2>
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              Contact us today for a free consultation and quote. Our experienced team is ready to help with all your home improvement and cleaning needs.
+            Contact us today for a free consultation and quote. Our trusted professionals deliver expert service to keep your home healthy and spotless
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to={settings?.bottomBar?.buttonLink || '/contact'}>
