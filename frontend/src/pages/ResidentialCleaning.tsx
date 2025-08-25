@@ -148,7 +148,7 @@ const ResidentialCleaning = () => {
                 <div>
                   <div className="flex items-center gap-0">
                     <h1 className="text-xl font-bold text-brand-navy">FreshC</h1>
-                    <Leaf className="w-[4.5] h-[4.5] text-blue-green-500" />
+                    <img src="/Leaf.png" alt="Leaf" className="w-[18px] h-[18px]" />
                   </div>
                   <p className="text-sm text-muted-foreground">We Make Clean Feel Fresh</p>
                 </div>
@@ -701,7 +701,7 @@ const ResidentialCleaning = () => {
                   Why Choose Us for Residential Cleaning?
                 </h2>
                 <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                  We understand that your home is your sanctuary. That's why we provide the highest quality cleaning services.
+                At FreshCo Cleaning we understand that a clean home is a happy home. Our residential cleaning services are designed to give you peace of mind, save you time, and provide a spotless living space you can truly enjoy
                 </p>
               </div>
 

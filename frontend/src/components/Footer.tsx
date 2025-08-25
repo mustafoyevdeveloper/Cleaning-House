@@ -21,7 +21,7 @@ const Footer = () => {
               <div>
                 <div className="flex items-center gap-0">
                   <h3 className="text-xl font-bold text-white">{settings?.siteName || 'FreshC'}</h3>
-                  <Leaf className="w-[4.5] h-[4.5] text-blue-green-500" />
+                  <img src="/Leaf.png" alt="Leaf" className="w-[18px] h-[18px]" />
                 </div>
                 <p className="text-brand-cream">We Make Clean Feel Fresh</p>
               </div>

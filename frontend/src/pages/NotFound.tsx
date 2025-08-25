@@ -172,7 +172,7 @@ const NotFound = () => {
                 <div>
                   <div className="flex items-center gap-0">
                     <h1 className="text-xl font-bold text-brand-navy">{settings?.siteName || 'FreshC'}</h1>
-                    <Leaf className="w-[4.5] h-[4.5] text-blue-green-500" />
+                    <img src="/Leaf.png" alt="Leaf" className="w-[18px] h-[18px]" />
                   </div>
                   <p className="text-sm text-muted-foreground">We Make Clean Feel Fresh</p>
                 </div>

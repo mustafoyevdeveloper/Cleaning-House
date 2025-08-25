@@ -128,7 +128,7 @@ const Header = () => {
                 }`}>
                   {settings?.siteName || 'FreshC'}
                 </h1>
-                <Leaf className="w-[4.5] h-[4.5] text-blue-green-500" />
+                <img src="/Leaf.png" alt="Leaf" className="w-[18px] h-[18px]" />
               </div>
               <p className={`text-sm transition-colors duration-300 ${
                 isScrolled ? 'text-muted-foreground' : 'text-brand-cream'
@@ -188,7 +188,7 @@ const Header = () => {
                   <div>
                     <div className="flex items-center gap-0">
                       <h3 className="text-lg font-bold text-brand-navy">FreshC</h3>
-                      <Leaf className="w-4 h-4 text-blue-green-500" />
+                      <img src="/Leaf.png" alt="Leaf" className="w-4 h-4" />
                     </div>
                     <p className="text-sm text-muted-foreground">We Make Clean Feel Fresh</p>
                   </div>
