@@ -88,9 +88,9 @@ const Contact = () => {
     
     console.log('Submitting form data:', formData);
     // Split selected into main vs additional
-    const coreSet = new Set((formData.category === 'commercial' ? commercialOptions : formData.category === 'residential' ? residentialOptions : []).map(o => o.value));
-    const mainService = formData.services.find(s => coreSet.has(s)) || '';
-    const additionalServices = formData.services.filter(s => !coreSet.has(s));
+    const coreSet2 = new Set((formData.category === 'commercial' ? commercialOptions : formData.category === 'residential' ? residentialOptions : []).map(o => o.value));
+    const mainService = formData.services.find(s => coreSet2.has(s)) || '';
+    const additionalServices = formData.services.filter(s => !coreSet2.has(s));
     submitMut.mutate({
       ...formData,
       serviceNeeded: [mainService, ...additionalServices].filter(Boolean).join(', '),
