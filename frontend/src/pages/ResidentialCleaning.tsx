@@ -75,7 +75,9 @@ const ResidentialCleaning = () => {
             <div className="hidden md:flex justify-between items-center text-sm">
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                <span>Call us: 469-592-4438</span>
+                <a href="tel:469-592-4438" className="hover:text-brand-turquoise transition-colors cursor-pointer">
+                  Call us: 469-592-4438
+                </a>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
@@ -105,7 +107,9 @@ const ResidentialCleaning = () => {
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-1">
                   <Phone className="w-3 h-3" />
-                  <span className="truncate">Call us: 469 592 4438</span>
+                  <a href="tel:469-592-4438" className="truncate hover:text-brand-turquoise transition-colors cursor-pointer">
+                    Call us: 469 592 4438
+                  </a>
                 </div>
                 <div className="flex gap-3">
                   {settings?.social?.facebook && (
@@ -248,7 +252,7 @@ const ResidentialCleaning = () => {
               Residential Cleaning
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-white max-w-4xl mx-auto leading-relaxed animate-fade-in">
-              Professional home cleaning services tailored to your needs. From regular maintenance to deep cleaning, we keep your home spotless and comfortable.
+              Professional home cleaning services tailored to your needs. From regular maintenance to deep cleaning, we keep your home spotless and comfortable
             </p>
             <div className="w-24 h-1 bg-brand-turquoise mx-auto mt-8"></div>
           </div>
@@ -264,7 +268,7 @@ const ResidentialCleaning = () => {
                   Our Residential Services
                 </h2>
                 <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
-                  Comprehensive cleaning solutions designed specifically for homes and apartments
+                At FreshCo Cleaning we understand that a clean home is a happy home. Our residential cleaning services are designed to give you peace of mind, save you time, and provide a spotless living space you can truly enjoy
                 </p>
                 {/* Service Type Filter as clickable cards */}
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 max-w-5xl mx-auto">
@@ -731,7 +735,7 @@ const ResidentialCleaning = () => {
         </div>
 
         {/* CTA Section - Now with proper z-index and margin */}
-        <div className="relative z-10 bg-gradient-hero text-white mb-0">
+        <div className="relative z-10 bg-brand-navy text-white mb-0">
           <section className="py-20">
             <div className="container mx-auto px-4 text-center">
               <h2 className="text-4xl font-bold mb-6">

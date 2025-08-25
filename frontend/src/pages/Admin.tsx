@@ -705,7 +705,7 @@ export default function Admin() {
                         <>
                           <SelectItem value="office-cleaning">Office Cleaning</SelectItem>
                           <SelectItem value="retail-cleaning">Retail Cleaning</SelectItem>
-                          <SelectItem value="medical-clinic-cleaning">Medical/Clinic Cleaning</SelectItem>
+                          <SelectItem value="medical-clinic-cleaning">Public & Private Institutions</SelectItem>
                           <SelectItem value="restaurant-cleaning">Restaurant Cleaning</SelectItem>
                           <SelectItem value="post-construction-cleaning">Post-construction Cleaning</SelectItem>
                         </>

@@ -136,7 +136,9 @@ const Contact = () => {
             <div className="hidden md:flex justify-between items-center text-sm">
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                <span>Call us: {settings?.phone || '469-592-4438'}</span>
+                <a href={`tel:${settings?.phone || '469-592-4438'}`} className="hover:text-brand-turquoise transition-colors cursor-pointer">
+                  Call us: {settings?.phone || '469-592-4438'}
+                </a>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
@@ -166,7 +168,9 @@ const Contact = () => {
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-1">
                   <Phone className="w-3 h-3" />
-                  <span className="truncate">Call us: {settings?.phone || '469-592-4438'}</span>
+                  <a href={`tel:${settings?.phone || '469-592-4438'}`} className="truncate hover:text-brand-turquoise transition-colors cursor-pointer">
+                    Call us: {settings?.phone || '469-592-4438'}
+                  </a>
                 </div>
                 <div className="flex gap-3">
                   {settings?.social?.facebook && (
@@ -607,7 +611,7 @@ const Contact = () => {
                                     }}
                                     className="h-4 w-4 text-brand-turquoise focus:ring-brand-turquoise border-gray-300 rounded"
                                   />
-                                  <span>Medical/Clinic Cleaning</span>
+                                  <span>Public & Private Institutions</span>
                                 </label>
                                 <label className="flex items-center space-x-2">
                                   <input
@@ -782,14 +786,14 @@ const Contact = () => {
         </div>
 
         {/* CTA Section - Now with proper z-index and margin */}
-        <div className="relative z-10 bg-gradient-hero text-white mb-0">
+        <div className="relative z-10 bg-brand-navy text-white mb-0">
           <section className="py-20">
             <div className="container mx-auto px-4 text-center">
               <h2 className="text-4xl font-bold mb-6">
                 Ready to get started?
               </h2>
               <p className="text-xl mb-8 max-w-2xl mx-auto">
-                Contact us today for a free consultation and quote. Our experienced team is ready to help.
+              Contact us today for a free consultation and quote. Our trusted professionals deliver expert service to keep your home healthy and spotless
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link to="/contact">

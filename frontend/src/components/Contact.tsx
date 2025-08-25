@@ -83,7 +83,9 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-brand-navy">Phone</p>
-                    <p className="text-muted-foreground">{settings?.phone || '469-592-4438'}</p>
+                    <a href={`tel:${settings?.phone || '469-592-4438'}`} className="text-muted-foreground hover:text-brand-turquoise transition-colors cursor-pointer">
+                      {settings?.phone || '469-592-4438'}
+                    </a>
                   </div>
                 </div>
 
@@ -380,7 +382,7 @@ const Contact = () => {
                             }}
                             className="h-4 w-4 text-brand-turquoise focus:ring-brand-turquoise border-gray-300 rounded"
                           />
-                          <span>Medical/Clinic Cleaning</span>
+                          <span>Public & Private Institutions</span>
                         </label>
                         <label className="flex items-center space-x-2">
                           <input

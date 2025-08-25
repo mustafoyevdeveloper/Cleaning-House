@@ -49,7 +49,9 @@ const Header = () => {
           <div className="hidden md:flex justify-between items-center text-sm">
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
-              <span>Call us: {settings?.phone || '469-592-4438'}</span>
+              <a href={`tel:${settings?.phone || '469-592-4438'}`} className="hover:text-brand-turquoise transition-colors cursor-pointer">
+                Call us: {settings?.phone || '469-592-4438'}
+              </a>
             </div>
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4" />
@@ -79,7 +81,9 @@ const Header = () => {
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-1">
                   <Phone className="w-3 h-3" />
-                  <span className="truncate">Call us: {settings?.phone || '469-592-4438'}</span>
+                  <a href={`tel:${settings?.phone || '469-592-4438'}`} className="truncate hover:text-brand-turquoise transition-colors cursor-pointer">
+                    Call us: {settings?.phone || '469-592-4438'}
+                  </a>
                 </div>
                 <div className="flex gap-3">
                   {settings?.social?.facebook && (

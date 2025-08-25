@@ -54,7 +54,9 @@ const AboutUs = () => {
             <div className="hidden md:flex justify-between items-center text-sm">
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                <span>Call us: {settings?.phone || '469-592-4438'}</span>
+                <a href={`tel:${settings?.phone || '469-592-4438'}`} className="hover:text-brand-turquoise transition-colors cursor-pointer">
+                  Call us: {settings?.phone || '469-592-4438'}
+                </a>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
@@ -84,7 +86,9 @@ const AboutUs = () => {
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-1">
                   <Phone className="w-3 h-3" />
-                  <span className="truncate">Call us: {settings?.phone || '469-592-4438'}</span>
+                  <a href={`tel:${settings?.phone || '469-592-4438'}`} className="truncate hover:text-brand-turquoise transition-colors cursor-pointer">
+                    Call us: {settings?.phone || '469-592-4438'}
+                  </a>
                 </div>
                 <div className="flex gap-3">
                   {settings?.social?.facebook && (
@@ -302,7 +306,7 @@ const AboutUs = () => {
                   Mission & Values
                 </h2>
                 <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                  Our core principles guide everything we do
+                Our mission is to provide reliable, high-quality cleaning services that create healthy, welcoming environments for both homes and businesses. We aim to exceed client expectations through professional, eco-friendly, and thorough cleaning solutions, ensuring every space we touch is spotless and safe
                 </p>
               </div>
 
@@ -311,16 +315,16 @@ const AboutUs = () => {
                   <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
                     <CheckCircle className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-brand-navy mb-3">Quality First</h3>
-                  <p className="text-muted-foreground">We never compromise on the quality of our services or products</p>
+                  <h3 className="text-xl font-bold text-brand-navy mb-3">Quality</h3>
+                  <p className="text-muted-foreground">We deliver exceptional cleaning services every time, leaving spaces spotless and hygienic</p>
                 </div>
 
                 <div className="text-center">
                   <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
                     <Shield className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-brand-navy mb-3">Trust & Reliability</h3>
-                  <p className="text-muted-foreground">Building lasting relationships through consistent, dependable service</p>
+                  <h3 className="text-xl font-bold text-brand-navy mb-3">Safety & Health</h3>
+                  <p className="text-muted-foreground">We prioritize the health and safety of our clients, employees, and the environment</p>
                 </div>
 
                 <div className="text-center">
@@ -328,7 +332,7 @@ const AboutUs = () => {
                     <Users className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-xl font-bold text-brand-navy mb-3">Customer Focus</h3>
-                  <p className="text-muted-foreground">Your satisfaction is our top priority in every interaction</p>
+                  <p className="text-muted-foreground"> We listen, understand, and respond to the unique needs of each client</p>
                 </div>
               </div>
             </div>
@@ -435,32 +439,32 @@ const AboutUs = () => {
                 Service Areas
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                We proudly serve the Dallas-Fort Worth metroplex and surrounding areas
+                We proudly serve Collin County and the surrounding areas
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="text-center p-6 bg-muted/50 rounded-lg">
                 <MapPin className="w-12 h-12 text-brand-turquoise mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-brand-navy mb-2">Dallas</h3>
-                <p className="text-muted-foreground">Downtown, Uptown, Oak Lawn, Lakewood</p>
-              </div>
-              <div className="text-center p-6 bg-muted/50 rounded-lg">
-                <MapPin className="w-12 h-12 text-brand-turquoise mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-brand-navy mb-2">Fort Worth</h3>
-                <p className="text-muted-foreground">Cultural District, West 7th, TCU Area</p>
+                <h3 className="text-lg font-bold text-brand-navy mb-2">Major Cities</h3>
+                <p className="text-muted-foreground">Plano, Frisco, McKinney, Allen</p>
               </div>
               <div className="text-center p-6 bg-muted/50 rounded-lg">
                 <MapPin className="w-12 h-12 text-brand-turquoise mx-auto mb-4" />
                 <h3 className="text-lg font-bold text-brand-navy mb-2">Suburbs</h3>
-                <p className="text-muted-foreground">Plano, Irving, Arlington, Grapevine</p>
+                <p className="text-muted-foreground">Prosper,Selina, Melissa, Anna, Princeton, Fairview</p>
+              </div>
+              <div className="text-center p-6 bg-muted/50 rounded-lg">
+                <MapPin className="w-12 h-12 text-brand-turquoise mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-brand-navy mb-2">Small Towns</h3>
+                <p className="text-muted-foreground">Nevada, Blue Ridge, Weston, Lowry Crossing, New Hope</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* CTA Section - Now with proper z-index and margin */}
-        <div className="relative z-10 bg-gradient-hero text-white mb-0">
+        <div className="relative z-10 bg-brand-navy text-white mb-0">
           <section className="py-20">
             <div className="container mx-auto px-4 text-center">
               <h2 className="text-4xl font-bold mb-6">
